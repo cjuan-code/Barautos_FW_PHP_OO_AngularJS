@@ -483,6 +483,8 @@ function redirect_details() {
 }
 
 
+
+
 function load_divs() {
     $('<div></div>').attr('class','container cont1').appendTo('#list_items');
     $('<div></div>').attr('class', 'center fadeInDown cont2').appendTo('.cont1');
