@@ -492,9 +492,6 @@ function load_divs() {
 }
 
 
-
-
-
 $(document).ready(function() {
 
     var categoria = localStorage.getItem('categoria');
