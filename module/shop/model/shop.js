@@ -168,9 +168,7 @@ function print_details(car_id) {
         $('<h3><strong>KM: </strong>'+ data_details.km +'</h3>').appendTo('#list_items');
         $('<h3><strong>Numero de asientos: </strong>'+ data_details.n_asientos +'</h3>').appendTo('#list_items');
         $('<h3><strong>Numero de puertas: </strong>'+ data_details.n_puertas +'</h3>').appendTo('#list_items');
-
-        
-
+          
     })
     
 }

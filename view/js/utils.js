@@ -20,7 +20,6 @@ function click_menu_shop() {
 }
 
 
-
 $(document).ready(function() {
     click_menu_shop();
 });
