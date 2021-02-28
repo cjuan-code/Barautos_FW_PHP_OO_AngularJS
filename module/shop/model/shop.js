@@ -1,5 +1,8 @@
 function print_all_items() {
 
+    localStorage.removeItem("categoria");
+    localStorage.removeItem("consulta");
+
     $('.cont_rows_items').empty();
     ajaxPromise('module/shop/controller/controller_shop.php.?op=all', 'GET', 'JSON')
 
@@ -24,6 +27,9 @@ function print_all_items() {
 
 function print_nuevos() {
 
+    localStorage.removeItem("categoria");
+    localStorage.removeItem("consulta");
+
     $('.cont_rows_items').empty();
     ajaxPromise('module/shop/controller/controller_shop.php.?op=nuevos', 'GET', 'JSON')
 
@@ -45,6 +51,9 @@ function print_nuevos() {
 
 
 function print_km0() {
+
+    localStorage.removeItem("categoria");
+    localStorage.removeItem("consulta");
 
     $('.cont_rows_items').empty();
     ajaxPromise('module/shop/controller/controller_shop.php.?op=KM0', 'GET', 'JSON')
@@ -69,6 +78,9 @@ function print_km0() {
 
 
 function print_segunda_mano() {
+
+    localStorage.removeItem("categoria");
+    localStorage.removeItem("consulta");
 
     ajaxPromise('module/shop/controller/controller_shop.php.?op=sec_hand', 'GET', 'JSON')
 
@@ -168,14 +180,51 @@ function print_details(car_id) {
         $('<h3><strong>KM: </strong>'+ data_details.km +'</h3>').appendTo('#list_items');
         $('<h3><strong>Numero de asientos: </strong>'+ data_details.n_asientos +'</h3>').appendTo('#list_items');
         $('<h3><strong>Numero de puertas: </strong>'+ data_details.n_puertas +'</h3>').appendTo('#list_items');
-          
+
     })
     
 }
 
 
+function print_consulta_search(consulta) {
+
+    localStorage.removeItem("categoria");
+    localStorage.removeItem("consulta");
+
+    ajaxPromise('module/shop/controller/controller_shop.php.?op=filters&con='+consulta, 'GET', 'JSON')
+
+    .then(function(data_search) {
+
+        if (data_search=='no' | data_search.length==0) {
+            alert("No se han encontrado resultados");
+            document.getElementById("form_filters").reset();
+            print_all_items();
+        } else {
+            cont = 0;
+
+            for (row in data_search) {
+
+                $('<div></div>').attr('class', 'col-xs-12 col-sm-6 col-md-4 single-work row_'+cont).appendTo(".cont_rows_items");
+                $('<p>'+ data_search[row].marca + " "  + data_search[row].modelo + " " + data_search[row].precio + " €" +'</p>').appendTo('.row_'+cont);
+                $('<div></div>').attr('class', 'recent-work-wrap ww_'+cont).appendTo('.row_'+cont);
+                $('<img></img>').attr('class', 'img-responsive').attr('src', data_search[row].img).appendTo('.ww_'+cont);
+                $('<div></div>').attr('class', 'overlay o_'+cont).appendTo('.ww_'+cont);
+                $('<div></div>').attr('class', 'recent-work-inner a_'+cont).appendTo('.o_'+cont);
+                $('<a><i class="fa fa-plus"></i></a>').attr('class', 'redir_details').attr('href', '#').attr('id', ''+ data_search[row].matricula +'').appendTo('.a_'+cont);
+                
+                cont++;
+            }
+        }
+    })
+
+}
+
+
 function print_filters_items(consulta) {
-    
+
+    localStorage.removeItem("categoria");
+    localStorage.removeItem("consulta");
+
     ajaxPromise('module/shop/controller/controller_shop.php.?op=filters&con='+consulta, 'GET', 'JSON')
 
     .then(function(data_fil) {
@@ -495,9 +544,11 @@ function load_divs() {
 $(document).ready(function() {
 
     var categoria = localStorage.getItem('categoria');
+    var consulta_search = localStorage.getItem('consulta');
+    
     load_divs();
 
-    if (categoria=="all_items") {
+    if (categoria=='all_items') {
         print_all_items();
     } else if (categoria=='Nuevos') {
         print_nuevos();
@@ -505,6 +556,8 @@ $(document).ready(function() {
         print_km0();
     } else if (categoria=='Segunda Mano') {
         print_segunda_mano();
+    } else if (categoria=='search') {
+        print_consulta_search(consulta_search);
     }
 
     redirect_details();

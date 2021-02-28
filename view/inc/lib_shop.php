@@ -37,5 +37,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="module/shop/model/shop.js"></script>
+  <script src="view/js/search.js"></script>
 
 </head>
