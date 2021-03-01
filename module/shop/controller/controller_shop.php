@@ -9,73 +9,6 @@
             include("module/shop/view/shop.html");
             break;
 
-        case 'all':
-            $daoshop = new DAOshop();
-            $res = $daoshop->select_all_items();
-
-            if(!empty($res)) {
-                $array_all_items = array();
-                foreach ($res as $row) {
-                    array_push($array_all_items, $row);
-                }
-                echo json_encode($array_all_items);
-            } else {
-                echo json_encode("error");
-            }
-            
-            break;
-        case 'nuevos':
-            $daoshop = new DAOshop();
-            $res = $daoshop->select_nuevos();
-
-            if(!empty($res)) {
-                $array_news = array();
-                foreach ($res as $row) {
-                    array_push($array_news, $row);
-                }
-
-                echo json_encode($array_news);
-                
-            } else {
-                echo json_encode("error");
-            }
-            // include("module/home/view/homepage.html");
-            break;
-        case 'KM0':
-            $daoshop = new DAOshop();
-            $res = $daoshop->select_km0();
-
-            if(!empty($res)) {
-                $array_km0 = array();
-                foreach ($res as $row) {
-                    array_push($array_km0, $row);
-                }
-
-                echo json_encode($array_km0);
-                
-            } else {
-                echo json_encode("error");
-            }
-
-            break;
-        case 'sec_hand':
-            $daoshop = new DAOshop();
-            $res = $daoshop->select_segunda_mano();
-
-            if(!empty($res)) {
-                $array_sec_hand = array();
-                foreach ($res as $row) {
-                    array_push($array_sec_hand, $row);
-                }
-
-                echo json_encode($array_sec_hand);
-                
-            } else {
-                echo json_encode("error");
-            }
-
-            break;
-
         case 'details_car':
             $daoshop = new DAOshop();
             $res = $daoshop->select_car($_GET['id']);
@@ -275,13 +208,13 @@
 
             break;
 
-        case 'filters':
+        case 'print_cars':
 
             $con_ = $_GET['con'];
             $consulta = str_replace("/", " ", $con_);
 
             $daoshop = new DAOshop();
-            $res = $daoshop->select_filters($consulta);
+            $res = $daoshop->select_consulta($consulta);
 
             if(!empty($res)) {
                 $array_fil = array();

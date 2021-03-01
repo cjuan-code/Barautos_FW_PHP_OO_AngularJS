@@ -1,102 +1,32 @@
-function print_all_items() {
-
-    localStorage.removeItem("categoria");
-    localStorage.removeItem("consulta");
+function print_cars(consulta) {
 
     $('.cont_rows_items').empty();
-    ajaxPromise('module/shop/controller/controller_shop.php.?op=all', 'GET', 'JSON')
+    ajaxPromise('module/shop/controller/controller_shop.php.?op=print_cars&con='+consulta, 'GET', 'JSON')
 
-    .then(function(data_all) {
-        cont = 0;
+    .then(function(data_print) {
 
-        for (row in data_all) {
+        if (data_print=='no' | data_print.length==0) {
+            alert("No se han encontrado resultados");
+            document.getElementById("form_filters").reset();
+            localStorage.setItem('categoria', 'all_items');
+            $('#list_items').empty();
+            load_divs();
+            pagination();
+        } else {
+            cont = 0;
 
-            $('<div></div>').attr('class', 'col-xs-12 col-sm-6 col-md-4 single-work row_'+cont).appendTo(".cont_rows_items");
-            $('<p><strong>'+ data_all[row].marca + " " + data_all[row].modelo + '<p style="margin-top: -15px; margin-bottom: -10px;">' + data_all[row].precio + "€" + '</p>' +'</strong></p>').appendTo('.row_'+cont);
-            $('<div></div>').attr('class', 'recent-work-wrap ww_'+cont).appendTo('.row_'+cont);
-            $('<img></img>').attr('class', 'img-responsive').attr('src', data_all[row].img).appendTo('.ww_'+cont);
-            $('<div></div>').attr('class', 'overlay o_'+cont).appendTo('.ww_'+cont);
-            $('<div></div>').attr('class', 'recent-work-inner a_'+cont).appendTo('.o_'+cont);
-            $('<a><i class="fa fa-plus"></i></a>').attr('class', 'redir_details').attr('href', '#').attr('id', ''+ data_all[row].matricula +'').appendTo('.a_'+cont);
-            cont++;
-        }
-    })
+            for (row in data_print) {
 
-}
-
-
-function print_nuevos() {
-
-    localStorage.removeItem("categoria");
-    localStorage.removeItem("consulta");
-
-    $('.cont_rows_items').empty();
-    ajaxPromise('module/shop/controller/controller_shop.php.?op=nuevos', 'GET', 'JSON')
-
-    .then(function(data_nuevos) {
-        cont = 0;
-
-        for (row in data_nuevos) {
-            $('<div></div>').attr('class', 'col-xs-12 col-sm-6 col-md-4 single-work row_'+cont).appendTo(".cont_rows_items");
-            $('<p>'+ data_nuevos[row].marca + " " + data_nuevos[row].modelo + " " + data_nuevos[row].precio + " €" +'</p>').appendTo('.row_'+cont);
-            $('<div></div>').attr('class', 'recent-work-wrap ww_'+cont).appendTo('.row_'+cont);
-            $('<img></img>').attr('class', 'img-responsive').attr('src', data_nuevos[row].img).appendTo('.ww_'+cont);
-            $('<div></div>').attr('class', 'overlay o_'+cont).appendTo('.ww_'+cont);
-            $('<div></div>').attr('class', 'recent-work-inner a_'+cont).appendTo('.o_'+cont);
-            $('<a><i class="fa fa-plus"></i></a>').attr('class', 'redir_details').attr('href', '#').attr('id', ''+ data_nuevos[row].matricula +'').appendTo('.a_'+cont);
-            cont++;
-        }
-    })
-}
-
-
-function print_km0() {
-
-    localStorage.removeItem("categoria");
-    localStorage.removeItem("consulta");
-
-    $('.cont_rows_items').empty();
-    ajaxPromise('module/shop/controller/controller_shop.php.?op=KM0', 'GET', 'JSON')
-
-    .then(function(data_km0) {
-        cont = 0;
-
-        for (row in data_km0) {
-
-            $('<div></div>').attr('class', 'col-xs-12 col-sm-6 col-md-4 single-work row_'+cont).appendTo(".cont_rows_items");
-            $('<p>'+ data_km0[row].marca + " " + data_km0[row].modelo + " " + data_km0[row].precio + " €" +'</p>').appendTo('.row_'+cont);
-            $('<div></div>').attr('class', 'recent-work-wrap ww_'+cont).appendTo('.row_'+cont);
-            $('<img></img>').attr('class', 'img-responsive').attr('src', data_km0[row].img).appendTo('.ww_'+cont);
-            $('<div></div>').attr('class', 'overlay o_'+cont).appendTo('.ww_'+cont);
-            $('<div></div>').attr('class', 'recent-work-inner a_'+cont).appendTo('.o_'+cont);
-            $('<a><i class="fa fa-plus"></i></a>').attr('class', 'redir_details').attr('href', '#').attr('id', ''+ data_km0[row].matricula +'').appendTo('.a_'+cont);
-            cont++;
-        }
-    })
-
-}
-
-
-function print_segunda_mano() {
-
-    localStorage.removeItem("categoria");
-    localStorage.removeItem("consulta");
-
-    ajaxPromise('module/shop/controller/controller_shop.php.?op=sec_hand', 'GET', 'JSON')
-
-    .then(function(data_segunda_mano) {
-        cont = 0;
-
-        for (row in data_segunda_mano) {
-
-            $('<div></div>').attr('class', 'col-xs-12 col-sm-6 col-md-4 single-work row_'+cont).appendTo(".cont_rows_items");
-            $('<p>'+ data_segunda_mano[row].marca + " "  + data_segunda_mano[row].modelo + " " + data_segunda_mano[row].precio + " €" +'</p>').appendTo('.row_'+cont);
-            $('<div></div>').attr('class', 'recent-work-wrap ww_'+cont).appendTo('.row_'+cont);
-            $('<img></img>').attr('class', 'img-responsive').attr('src', data_segunda_mano[row].img).appendTo('.ww_'+cont);
-            $('<div></div>').attr('class', 'overlay o_'+cont).appendTo('.ww_'+cont);
-            $('<div></div>').attr('class', 'recent-work-inner a_'+cont).appendTo('.o_'+cont);
-            $('<a><i class="fa fa-plus"></i></a>').attr('class', 'redir_details').attr('href', '#').attr('id', ''+ data_segunda_mano[row].matricula +'').appendTo('.a_'+cont);
-            cont++;
+                $('<div></div>').attr('class', 'col-xs-12 col-sm-6 col-md-4 single-work row_'+cont).appendTo(".cont_rows_items");
+                $('<p>'+ data_print[row].marca + " "  + data_print[row].modelo + " " + data_print[row].precio + " €" +'</p>').appendTo('.row_'+cont);
+                $('<div></div>').attr('class', 'recent-work-wrap ww_'+cont).appendTo('.row_'+cont);
+                $('<img></img>').attr('class', 'img-responsive').attr('src', data_print[row].img).appendTo('.ww_'+cont);
+                $('<div></div>').attr('class', 'overlay o_'+cont).appendTo('.ww_'+cont);
+                $('<div></div>').attr('class', 'recent-work-inner a_'+cont).appendTo('.o_'+cont);
+                $('<a><i class="fa fa-plus"></i></a>').attr('class', 'redir_details').attr('href', '#').attr('id', ''+ data_print[row].matricula +'').appendTo('.a_'+cont);
+                
+                cont++;
+            }
         }
     })
 
@@ -183,74 +113,6 @@ function print_details(car_id) {
 
     })
     
-}
-
-
-function print_consulta_search(consulta) {
-
-    localStorage.removeItem("categoria");
-    localStorage.removeItem("consulta");
-
-    ajaxPromise('module/shop/controller/controller_shop.php.?op=filters&con='+consulta, 'GET', 'JSON')
-
-    .then(function(data_search) {
-
-        if (data_search=='no' | data_search.length==0) {
-            alert("No se han encontrado resultados");
-            document.getElementById("form_filters").reset();
-            print_all_items();
-        } else {
-            cont = 0;
-
-            for (row in data_search) {
-
-                $('<div></div>').attr('class', 'col-xs-12 col-sm-6 col-md-4 single-work row_'+cont).appendTo(".cont_rows_items");
-                $('<p>'+ data_search[row].marca + " "  + data_search[row].modelo + " " + data_search[row].precio + " €" +'</p>').appendTo('.row_'+cont);
-                $('<div></div>').attr('class', 'recent-work-wrap ww_'+cont).appendTo('.row_'+cont);
-                $('<img></img>').attr('class', 'img-responsive').attr('src', data_search[row].img).appendTo('.ww_'+cont);
-                $('<div></div>').attr('class', 'overlay o_'+cont).appendTo('.ww_'+cont);
-                $('<div></div>').attr('class', 'recent-work-inner a_'+cont).appendTo('.o_'+cont);
-                $('<a><i class="fa fa-plus"></i></a>').attr('class', 'redir_details').attr('href', '#').attr('id', ''+ data_search[row].matricula +'').appendTo('.a_'+cont);
-                
-                cont++;
-            }
-        }
-    })
-
-}
-
-
-function print_filters_items(consulta) {
-
-    localStorage.removeItem("categoria");
-    localStorage.removeItem("consulta");
-
-    ajaxPromise('module/shop/controller/controller_shop.php.?op=filters&con='+consulta, 'GET', 'JSON')
-
-    .then(function(data_fil) {
-
-        if (data_fil=='no' | data_fil.length==0) {
-            alert("No se han encontrado resultados");
-            document.getElementById("form_filters").reset();
-            print_all_items();
-        } else {
-            cont = 0;
-
-            for (row in data_fil) {
-
-                $('<div></div>').attr('class', 'col-xs-12 col-sm-6 col-md-4 single-work row_'+cont).appendTo(".cont_rows_items");
-                $('<p>'+ data_fil[row].marca + " "  + data_fil[row].modelo + " " + data_fil[row].precio + " €" +'</p>').appendTo('.row_'+cont);
-                $('<div></div>').attr('class', 'recent-work-wrap ww_'+cont).appendTo('.row_'+cont);
-                $('<img></img>').attr('class', 'img-responsive').attr('src', data_fil[row].img).appendTo('.ww_'+cont);
-                $('<div></div>').attr('class', 'overlay o_'+cont).appendTo('.ww_'+cont);
-                $('<div></div>').attr('class', 'recent-work-inner a_'+cont).appendTo('.o_'+cont);
-                $('<a><i class="fa fa-plus"></i></a>').attr('class', 'redir_details').attr('href', '#').attr('id', ''+ data_fil[row].matricula +'').appendTo('.a_'+cont);
-                
-                cont++;
-            }
-        }
-    })
-
 }
 
 
@@ -485,8 +347,12 @@ function filter_search() {
     }
 
     if (consulta) {
-        $('.cont_rows_items').empty();
-        print_filters_items(consulta);
+        
+        localStorage.setItem('categoria', 'filters');
+        localStorage.setItem('consulta', consulta);
+        $('#list_items').empty();
+        load_divs();
+        pagination();
     }
 }
 
@@ -510,12 +376,14 @@ function print_filters() {
 
 }
 
-
 function reset_form() {
     
     $('body').on('click', '.reset_filters', function() {
         document.getElementById("form_filters").reset();
-        print_all_items();
+        localStorage.setItem('categoria', 'all_items');
+        $('#list_items').empty();
+        load_divs();
+        pagination();
     });
 }
 
@@ -529,7 +397,73 @@ function redirect_details() {
     
 }
 
+function pagination() {
 
+
+    var categoria = localStorage.getItem('categoria');
+    var consulta = localStorage.getItem('consulta');
+
+    if (categoria=='all_items') {
+        var consulta_count = "SELECT/COUNT(*)/AS/total/FROM/vehicles";
+        var consulta_print = "SELECT/v.*,/i.img/FROM/vehicles/v/INNER/JOIN/img/i/ON/v.matricula=i.matricula/WHERE/i.img/LIKE/('%1.jpg')/ORDER/BY/visitas/DESC";
+    } else if (categoria=='Nuevos') {
+        alert('new');
+        var consulta_count = "SELECT/COUNT(*)/AS/total/FROM/vehicles/WHERE/categoria/=/(SELECT/cod/FROM/categories/WHERE/categoria/=/'Nuevos')";
+        var consulta_print = "SELECT/v.*,/i.img/FROM/vehicles/v/INNER/JOIN/img/i/ON/v.matricula=i.matricula/WHERE/i.img/LIKE/('%1.jpg')/AND/v.categoria/=/(SELECT/cod/FROM/categories/WHERE/categoria/=/'Nuevos')/ORDER/BY/visitas/DESC";
+    } else if (categoria=='KM0') {
+        var consulta_count = "SELECT/COUNT(*)/AS/total/FROM/vehicles/WHERE/categoria/=/(SELECT/cod/FROM/categories/WHERE/categoria/=/'KM0')";
+        var consulta_print = "SELECT/v.*,/i.img/FROM/vehicles/v/INNER/JOIN/img/i/ON/v.matricula=i.matricula/WHERE/i.img/LIKE/('%1.jpg')/AND/v.categoria/=/(SELECT/cod/FROM/categories/WHERE/categoria/=/'KM0')/ORDER/BY/visitas/DESC";
+    } else if (categoria=='Segunda Mano') {
+        var consulta_count = "SELECT/COUNT(*)/AS/total/FROM/vehicles/WHERE/categoria/=/(SELECT/cod/FROM/categories/WHERE/categoria/=/'Segunda Mano')";
+        var consulta_print = "SELECT/v.*,/i.img/FROM/vehicles/v/INNER/JOIN/img/i/ON/v.matricula=i.matricula/WHERE/i.img/LIKE/('%1.jpg')/AND/v.categoria/=/(SELECT/cod/FROM/categories/WHERE/categoria/=/'Segunda Mano')/ORDER/BY/visitas/DESC";
+    } else if (categoria=='search') {
+        var consulta_count = consulta.slice(0,6)+"/COUNT(*)/AS/total/"+consulta.slice(18,consulta.length);
+        var consulta_print = consulta;
+    } else if (categoria=='filters') {
+        var consulta_count = consulta.slice(0,6)+"/COUNT(*)/AS/total/"+consulta.slice(18,consulta.length);
+        var consulta_print = consulta;
+    }
+
+    $.ajax({
+        type: 'GET',
+        dataType: 'JSON',
+        url: 'module/shop/controller/controller_shop.php.?op=print_cars&con='+consulta_count,
+
+        success:function(data_total) {
+        
+            var total = data_total[0].total;
+            var total_pages = total / 3;
+            var total_pages = parseInt(total_pages);
+            
+            if((total_pages % 3) == 1) {
+                alert('calbo');
+                total_pages++;
+            }
+
+            if (total_pages<1) {
+                total_pages++;
+            }
+
+            print_cars(consulta_print+'/LIMIT/0,3');
+
+            $('#pagination').bootpag({
+                total: total_pages,
+                maxVisible: total_pages
+             }).on('page', function(event, num){
+                var offset = 3 * (num-1);
+                var build_consulta = consulta_print+'/LIMIT/'+offset+',3';
+                print_cars(build_consulta);
+
+             });
+        },
+
+        error:function() {
+            console.log("error print");
+        }
+
+    })
+
+}
 
 
 function load_divs() {
@@ -537,29 +471,17 @@ function load_divs() {
     $('<div></div>').attr('class', 'center fadeInDown cont2').appendTo('.cont1');
     $('<h2>Coches</h2>').appendTo('.cont2');
     print_filters();
+    $('<div></div>').attr('id', 'pagination').attr('class', 'center').appendTo('#list_items');
     $('<div></div>').attr('class', 'row cont_rows_items').appendTo('#list_items');
+    
 }
 
 
 $(document).ready(function() {
-
-    var categoria = localStorage.getItem('categoria');
-    var consulta_search = localStorage.getItem('consulta');
     
     load_divs();
-
-    if (categoria=='all_items') {
-        print_all_items();
-    } else if (categoria=='Nuevos') {
-        print_nuevos();
-    } else if (categoria=='KM0') {
-        print_km0();
-    } else if (categoria=='Segunda Mano') {
-        print_segunda_mano();
-    } else if (categoria=='search') {
-        print_consulta_search(consulta_search);
-    }
-
+    pagination();
     redirect_details();
     reset_form();
+ 
 });

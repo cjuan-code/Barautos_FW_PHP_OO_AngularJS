@@ -4,48 +4,6 @@
 
     class DAOshop {
 
-        function select_all_items() {
-            $sql = "SELECT v.*, i.img FROM vehicles v INNER JOIN img i ON v.matricula=i.matricula WHERE i.img LIKE ('%1.jpg') ORDER BY visitas DESC";
-
-            $connexion = connect::con();
-            $res = mysqli_query($connexion, $sql);
-            connect::close($connexion);
-
-            return $res;
-        }
-        
-        function select_nuevos() {
-            $sql = "SELECT v.*, i.img FROM vehicles v INNER JOIN img i ON v.matricula=i.matricula WHERE i.img LIKE ('%1.jpg') AND v.categoria = (SELECT cod FROM categories WHERE categoria = 'Nuevos') ORDER BY visitas DESC";
-
-            $connexion = connect::con();
-            $res = mysqli_query($connexion, $sql);
-            connect::close($connexion);
-
-            return $res;
-        }
-
-        function select_km0() {
-            $sql = "SELECT v.*, i.img FROM vehicles v INNER JOIN img i ON v.matricula=i.matricula WHERE i.img LIKE ('%1.jpg') AND v.categoria = (SELECT cod FROM categories WHERE categoria = 'KM0') ORDER BY visitas DESC";
-
-            $connexion = connect::con();
-            $res = mysqli_query($connexion, $sql);
-            connect::close($connexion);
-
-            return $res;
-
-        }
-
-        function select_segunda_mano() {
-            $sql = "SELECT v.*, i.img FROM vehicles v INNER JOIN img i ON v.matricula=i.matricula WHERE i.img LIKE ('%1.jpg') AND v.categoria = (SELECT cod FROM categories WHERE categoria = 'Segunda Mano') ORDER BY visitas DESC";
-
-            $connexion = connect::con();
-            $res = mysqli_query($connexion, $sql);
-            connect::close($connexion);
-
-            return $res;
-
-        }
-
         function select_car($matricula) {
             $sql = "SELECT * FROM vehicles WHERE matricula='$matricula'";
 
@@ -156,7 +114,7 @@
             return $res;
         }
 
-        function select_filters($consulta) {
+        function select_consulta($consulta) {
             $sql = $consulta;
 
             $connexion = connect::con();
