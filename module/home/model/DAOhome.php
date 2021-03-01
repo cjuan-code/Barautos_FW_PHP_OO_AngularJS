@@ -4,8 +4,8 @@
 
     class DAOhome {
 
-        function select_all_cats() {
-            $sql = "SELECT * FROM categories";
+        function select_all_cats($consulta) {
+            $sql = $consulta;
             
             $connexion = connect::con();
             $res = mysqli_query($connexion, $sql);

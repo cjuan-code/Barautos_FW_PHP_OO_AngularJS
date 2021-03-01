@@ -8,8 +8,12 @@
     } else {
         switch($_GET['op']) {
             case 'load_cats':
+
+                $con_ = $_GET['con'];
+                $consulta = str_replace("/", " ", $con_);
+
                 $daohome = new DAOhome();
-                $res = $daohome->select_all_cats();
+                $res = $daohome->select_all_cats($consulta);
 
                 if (!empty($res)) {
                     $arr_cat = array();

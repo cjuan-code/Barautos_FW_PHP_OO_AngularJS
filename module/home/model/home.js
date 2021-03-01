@@ -36,28 +36,41 @@ function load_carousel() {
 
 }
 
-function load_cats() {
+function load_cats(offset, append) {
 
-    ajaxPromise('module/home/controller/controller_home.php.?op=load_cats', 'GET', 'JSON')
+    var consulta = 'SELECT/*/FROM/categories/LIMIT/'+offset+',3';
 
-    .then(function(data_cats) {
-        cont = 0;
+    $.ajax({
+        type: 'GET',
+        dataType: 'JSON',
+        url: 'module/home/controller/controller_home.php.?op=load_cats&con='+consulta,
+
+        success:function(data_cats) {
+            cont = 0;
         
-        for (row in data_cats) {
-            $('<div></div>').attr('class', 'col-xs-12 col-sm-6 col-md-4 single-work row_'+cont).appendTo(".cont_rows");
-            $('<p>'+ data_cats[row].categoria +'</p>').appendTo('.row_'+cont);
-            $('<div></div>').attr('class', 'recent-work-wrap ww_'+cont).appendTo('.row_'+cont);
-            $('<img></img>').attr('class', 'img-responsive').attr('src', ''+ data_cats[row].img +'').appendTo('.ww_'+cont);
-            $('<div></div>').attr('class', 'overlay o_'+cont).appendTo('.ww_'+cont);
-            $('<div></div>').attr('class', 'recent-work-inner a_'+cont).appendTo('.o_'+cont);
-            $('<a><i class="fa fa-plus"></i></a>').attr('class', 'redir_shop').attr('href', '#').attr('id', ''+ data_cats[row].categoria +'').appendTo('.a_'+cont);
+            for (row in data_cats) {
+            $('<div></div>').attr('class', 'col-xs-12 col-sm-6 col-md-4 single-work row_'+append+cont).appendTo("."+append);
+            $('<p>'+ data_cats[row].categoria +'</p>').appendTo('.row_'+append+cont);
+            $('<div></div>').attr('class', 'recent-work-wrap ww_'+append+cont).appendTo('.row_'+append+cont);
+            $('<img></img>').attr('class', 'img-responsive').attr('src', ''+ data_cats[row].img +'').appendTo('.ww_'+append+cont);
+            $('<div></div>').attr('class', 'overlay o_'+append+cont).appendTo('.ww_'+append+cont);
+            $('<div></div>').attr('class', 'recent-work-inner a_'+append+cont).appendTo('.o_'+append+cont);
+            $('<a><i class="fa fa-plus"></i></a>').attr('class', 'redir_shop').attr('href', '#').attr('id', ''+ data_cats[row].categoria +'').appendTo('.a_'+append+cont);
             cont++;
         }
-    }) // end-ajax
+        },
+
+        error:function() {
+            console.log("error print");
+        }
+
+    })
 
 }
 
 function load_divs() {
+
+    var offset = localStorage.getItem('offset_cats');
 
     // divs carousel
     $('<div></div>').attr('class', 'carousel slide car-sl').appendTo('#main-slider');
@@ -73,8 +86,9 @@ function load_divs() {
     $('<div></div>').attr('class', 'center fadeInDown cont2').appendTo('.cont1');
     $('<h2>Categorias</h2>').appendTo('.cont2');
     $('<div></div>').attr('class', 'row cont_rows').appendTo('#categories');
+    $('<button>Cargar mas</button>').attr('class', 'btn-primary load_more').attr('href', '#').appendTo('#categories');
     load_carousel();
-    load_cats();
+    load_cats(offset, "cont_rows");
 }
 
 function redirect_shop() {
@@ -85,8 +99,24 @@ function redirect_shop() {
     });
 }
 
+function load_more() {
+    $('body').on('click', '.load_more', function() {
+        var offset = localStorage.getItem('offset_cats');
+        var offset = parseInt(offset);
+        var offset = offset + 3;
+        localStorage.setItem('offset_cats', offset);
+        $('<div></div>').attr('class', 'row cont_rows_'+offset).appendTo('#categories');
+        $('.load_more').remove();
+        $('<button>Cargar mas</button>').attr('class', 'btn-primary load_more').attr('href', '#').appendTo('#categories');
+        load_cats(offset, "cont_rows_"+offset);
+    });
+}
+
 
 $(document).ready(function() {
+    localStorage.setItem('offset_cats', 0);
+    
     load_divs();
     redirect_shop();
+    load_more();
 });

@@ -436,7 +436,6 @@ function pagination() {
             var total_pages = parseInt(total_pages);
             
             if((total_pages % 3) == 1) {
-                alert('calbo');
                 total_pages++;
             }
 
