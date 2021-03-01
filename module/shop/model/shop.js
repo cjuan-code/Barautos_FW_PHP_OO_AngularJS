@@ -102,7 +102,7 @@ function print_details(car_id) {
         $('<h3><strong>Marca: </strong>'+ data_details.marca +'</h3>').appendTo('#list_items');
         $('<h3><strong>Modelo: </strong>'+ data_details.modelo +'</h3>').appendTo('#list_items');
         $('<h3><strong>Color: </strong>'+ data_details.color +'</h3>').appendTo('#list_items');
-        $('<h3><strong>Capacidad del maletero: </strong>'+ data_details.cap_maletero + 'L' +'</h3>').appendTo('#list_items');
+        $('<h3><strong>Capacidad del mavarero: </strong>'+ data_details.cap_mavarero + 'L' +'</h3>').appendTo('#list_items');
         $('<h3><strong>Funcionamiento: </strong>'+ data_details.funcionamiento +'</h3>').appendTo('#list_items');
         $('<h3><strong>Manejo: </strong>'+ data_details.manejo +'</h3>').appendTo('#list_items');
         $('<h3><strong>GPS: </strong>'+ data_details.gps +'</h3>').appendTo('#list_items');
@@ -407,7 +407,6 @@ function pagination() {
         var consulta_count = "SELECT/COUNT(*)/AS/total/FROM/vehicles";
         var consulta_print = "SELECT/v.*,/i.img/FROM/vehicles/v/INNER/JOIN/img/i/ON/v.matricula=i.matricula/WHERE/i.img/LIKE/('%1.jpg')/ORDER/BY/visitas/DESC";
     } else if (categoria=='Nuevos') {
-        alert('new');
         var consulta_count = "SELECT/COUNT(*)/AS/total/FROM/vehicles/WHERE/categoria/=/(SELECT/cod/FROM/categories/WHERE/categoria/=/'Nuevos')";
         var consulta_print = "SELECT/v.*,/i.img/FROM/vehicles/v/INNER/JOIN/img/i/ON/v.matricula=i.matricula/WHERE/i.img/LIKE/('%1.jpg')/AND/v.categoria/=/(SELECT/cod/FROM/categories/WHERE/categoria/=/'Nuevos')/ORDER/BY/visitas/DESC";
     } else if (categoria=='KM0') {
@@ -433,16 +432,13 @@ function pagination() {
         
             var total = data_total[0].total;
             var total_pages = total / 3;
-            var total_pages = parseInt(total_pages);
+
+            if (Number.isInteger(total_pages)) {
+                var total_pages = total_pages;
+            } else {
+                var total_pages = Math.ceil(total_pages);
+            }
             
-            if((total_pages % 3) == 1) {
-                total_pages++;
-            }
-
-            if (total_pages<1) {
-                total_pages++;
-            }
-
             print_cars(consulta_print+'/LIMIT/0,3');
 
             $('#pagination').bootpag({

@@ -11,13 +11,6 @@
             $res = mysqli_query($connexion, $sql);
             connect::close($connexion);
 
-            // $retr_array = array();
-
-            // if (mysqli_num_rows($res) > 0) {
-            //     while ($row = mysqli_fetch_assoc($res)) {
-            //         $retr_array[] = $row;
-            //     }
-            // }
             return $res;
         }
 
