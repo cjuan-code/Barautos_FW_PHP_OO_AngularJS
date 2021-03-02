@@ -120,26 +120,20 @@ function print_details(car_id) {
         ajaxPromise("https://www.googleapis.com/books/v1/volumes?q="+data_details.marca, 'GET', 'JSON')
 
         .then(function(data_api) {
-            console.log(data_api);
+           
             cont = 0;
 
             for (i = 0; i < 3; i++) {
 
                 $('<div></div>').attr('class', 'col-xs-12 col-sm-6 col-md-4 single-work row_'+cont).appendTo(".container_api");
                 $('<p>'+ data_api.items[i].volumeInfo.title+'</p>').appendTo('.row_'+cont);
-                $('<div></div>').attr('class', 'recent-work-wrap ww_'+cont).attr('id', 'img_'+cont).appendTo('.row_'+cont);
-                $('<img></img>').attr('class', 'img-responsive').attr('src', data_api.items[i].volumeInfo.imageLinks.thumbnail).appendTo('.ww_'+cont);
-                $('<div></div>').attr('class', 'overlay o_'+cont).appendTo('.ww_'+cont);
-                $('<div></div>').attr('class', 'recent-work-inner a_'+cont).appendTo('.o_'+cont);
-                $('<a><i class="fa fa-plus"></i></a>').attr('class', 'redir_details').attr('href', data_api.items[i].saleInfo.buyLink).appendTo('.a_'+cont);
-
-                document.getElementById("img_"+cont).style.height = document.getElementById("img_"+cont).clientHeight*0.3;
-                document.getElementById("img_"+cont).style.width = document.getElementById("img_"+cont).clientWidth*0.3;
-                
-                $('<br/><br/><br/>').appendTo('#list_items');
+                $('<div></div>').attr('class', 'recent-work-wrap div_img ww_'+cont).appendTo('.row_'+cont);
+                $('<img></img>').attr('class', 'img-responsive').attr('style', 'width: 30%; height: 30%;').attr('src', data_api.items[i].volumeInfo.imageLinks.thumbnail).appendTo('.ww_'+cont);
+                $('<button>Comprar</button>').attr('class', 'btn-primary redir_details').attr('href', data_api.items[i].saleInfo.buyLink).appendTo('.ww_'+cont);
 
                 cont++;
             }
+            $('<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>').appendTo('#list_items');
         })
 
     })
