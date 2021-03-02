@@ -129,7 +129,7 @@ function print_details(car_id) {
                 $('<p>'+ data_api.items[i].volumeInfo.title+'</p>').appendTo('.row_'+cont);
                 $('<div></div>').attr('class', 'recent-work-wrap div_img ww_'+cont).appendTo('.row_'+cont);
                 $('<img></img>').attr('class', 'img-responsive').attr('style', 'width: 30%; height: 30%;').attr('src', data_api.items[i].volumeInfo.imageLinks.thumbnail).appendTo('.ww_'+cont);
-                $('<button>Comprar</button>').attr('class', 'btn-primary redir_details').attr('href', data_api.items[i].saleInfo.buyLink).appendTo('.ww_'+cont);
+                $('<button>Comprar</button>').attr('class', 'btn-primary redir_details').attr('onclick','window.location.href="'+data_api.items[i].saleInfo.buyLink+'";').appendTo('.ww_'+cont);
 
                 cont++;
             }
