@@ -36,6 +36,7 @@ To run this code you would need to install the XAMPP stack and import a database
 This application have the following modules.
 
 Module | Description
+:--- | :---
 Home | Main page of the application where you can see a slider and all the categories
 Shop | Show all the cars where you can use a filtering system by categories, color, brand, among others.
 Search | This module is implemented in all the app where you can search for a brand and it automatically redirects to the shop with the brand searched.
