@@ -4,9 +4,6 @@ Web application made on 1st year of higher education training cycle of DAW (Web 
 ## Preview
 The next images are a sample of how the application looks like at this moment. This project isn't finished yet, therefore there are some more features to add like the login, cart among others.
 
-## Getting Started
-To run this code you would need to install the XAMPP stack and import a database.
-
 ### Homepage
 ![Preview home](https://user-images.githubusercontent.com/79716922/109893220-8d6d9700-7c8b-11eb-9351-6b31172a3a53.png)
 
@@ -19,6 +16,9 @@ To run this code you would need to install the XAMPP stack and import a database
 ### CRUD
 ![Preview CRUD](https://user-images.githubusercontent.com/79716922/109893430-efc69780-7c8b-11eb-82fc-1b2be885fbc2.png)
 
+
+## Getting Started
+To run this code you would need to install the XAMPP stack and import a database.
 
 ## Prerequisites
 * [Apache2](https://httpd.apache.org/)
