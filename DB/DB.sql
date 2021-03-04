@@ -20,13 +20,6 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `img` VARCHAR(150) NULL,
   PRIMARY KEY (`cod`)); 
 
-
-CREATE TABLE IF NOT EXISTS `img` (
-  `car` VARCHAR(150) NOT NULL,
-  `url` VARCHAR(150) NOT NULL,
-  PRIMARY KEY (`car`, `url`));
-
-
 CREATE TABLE IF NOT EXISTS `vehicles` (
   `matricula` VARCHAR(7) NOT NULL,
   `precio` VARCHAR(45) NULL,
@@ -44,6 +37,18 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `categoria` INT NULL,
   `visitas` INT NULL,
   PRIMARY KEY (`matricula`));
+  
+CREATE TABLE IF NOT EXISTS `img` (
+  `car` VARCHAR(150) NOT NULL,
+  `url` VARCHAR(150) NOT NULL,
+  PRIMARY KEY (`car`, `url`));
+
+
+INSERT INTO categories VALUES ('0', 'Nuevos', 'view/images/nuevo.jpg'),
+('1', 'KM0', 'view/images/km0.jpg'),
+('2', 'Segunda Mano', 'view/images/segunda_mano.jpg'),
+('3', 'Furgonetas', 'view/images/furgonetas.jpg'),
+('4', 'Camiones', 'view/images/camiones.jpg')
 
 
 INSERT INTO vehicles VALUES ('1234ASD', '14500', 'Gris', 'NISSAN', 'JUKE', '50', 'Gasolina', 'Manual', 'yes', 'no', '55000', '5', '5', '2', '0'),
