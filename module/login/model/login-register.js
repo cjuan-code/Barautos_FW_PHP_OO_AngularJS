@@ -51,21 +51,20 @@ function coincidePassword(){
 	span.show().removeClass();
 	//condiciones dentro de la función
 	if(valor1 != valor2){
-		alert('nope');
-		span.text(negacion).addClass('negacion');	
+		document.getElementById('span_pass').innerHTML = negacion;
+		document.getElementById('span_pass').className = 'negacion';
 	}
 	if(valor1.length==0 || valor1==""){
-		alert('1 buit');
-		span.text(vacio).addClass('negacion');	
+		document.getElementById('span_pass').innerHTML = vacio;
+		document.getElementById('span_pass').className = 'negacion';
 	}
 	if (valor2.length==0 || valor2==""){
-		alert('2 buit');
-		span.text(vacio).addClass('negacion');
+		document.getElementById('span_pass').innerHTML = vacio;
+		document.getElementById('span_pass').className = 'negacion';
 	}
 	if(valor1==valor2){
-		alert('igual');
 		document.getElementById('span_pass').innerHTML = confirmacion;
-		span.removeClass('negacion').addClass('confirmacion');
+		document.getElementById('span_pass').className = 'confirmacion';
 	}
 }
 

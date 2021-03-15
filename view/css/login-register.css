@@ -101,12 +101,15 @@ input:focus{
     background:#C6FFD5;
     border:1px solid;
     border-radius: 5px;
+    width: 73%;
+
 }
 .negacion {
     padding: 10px;
     background:#ffcccc;
     border:1px solid red;
     border-radius: 5px;
+    width: 73%;
 }
 .div_class_pass {
     padding-top: 8px;
