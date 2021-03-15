@@ -3,6 +3,8 @@
         include("view/inc/lib_coches.php");
     } else if ((isset($_GET['page'])) && ($_GET['page']==="controller_shop") ) {
         include("view/inc/lib_shop.php");
+    } else if ((isset($_GET['page'])) && ($_GET['page']==="controller_login")) {
+        include("view/inc/lib_login.php");
     }else{
         include("view/inc/lib.php");
     }

@@ -15,5 +15,9 @@
 		if ($_GET['page']==='controller_shop') {
 			include("module/shop/controller/controller_shop.php");
 		}
+
+		if ($_GET['page']==='controller_login') {
+			include("module/login/controller/controller_login.php");
+		}
 	}
 ?>

@@ -39,5 +39,6 @@
   <script src="/view/js/jquery.bootpag.min.js"></script>
   <script src="module/shop/model/shop.js"></script>
   <script src="view/js/search.js"></script>
+  <script src="view/js/menu.js"></script>
 
 </head>
