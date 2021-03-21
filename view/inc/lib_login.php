@@ -40,6 +40,7 @@
 
     <link rel="stylesheet" type="text/css" href="view/css/login-register.css">
     <script src="module/login/model/login-register.js"></script>
+    <script src="module/login/model/login.js"></script>
     <script src="view/js/menu.js"></script>
 
 
