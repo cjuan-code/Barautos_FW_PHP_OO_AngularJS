@@ -43,6 +43,13 @@ CREATE TABLE IF NOT EXISTS `img` (
   `url` VARCHAR(150) NOT NULL,
   PRIMARY KEY (`car`, `url`));
 
+CREATE TABLE IF NOT EXISTS `user` (
+  `username` VARCHAR(30) NOT NULL,
+  `email` VARCHAR(100) NULL,
+  `pass` VARCHAR(100) NULL,
+  `avatar` VARCHAR(150) NULL,
+  PRIMARY KEY (`username`));
+
 
 INSERT INTO categories VALUES ('0', 'Nuevos', 'view/images/nuevo.jpg'),
 ('1', 'KM0', 'view/images/km0.jpg'),
