@@ -1,21 +1,30 @@
 function login_user() {
 
+    var data = $("#login_form").serialize();
+
+    ajaxPromise("module/login/controller/controller_login.php.?op=login&" + data)
+
+    .then(function(data_login) {
+
+        if (data_login=="user not exists") {
+            document.getElementById('span_pass_log').innerHTML = "El usuario no existe";
+		    document.getElementById('span_pass_log').className = 'negacion';
+        } else if (data_login=="pass dont match") {
+            document.getElementById('span_pass_log').innerHTML = "La contraseña no coincide";
+		    document.getElementById('span_pass_log').className = 'negacion';
+        } else {
+            localStorage.setItem('token', data_login);
+            last_page = localStorage.getItem('location');
+
+            window.location.href = last_page;
+        }
+        
+    })
 }
 
 function register_user() {
 
-    var user = document.register_form.username_reg;
-    var email = document.register_form.email;
-    var pass = document.register_form.pass;
-	var cpass = document.register_form.cpass;
-
-    // alert("user: "+user.value+" "+
-    //       " email: "+email.value+" "+
-    //       " pass: "+pass.value+" "+
-    //       " cpass: "+cpass.value);
-    
     var data = $("#register_form").serialize();
-    console.log(data);
 
     ajaxPromise("module/login/controller/controller_login.php.?op=register&" + data)
 

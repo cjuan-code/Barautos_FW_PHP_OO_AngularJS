@@ -1339,6 +1339,11 @@ shortcodes page css
     align-items: center;
 }
 
+.white-text {
+    text-decoration-color: white;
+    color: white;
+}
+
 
 
 

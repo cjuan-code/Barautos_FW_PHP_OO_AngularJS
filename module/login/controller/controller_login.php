@@ -2,6 +2,7 @@
 
     $path = $_SERVER['DOCUMENT_ROOT'];
     include($path . '/module/login/model/DAOlogin.php');
+    include($path . '/view/middleware/token_auth.php');
 
     switch($_GET['op']) {
             
@@ -22,37 +23,47 @@
             
             $daologin = new DAOlogin();
 
-            $res = $daologin->select_user($username);
+            $res = $daologin->select_user_register($username);
 
             if ($res) {
                 echo "user exists";
-
             } else {
-
                 // email validation 
-
                 $res_email = $daologin->select_email();
-                
-                if(!empty($res_email)) {
+
+                if($res_email) {
 
                     $array_email = array();
 
                     foreach ($res_email as $row) {
                         array_push($array_email, $row['email']);
                     }
-                    
-                }
 
-                for ($i = 0; $i <= (count($array_email)-1); $i++) {
+                    if (count($array_email)>0) {
 
-                    $verify_email = password_verify($email, $array_email[$i]);
+                        for ($i = 0; $i <= (count($array_email)-1); $i++) {
 
-                    if ($verify_email) {
-                        echo "email used";
-                        exit();
+                            $verify_email = password_verify($email, $array_email[$i]);
+        
+                            if ($verify_email) {
+                                echo "email used";
+                                exit();
+                            } else {
+                                $res_user = $daologin->insert_user($username, $hash_email, $hash_pass, $avatar);
+        
+                                if ($res_user) {
+                                    echo "user registered";
+                                    exit();
+                                } else {
+                                    echo "user not registered";
+                                    exit();
+                                } // end else insert
+                            } // end else verify email
+                        } // end for
                     } else {
+                        
                         $res_user = $daologin->insert_user($username, $hash_email, $hash_pass, $avatar);
-
+    
                         if ($res_user) {
                             echo "user registered";
                             exit();
@@ -60,13 +71,54 @@
                             echo "user not registered";
                             exit();
                         } // end else insert
-                    } // end else verify email
-                } // end for
-
+                    } // end else if count
+                    
+                } // end if res          
                 
                 
             }
 
             break;
+
+            case 'login':
+                $username = $_GET['username_login'];
+                $pass = $_GET['pass_login'];
+
+                $daologin = new DAOlogin();
+                $res = $daologin->select_user($username);
+                $resultado = $res->fetch_assoc();
+
+                // echo json_encode($resultado);
+
+                if ($resultado) {
+                    $pass_db = $resultado['pass'];
+                    
+                    $verify_pass = password_verify($pass, $pass_db);
+
+                    if ($verify_pass) {
+                        $token = encode_token($username);
+                        echo $token;
+                    } else {
+                        echo "pass dont match";
+                    }
+                } else {
+                    echo "user not exists";
+                }
+
+                break;
+
+            case 'menu':
+                
+                $tk = $_GET['tk'];
+
+                $token = decode_token($tk);
+
+                $username = substr($token, 88, -12);
+                
+                $daologin = new DAOlogin();
+                $res = $daologin->select_user_register($username);
+
+                echo json_encode($res);
+                break;
     }
 ?>

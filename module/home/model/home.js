@@ -115,7 +115,8 @@ function load_more() {
 
 $(document).ready(function() {
     localStorage.setItem('offset_cats', 0);
-    
+    localStorage.setItem('location', 'index.php?page=controller_home');
+
     load_divs();
     redirect_shop();
     load_more();

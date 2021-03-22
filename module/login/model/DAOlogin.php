@@ -16,6 +16,15 @@
             $sql = "SELECT * FROM user WHERE username='$username'";
 
             $connexion = connect::con();
+            $res = mysqli_query($connexion, $sql);
+            connect::close($connexion);
+            return $res;
+        }
+
+        function select_user_register($username) {
+            $sql = "SELECT * FROM user WHERE username='$username'";
+
+            $connexion = connect::con();
             $res = mysqli_query($connexion, $sql)->fetch_object();
             connect::close($connexion);
             return $res;

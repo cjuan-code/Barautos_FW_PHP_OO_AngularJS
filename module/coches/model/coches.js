@@ -171,6 +171,6 @@ function remove_car() {
     return true;
 }
 
-// $(document).ready( function () {
-//     $('#data_table_crud').DataTable();
-// } );
+$(document).ready( function () {
+    localStorage.setItem('location','index.php?page=controller_cars&op=list');
+});

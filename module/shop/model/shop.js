@@ -499,9 +499,12 @@ function load_divs() {
 
 $(document).ready(function() {
     
+    localStorage.setItem('location', 'index.php?page=controller_shop&op=list');
+
     load_divs();
     pagination();
     redirect_details();
     reset_form();
- 
+
+    localStorage.removeItem('consulta');
 });
