@@ -44,27 +44,6 @@ function register_user() {
             document.getElementById('span_pass').innerHTML = "No se ha registrado";
 		    document.getElementById('span_pass').className = 'negacion';
         }
-
-        // var obj = JSON.parse(msg);
-        // console.log(msg);
-        // var new_str = asd.slice(2,asd.length-2);
-        // console.log('arr rep: '+new_str);
-        // var asd_ar = asd.split(",");
-        // console.log(" ");
-        // console.log(asd_ar);
-
-        // for (row in asd_ar) {
-        //     console.log(asd_ar[row]);
-        //     // for (row1 in asd_ar[row]) {
-        //     //     var str_rp = row1.replace();
-        //     // }
-        // }
-
-        // if (msg=='si que existeix') {
-        //     alert('user_exists');
-        // }
-        // $('<img></img>').attr('class', 'img-responsive').attr('src', obj.avatar).appendTo('.card-footer');
     })
-
 
 }

@@ -16,8 +16,8 @@
         //exp: Tiempo que expirará el token (+1 hora)
         //name: info user
         $payload = '{
-            "iat":time(), 
-            "exp":time() + (60*60),
+            "iat":'.time().', 
+            "exp":'.time() + (60*60).',
             "name":"'.$username.'"
         }';
 

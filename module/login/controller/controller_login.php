@@ -113,12 +113,21 @@
 
                 $token = decode_token($tk);
 
-                $username = substr($token, 88, -12);
+                $username = substr($token, 86, -12);
                 
                 $daologin = new DAOlogin();
                 $res = $daologin->select_user_register($username);
 
                 echo json_encode($res);
+                break;
+
+            case 'time':
+
+                $tk = $_GET['tk'];
+
+                $token = decode_token($tk);
+
+                echo $token;
                 break;
     }
 ?>
