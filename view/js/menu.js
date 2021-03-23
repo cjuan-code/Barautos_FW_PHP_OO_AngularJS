@@ -41,7 +41,7 @@ function check_time() {
     .then(function(data_time) {
         data_time = JSON.parse(data_time);
 
-        if (Math.floor(Date.now() / 1000) > data_time['iat']) {
+        if (Math.floor(Date.now() / 1000) > data_time['exp']) {
             logout();
         }
         
