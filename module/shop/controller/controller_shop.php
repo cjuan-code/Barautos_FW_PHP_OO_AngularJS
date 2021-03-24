@@ -229,6 +229,51 @@
             }
 
             break;
+        case 'favs':
+
+            // echo "yeeeeeeeee";
+
+            $matricula=$_GET['mat'];
+            $user=$_GET['user'];
+            $op=$_GET['oper'];
+
+            $daoshop = new DAOshop();
+            $res = $daoshop->like($matricula, $user, $op);
+            
+            // if ($res) {
+            //     echo "oko";
+            // } else {
+            //     echo "noko";
+            // }
+
+            // echo $matricula;
+            // echo " ";
+            // echo $user;
+            // echo " ";
+            // echo $op;
+
+
+            break;
+        case 'liked':
+
+            $user=$_GET['user'];
+
+            $daoshop = new DAOshop();
+            $res = $daoshop->liked($user);
+
+            if(!empty($res)) {
+                $array_liked = array();
+                foreach ($res as $row) {
+                    array_push($array_liked, $row);
+                }
+
+                echo json_encode($array_liked);
+                
+            } else {
+                echo json_encode("no liked");
+            }
+            
+            break;
     }
 
 ?>

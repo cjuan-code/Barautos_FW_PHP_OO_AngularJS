@@ -14,19 +14,45 @@ function print_cars(consulta) {
             pagination();
         } else {
             cont = 0;
-
+            
             for (row in data_print) {
 
                 $('<div></div>').attr('class', 'col-xs-12 col-sm-6 col-md-4 single-work row_'+cont).appendTo(".cont_rows_items");
-                $('<p>'+ data_print[row].marca + " "  + data_print[row].modelo + " " + data_print[row].precio + " €" +'</p>').appendTo('.row_'+cont);
+                $('<p class="'+ data_print[row].matricula +'" id="hd_items_'+cont+'">'+ data_print[row].marca + " " + data_print[row].modelo + " " +'<span>' + data_print[row].precio + " € "+ '</span></p>').appendTo('.row_'+cont);
                 $('<div></div>').attr('class', 'recent-work-wrap ww_'+cont).appendTo('.row_'+cont);
                 $('<img></img>').attr('class', 'img-responsive').attr('src', data_print[row].img).appendTo('.ww_'+cont);
                 $('<div></div>').attr('class', 'overlay o_'+cont).appendTo('.ww_'+cont);
                 $('<div></div>').attr('class', 'recent-work-inner a_'+cont).appendTo('.o_'+cont);
                 $('<a><i class="fa fa-plus"></i></a>').attr('class', 'redir_details').attr('href', '#').attr('id', ''+ data_print[row].matricula +'').appendTo('.a_'+cont);
-                
+
                 cont++;
             }
+
+            var user = localStorage.getItem('user');
+            
+            ajaxPromise('module/shop/controller/controller_shop.php.?op=liked&user='+user, 'GET', 'JSON')
+
+            .then(function(data_liked) {
+
+                var array_liked = [];
+                
+                for (row in data_liked) {
+                    array_liked.push(data_liked[row].matricula);
+                }
+
+
+                for (i=0; i <= (data_print.length-1); i++) {
+                    var mat = document.getElementById('hd_items_'+i).className;
+                    var matdb = array_liked.includes(mat);
+
+                    if (matdb) {
+                        $('<span class="heart liked" id="'+ data_print[i].matricula +'"><i class="fa fa-heart" aria-hidden="true" ></i></span>').appendTo('#hd_items_'+i);
+                    } else {
+                        $('<span class="heart" id="'+ data_print[i].matricula +'"><i class="fa fa-heart-o" aria-hidden="true" ></i></span>').appendTo('#hd_items_'+i);
+                    }
+                }
+                
+            })
         }
     })
 
@@ -69,8 +95,33 @@ function print_details(car_id) {
         $('<a href="#desc"><p>Mas informacion</p></a>').attr('style', 'text-align: right;').appendTo('.slide_info_info');
         $('<h2>'+ data_details.precio +'€</h2>').attr('style', 'text-align: right;').appendTo('.slide_info_info');
         $('<hr/>').appendTo('.slide_info_info');
-        $('<span><button>Añadir al carrito</button></span>'+'<span><button>Añadir a favoritos</button></span>').attr('style','float: right;').appendTo('.slide_info_info');
+        $('<p id="buttons"><span><button>Añadir al carrito</button></span></p>').attr('style','float: right;').appendTo('.slide_info_info');
 
+        // liked 
+
+        var user = localStorage.getItem('user');
+
+        ajaxPromise('module/shop/controller/controller_shop.php.?op=liked&user='+user, 'GET', 'JSON')
+
+        .then(function(data_liked) {
+
+            var array_liked = [];
+            
+            for (row in data_liked) {
+                array_liked.push(data_liked[row].matricula);
+            }
+
+            var matdb = array_liked.includes(data_details.matricula);
+
+            if (matdb) {
+                $('<span class="heart liked" id="'+ data_details.matricula +'"><i class="fa fa-heart" aria-hidden="true" ></i></span>').appendTo('#buttons');
+            } else {
+                $('<span class="heart" id="'+ data_details.matricula +'"><i class="fa fa-heart-o" aria-hidden="true" ></i></span>').appendTo('#buttons');
+            }
+            
+        })
+
+        
         $('<div></div>').attr('class', 'carousel slide car-sl').appendTo('#main-slider');
         $('<div></div>').attr('class', 'carousel-inner car-container').appendTo('.car-sl');
         $('<a><i class="fa fa-chevron-left"></i></a>').attr('class','prev hidden-xs hidden-sm').attr('href', '#main-slider').attr('data-slide', 'prev').appendTo('#main-slider');
@@ -424,7 +475,6 @@ function redirect_details() {
 
 function pagination() {
 
-
     var categoria = localStorage.getItem('categoria');
     var consulta = localStorage.getItem('consulta');
 
@@ -483,6 +533,7 @@ function pagination() {
 
     })
 
+    localStorage.removeItem('consulta');
 }
 
 
@@ -496,6 +547,42 @@ function load_divs() {
     
 }
 
+function check_like() {
+
+    $(document).on("click", '.heart', function() {
+
+        var tk = localStorage.getItem('token');
+
+        if (tk) {
+            var car_id = this.getAttribute('id');
+
+            if ($('#'+ car_id +'').hasClass("liked")) {
+
+                $('#'+ car_id +'').html('<i class="fa fa-heart-o" aria-hidden="true"></i>');
+                $('#'+ car_id +'').removeClass("liked");
+                like(car_id, 'unlike');
+                
+            } else {
+
+                $('#'+ car_id +'').html('<i class="fa fa-heart" aria-hidden="true"></i>');
+                $('#'+ car_id +'').addClass("liked");
+                like(car_id, 'like');
+
+            }
+
+        } else {
+            window.location.href = 'index.php?page=controller_login&op=list';
+        }
+    });
+}
+
+function like(matricula, op) {
+
+    var user = localStorage.getItem('user');
+
+    ajaxPromise('module/shop/controller/controller_shop.php.?op=favs&mat='+matricula+'&user='+user+'&oper='+op)
+
+}
 
 $(document).ready(function() {
     
@@ -505,6 +592,6 @@ $(document).ready(function() {
     pagination();
     redirect_details();
     reset_form();
+    check_like();
 
-    localStorage.removeItem('consulta');
 });

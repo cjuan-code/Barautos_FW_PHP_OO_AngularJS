@@ -12,6 +12,8 @@ function check_if_login() {
 
         .then(function(data_token) {
             data_token = JSON.parse(data_token);
+
+            localStorage.setItem('user', data_token.username);
             
             $('<li class="dropdown white-text"><img class="img-responsive dropdown-toggle" data-toggle="dropdown" src="'+data_token.avatar+'">'+data_token.username+'</img></li>').attr('id', 'li_pro').appendTo('.list_menu');
             $('<ul class="dropdown-menu" id="ul_pro"></ul>').appendTo('#li_pro');
@@ -51,6 +53,7 @@ function check_time() {
 
 function logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     window.location.reload();
 }
 

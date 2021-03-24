@@ -1344,7 +1344,26 @@ shortcodes page css
     color: white;
 }
 
+.fa-heart-o {
+    margin: 10px;
+    color: red;
+    cursor: pointer;
+  }
+  
+  .fa-heart {
+    margin: 10px;
+    color: red;
+    cursor: pointer;
+  }
 
+.hd_items {
+    text-align: justify;
+}
+
+.hd_items span {
+    display: block;
+    text-align: right;
+}
 
 
 label {

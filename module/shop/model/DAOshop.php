@@ -124,5 +124,28 @@
 
         }
 
+        function like($matricula, $user, $op) {
+
+            if ($op==='like') {
+                $sql = "INSERT INTO favs VALUES('$matricula', '$user')";
+            } elseif ($op==='unlike') {
+                $sql = "DELETE FROM favs WHERE matricula = '$matricula' AND username = '$user'";
+            }
+
+            $connexion = connect::con();
+            $res = mysqli_query($connexion, $sql);
+            connect::close($connexion);
+            return $res;
+        }
+
+        function liked($username) {
+            $sql = "SELECT * FROM favs WHERE username = '$username'";
+
+            $connexion = connect::con();
+            $res = mysqli_query($connexion, $sql);
+            connect::close($connexion);
+            return $res;
+        }
+
     }
 ?>
