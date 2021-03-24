@@ -50,6 +50,9 @@ CREATE TABLE IF NOT EXISTS `user` (
   `avatar` VARCHAR(150) NULL,
   PRIMARY KEY (`username`));
 
+CREATE TABLE `favs` (
+  `matricula` VARCHAR(7) NOT NULL,
+  `username` VARCHAR(30) NOT NULL);
 
 INSERT INTO categories VALUES ('0', 'Nuevos', 'view/images/nuevo.jpg'),
 ('1', 'KM0', 'view/images/km0.jpg'),
