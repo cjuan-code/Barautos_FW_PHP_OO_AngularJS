@@ -14,9 +14,11 @@ function check_if_login() {
             data_token = JSON.parse(data_token);
 
             localStorage.setItem('user', data_token.username);
-            
-            $('<li class="dropdown white-text"><img class="img-responsive dropdown-toggle" data-toggle="dropdown" src="'+data_token.avatar+'">'+data_token.username+'</img></li>').attr('id', 'li_pro').appendTo('.list_menu');
+
+            $('<li class="dropdown white-text"><a><i class="fa fa-user" aria-hidden="true"></i></a></li>').attr('id', 'li_pro').appendTo('.list_menu');
             $('<ul class="dropdown-menu" id="ul_pro"></ul>').appendTo('#li_pro');
+            $('<li><a><span id="img-user"></span></a></li>').appendTo('#ul_pro');
+            $('<img class="img-responsive dropdown-toggle" data-toggle="dropdown" src="'+data_token.avatar+'">'+ data_token.username +'</img></span>').appendTo('#img-user');
             $('<li><a id="log_out">Logout</a></li>').appendTo('#ul_pro');
             
         })
