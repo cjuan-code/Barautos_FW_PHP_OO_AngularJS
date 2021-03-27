@@ -47,8 +47,10 @@ function print_cars(consulta) {
 
                     if (matdb) {
                         $('<span class="heart liked" id="'+ data_print[i].matricula +'"><i class="fa fa-heart" aria-hidden="true" ></i></span>').appendTo('#hd_items_'+i);
+                        $('<span class="cart" id="'+ data_print[i].matricula +'"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>').appendTo('#hd_items_'+i);
                     } else {
                         $('<span class="heart" id="'+ data_print[i].matricula +'"><i class="fa fa-heart-o" aria-hidden="true" ></i></span>').appendTo('#hd_items_'+i);
+                        $('<span class="cart" id="'+ data_print[i].matricula +'"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>').appendTo('#hd_items_'+i);
                     }
                 }
                 
@@ -95,7 +97,7 @@ function print_details(car_id) {
         $('<a href="#desc"><p>Mas informacion</p></a>').attr('style', 'text-align: right;').appendTo('.slide_info_info');
         $('<h2>'+ data_details.precio +'€</h2>').attr('style', 'text-align: right;').appendTo('.slide_info_info');
         $('<hr/>').appendTo('.slide_info_info');
-        $('<p id="buttons"><span><button>Añadir al carrito</button></span></p>').attr('style','float: right;').appendTo('.slide_info_info');
+        $('<p id="buttons"></p>').attr('style','float: right;').appendTo('.slide_info_info');
 
         // liked 
 
@@ -115,8 +117,10 @@ function print_details(car_id) {
 
             if (matdb) {
                 $('<span class="heart liked" id="'+ data_details.matricula +'"><i class="fa fa-heart" aria-hidden="true" ></i></span>').appendTo('#buttons');
+                $('<span class="cart" id="'+ data_details.matricula +'"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>').appendTo('#buttons');
             } else {
                 $('<span class="heart" id="'+ data_details.matricula +'"><i class="fa fa-heart-o" aria-hidden="true" ></i></span>').appendTo('#buttons');
+                $('<span class="cart" id="'+ data_details.matricula +'"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>').appendTo('#buttons');
             }
             
         })
@@ -584,6 +588,57 @@ function like(matricula, op) {
 
 }
 
+function check_cart() {
+    $(document).on("click", '.heart', function() {
+
+            var car_id = this.getAttribute('id');
+
+            if ($('#'+ car_id +'').hasClass("liked")) {
+
+                $('#'+ car_id +'').html('<i class="fa fa-heart-o" aria-hidden="true"></i>');
+                $('#'+ car_id +'').removeClass("liked");
+                like(car_id, 'unlike');
+                
+            } else {
+
+                $('#'+ car_id +'').html('<i class="fa fa-heart" aria-hidden="true"></i>');
+                $('#'+ car_id +'').addClass("liked");
+                like(car_id, 'like');
+
+            }
+    });
+}
+
+function check_cart() {
+    $(document).on("click", '.cart', function() {
+
+        var car_id = this.getAttribute('id');
+
+        var cart = localStorage.getItem('cart');
+
+        if (cart) {
+
+            var parsed = JSON.parse(cart);
+            var array = [];
+
+            if ((Object.keys(parsed).length)==7) {
+                array.push(car_id);
+            } else {
+                for (row in parsed) {
+                    if (parsed[row]!=car_id) {
+                        array.push(parsed[row]);
+                    }
+                }
+                array.push(car_id);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(array));
+        } else {
+            localStorage.setItem('cart', JSON.stringify(car_id));
+        }
+    });
+}
+
 $(document).ready(function() {
     
     localStorage.setItem('location', 'index.php?page=controller_shop&op=list');
@@ -593,5 +648,5 @@ $(document).ready(function() {
     redirect_details();
     reset_form();
     check_like();
-
+    check_cart();
 });

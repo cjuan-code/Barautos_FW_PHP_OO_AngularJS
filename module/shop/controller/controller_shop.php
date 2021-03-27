@@ -231,8 +231,6 @@
             break;
         case 'favs':
 
-            // echo "yeeeeeeeee";
-
             $matricula=$_GET['mat'];
             $user=$_GET['user'];
             $op=$_GET['oper'];
@@ -240,19 +238,6 @@
             $daoshop = new DAOshop();
             $res = $daoshop->like($matricula, $user, $op);
             
-            // if ($res) {
-            //     echo "oko";
-            // } else {
-            //     echo "noko";
-            // }
-
-            // echo $matricula;
-            // echo " ";
-            // echo $user;
-            // echo " ";
-            // echo $op;
-
-
             break;
         case 'liked':
 
