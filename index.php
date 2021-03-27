@@ -5,6 +5,8 @@
         include("view/inc/lib_shop.php");
     } else if ((isset($_GET['page'])) && ($_GET['page']==="controller_login")) {
         include("view/inc/lib_login.php");
+    } else if ((isset($_GET['page'])) && ($_GET['page']==="controller_cart")) {
+        include("view/inc/lib_cart.php");
     }else{
         include("view/inc/lib.php");
     }
