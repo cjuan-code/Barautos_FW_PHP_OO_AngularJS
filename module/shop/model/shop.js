@@ -622,6 +622,7 @@ function check_cart() {
             var array = [];
 
             if ((Object.keys(parsed).length)==7) {
+                array.push(parsed);
                 array.push(car_id);
             } else {
                 for (row in parsed) {
@@ -634,7 +635,9 @@ function check_cart() {
 
             localStorage.setItem('cart', JSON.stringify(array));
         } else {
-            localStorage.setItem('cart', JSON.stringify(car_id));
+
+            var array = [car_id];
+            localStorage.setItem('cart', JSON.stringify(array));
         }
     });
 }
