@@ -589,27 +589,6 @@ function like(matricula, op) {
 }
 
 function check_cart() {
-    $(document).on("click", '.heart', function() {
-
-            var car_id = this.getAttribute('id');
-
-            if ($('#'+ car_id +'').hasClass("liked")) {
-
-                $('#'+ car_id +'').html('<i class="fa fa-heart-o" aria-hidden="true"></i>');
-                $('#'+ car_id +'').removeClass("liked");
-                like(car_id, 'unlike');
-                
-            } else {
-
-                $('#'+ car_id +'').html('<i class="fa fa-heart" aria-hidden="true"></i>');
-                $('#'+ car_id +'').addClass("liked");
-                like(car_id, 'like');
-
-            }
-    });
-}
-
-function check_cart() {
     $(document).on("click", '.cart', function() {
 
         var car_id = this.getAttribute('id');
