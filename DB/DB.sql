@@ -50,9 +50,28 @@ CREATE TABLE IF NOT EXISTS `user` (
   `avatar` VARCHAR(150) NULL,
   PRIMARY KEY (`username`));
 
-CREATE TABLE `favs` (
+CREATE TABLE IF NOT EXISTS `favs` (
   `matricula` VARCHAR(7) NOT NULL,
   `username` VARCHAR(30) NOT NULL);
+
+CREATE TABLE IF NOT EXISTS `stock` (
+  `matricula` VARCHAR(7) NOT NULL,
+  `stock` INT(7) NOT NULL);
+
+CREATE TABLE IF NOT EXISTS `linea_factura` (
+  `id_linea` INT NOT NULL,
+  `matricula` VARCHAR(7) NOT NULL,
+  `qty` INT NOT NULL,
+  `precio` INT NULL,
+  `id_factura` INT NOT NULL,
+  PRIMARY KEY (`id_linea`, `id_factura`));
+
+CREATE TABLE IF NOT EXISTS `cart_user` (
+  `user` VARCHAR(30),
+  `item` VARCHAR(600));
+
+INSERT INTO stock SELECT matricula, 100 FROM vehicles
+
 
 INSERT INTO categories VALUES ('0', 'Nuevos', 'view/images/nuevo.jpg'),
 ('1', 'KM0', 'view/images/km0.jpg'),
