@@ -20,6 +20,21 @@ function check_if_login() {
             $('<li><a><span id="img-user"></span></a></li>').appendTo('#ul_pro');
             $('<img class="img-responsive dropdown-toggle" data-toggle="dropdown" src="'+data_token.avatar+'">'+ data_token.username +'</img></span>').appendTo('#img-user');
             $('<li><a id="log_out">Logout</a></li>').appendTo('#ul_pro');
+
+            if (data_token.items) {
+                var splitted_items = data_token.items.split(',');
+
+                var array_cart = [];
+                
+                for (row in splitted_items) {
+                    array_cart.push(splitted_items[row]);
+                }
+
+                localStorage.setItem('cart', JSON.stringify(array_cart));
+            }
+
+            ajaxPromise("module/cart/controller/controller_cart.php.?op=delete_cart&user="+data_token.user)
+
             
         })
 
@@ -54,7 +69,24 @@ function check_time() {
 }
 
 function logout() {
+
+    var cart = JSON.parse(localStorage.getItem('cart'));
+    var user = localStorage.getItem('user');
+
+    if (cart) {
+        for (i=0; i <= ((cart.length)-1); i++) {
+            if (i==0) {
+                var cart_mats = ''+ cart[i] +'';
+            } else {
+                cart_mats += '/'+ cart[i] +'';
+            }
+        }
+    
+        ajaxPromise("module/cart/controller/controller_cart.php.?op=add_cart&mats="+cart_mats+'&user='+user)
+    }
+
     localStorage.removeItem('token');
+    localStorage.removeItem('cart');
     localStorage.removeItem('user');
     window.location.reload();
 }

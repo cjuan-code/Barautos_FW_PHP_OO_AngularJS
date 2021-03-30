@@ -27,6 +27,50 @@
                 echo json_encode("error");
             }
             break;
+        case 'line':
+            $product = $_GET['prod'];
+            $qty = $_GET['qty'];
+            $linePrice = $_GET['price'];
+
+            $daocart = new DAOcart();
+            $res = $daocart->insert_linea($product, $qty, $linePrice);
+
+            if ($res) {
+                echo "line inserted";
+            } else {
+                echo "line not inserted";
+            }
+            break;
+        case 'add_cart':
+
+            $prods = $_GET['mats'];
+            $user = $_GET['user'];
+
+            $products_split = str_replace('/', ',', $prods);
+
+            $daocart = new DAOcart();
+            $res = $daocart->insert_cart($user, $products_split);
+
+            if ($res) {
+                echo "sip insert";
+            } else {
+                echo "nop insert";
+            }
+
+            break;
+        case 'delete_cart':
+            $user = $_GET['user'];
+
+            $daocart = new DAOcart();
+            $res = $daocart->delete_cart($user);
+
+            if ($res) {
+                echo "sip delete";
+            } else {
+                echo "nop delete";
+            }
+
+            break;
     }
 
 ?>

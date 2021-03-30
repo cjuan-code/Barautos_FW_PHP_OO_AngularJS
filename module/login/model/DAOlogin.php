@@ -22,7 +22,7 @@
         }
 
         function select_user_register($username) {
-            $sql = "SELECT * FROM user WHERE username='$username'";
+            $sql = "SELECT u.*, c.items FROM user u LEFT JOIN cart_user c ON u.username=c.user WHERE u.username='$username'";
 
             $connexion = connect::con();
             $res = mysqli_query($connexion, $sql)->fetch_object();

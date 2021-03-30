@@ -80,8 +80,6 @@ function removeItem(removeButton) {
         var index = array.indexOf(car_id);
         array.splice(index, 1);
 
-        console.log(array.length);
-
         if (array.length==0) {
             localStorage.removeItem('cart');
         } else {
@@ -104,6 +102,38 @@ function assign_actions() {
         removeItem(this);
     });
 
+    $(document).on('click', '.checkout', function() {
+        var token = localStorage.getItem('token');
+
+        if (token) {
+            var user = localStorage.getItem('user');
+
+            $('.product').each(function() {
+                
+                var product = $(this).children('.product-removal').children('.remove-product')[0].id;
+                var qty = $(this).children('.product-quantity').children('.inp_qty')[0].value;
+                var linePrice = $(this).children('.product-line-price').text();
+
+                ajaxPromise('module/cart/controller/controller_cart.php.?op=line&prod='+product+'&qty='+qty+'&price='+linePrice)
+
+
+
+                console.log("mat: "+product);
+                console.log("qty: "+qty);
+                console.log("linePrice: "+linePrice);
+                console.log(" ");
+            });
+
+            ajaxPromise('module/cart/controller/controller_cart.php.?op=factura&=user'+user+'&total='+total)
+
+            var total = $('#cart-subtotal').text();
+            console.log("total: "+total);
+            console.log(" ");
+        } else {
+            window.location.href = 'index.php?page=controller_login&op=list';
+        }
+    });
+
 }
 
 function load_cars() {
@@ -114,9 +144,9 @@ function load_cars() {
         for (i=0; i <= ((cars_mat.length)-1); i++) {
 
             if (i==0) {
-                var consulta = "SELECT/v.*,/i.img/FROM/vehicles/v/INNER/JOIN/img/i/ON/v.matricula=i.matricula/WHERE/i.img/LIKE/('%1.jpg')/AND/v.matricula='" + cars_mat[i] + "'";
+                var consulta = "SELECT/v.*,/i.img,/s.stock/FROM/vehicles/v/INNER/JOIN/img/i/INNER/JOIN/stock/s/ON/v.matricula=i.matricula/AND/v.matricula=s.matricula/WHERE/i.img/LIKE/('%1.jpg')/AND/v.matricula='" + cars_mat[i] + "'";
             } else {
-                consulta += "/UNION/SELECT/v.*,/i.img/FROM/vehicles/v/INNER/JOIN/img/i/ON/v.matricula=i.matricula/WHERE/i.img/LIKE/('%1.jpg')/AND/v.matricula='" + cars_mat[i] + "'";
+                consulta += "/UNION/SELECT/v.*,/i.img,/s.stock/FROM/vehicles/v/INNER/JOIN/img/i/INNER/JOIN/stock/s/ON/v.matricula=i.matricula/AND/v.matricula=s.matricula/WHERE/i.img/LIKE/('%1.jpg')/AND/v.matricula='" + cars_mat[i] + "'";
             }
         }
     
@@ -134,7 +164,7 @@ function load_cars() {
                 $('<div>'+ data_cart[row].marca + " " + data_cart[row].modelo +'</div>').attr('class', 'product-title').appendTo('.det_'+cont);
                 $('<div>'+ data_cart[row].precio/1000 +'</div>').attr('class', 'product-price').appendTo('.prod_'+cont);
                 $('<div></div>').attr('class', 'product-quantity quan_'+cont).appendTo('.prod_'+cont);
-                $('<input type="number" value="1" min="1"></input>').appendTo('.quan_'+cont);
+                $('<input type="number" value="1" min="1" max="'+ data_cart[row].stock +'"></input>').attr('class', 'inp_qty').appendTo('.quan_'+cont);
                 $('<div></div>').attr('class', 'product-removal rm_'+cont).appendTo('.prod_'+cont);
                 $('<button>Remove</button>').attr('class', 'remove-product').attr('id', data_cart[row].matricula).appendTo('.rm_'+cont);
                 $('<div>'+ data_cart[row].precio/1000 +'</div>').attr('class', 'product-line-price').appendTo('.prod_'+cont);
@@ -147,9 +177,7 @@ function load_cars() {
     } else {
         load_total();
         recalculateCart();
-    }
-
-    
+    }  
 
 }
 
@@ -157,7 +185,7 @@ function load_total() {
 
     $('<div></div>').attr('class', 'totals').appendTo('.shopping-cart');
     $('<div></div>').attr('class', 'totals-item').appendTo('.totals');
-    $('<label>Subtotal</label>').appendTo('.totals-item');
+    $('<label>Total</label>').appendTo('.totals-item');
     $('<div>0</div>').attr('class', 'totals-value').attr('id', 'cart-subtotal').appendTo('.totals-item');
     $('<button>Checkout</button>').attr('class', 'checkout').appendTo('.shopping-cart');
 
@@ -179,6 +207,8 @@ function load_divs() {
 }
 
 $(document).ready(function() {
+
+    localStorage.setItem('location', 'index.php?page=controller_cart&op=list');
     load_divs();
     assign_actions();
     
