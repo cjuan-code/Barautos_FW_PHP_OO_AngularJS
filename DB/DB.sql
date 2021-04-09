@@ -59,12 +59,19 @@ CREATE TABLE IF NOT EXISTS `stock` (
   `stock` INT(7) NOT NULL);
 
 CREATE TABLE IF NOT EXISTS `linea_factura` (
-  `id_linea` INT NOT NULL,
-  `matricula` VARCHAR(7) NOT NULL,
+  `id_linea` INT NOT NULL AUTO_INCREMENT,
+  `item` VARCHAR(7) NOT NULL,
   `qty` INT NOT NULL,
   `precio` INT NULL,
   `id_factura` INT NOT NULL,
   PRIMARY KEY (`id_linea`, `id_factura`));
+
+  CREATE TABLE IF NOT EXISTS `factura` (
+  `id_factura` INT NOT NULL AUTO_INCREMENT,
+  `user` VARCHAR(30) NULL,
+  `fecha` DATE NULL,
+  `precio` INT NULL,
+  PRIMARY KEY (`id_factura`));
 
 CREATE TABLE IF NOT EXISTS `cart_user` (
   `user` VARCHAR(30),
