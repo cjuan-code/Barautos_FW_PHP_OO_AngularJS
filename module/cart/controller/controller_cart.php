@@ -27,6 +27,21 @@
                 echo json_encode("error");
             }
             break;
+        case 'factura':
+
+            $user = $_GET['user'];
+            $total = $_GET['total'];
+
+            $daocart = new DAOcart();
+            $res = $daocart->insert_factura($user, $total);
+
+            if ($res) {
+                echo "factura inserted";
+            } else {
+                echo "factura not inserted";
+            }
+
+            break;
         case 'line':
             $product = $_GET['prod'];
             $qty = $_GET['qty'];
@@ -40,6 +55,7 @@
             } else {
                 echo "line not inserted";
             }
+            
             break;
         case 'add_cart':
 

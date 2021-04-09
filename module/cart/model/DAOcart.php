@@ -32,14 +32,38 @@
             return $res;
         }
 
+        function insert_factura($user, $total) {
 
-        // function isnert_linea($producto, $qty, $precio) {
-        //     $sql = "INSERT INTO linea_factura VALUES (SELECT (max(id_linea)+1) FROM linea_factura, '$matricula', '$qty', '$precio', )";
+            $date = date("Y-m-d");
+            
+            $sql = "INSERT INTO factura (user, fecha, precio) VALUES ('$user', '$date', '$total')";
 
-        //     $connexion = connect::con();
-        //     $res = mysqli_query($connexion, $sql);
-        //     connect::close($connexion);
-        //     return $res;
-        // }
+            $connexion = connect::con();
+            $res = mysqli_query($connexion, $sql);
+            connect::close($connexion);
+            return $res;            
+
+        }
+
+        function insert_linea($producto, $qty, $precio) {
+
+            $date = date("Y-m-d");
+
+            $sql2 = "SELECT id_factura FROM factura ORDER BY id_factura DESC LIMIT 1";
+
+            $connexion = connect::con();
+            $rest = mysqli_query($connexion, $sql2);
+
+            $resultado = $rest->fetch_assoc();
+
+            $fac = $resultado['id_factura'];
+
+            $sql = "INSERT INTO linea_factura (item, qty, precio, id_factura) VALUES ('$producto', '$qty', '$precio', '$fac')";
+            
+            $res = mysqli_query($connexion, $sql);
+
+            connect::close($connexion);
+            return $res;
+        }
     }
 ?>

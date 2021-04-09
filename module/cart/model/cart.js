@@ -107,28 +107,24 @@ function assign_actions() {
 
         if (token) {
             var user = localStorage.getItem('user');
+            var total = $('#cart-subtotal').text();
 
+            ajaxPromise('module/cart/controller/controller_cart.php.?op=factura&user='+user+'&total='+total)
+
+            total = parseInt(total);
             $('.product').each(function() {
                 
                 var product = $(this).children('.product-removal').children('.remove-product')[0].id;
                 var qty = $(this).children('.product-quantity').children('.inp_qty')[0].value;
                 var linePrice = $(this).children('.product-line-price').text();
 
-                ajaxPromise('module/cart/controller/controller_cart.php.?op=line&prod='+product+'&qty='+qty+'&price='+linePrice)
+                ajaxPromise('module/cart/controller/controller_cart.php.?op=line&prod='+product+'&qty='+qty+'&price='+linePrice+'&user='+user+'&total='+total)
 
-
-
-                console.log("mat: "+product);
-                console.log("qty: "+qty);
-                console.log("linePrice: "+linePrice);
-                console.log(" ");
             });
 
-            ajaxPromise('module/cart/controller/controller_cart.php.?op=factura&=user'+user+'&total='+total)
-
-            var total = $('#cart-subtotal').text();
-            console.log("total: "+total);
-            console.log(" ");
+            alert('Gracias por su compra.');
+            localStorage.removeItem('cart');
+            window.location.href = 'index.php';
         } else {
             window.location.href = 'index.php?page=controller_login&op=list';
         }
