@@ -1,0 +1,25 @@
+{
+    "en": {
+        "Homepage" : "Homepage",
+        "Contact" : "Contact",
+        "Services" : "Services",
+        "Languages" : "Languages",
+        "Spanish" : "Spanish",
+        "English" : "English",
+        "Create" : "Create",
+        "Update" : "Update",
+        "Delete" : "Delete",
+        "Read" : "Read",
+        "Cancel": "Cancel",
+        "Back" : "Back",
+        "Accept" : "Accept",
+        "Plate" : "Plate",
+        "Car Information" : "Car Information",
+        "CAR LIST" : "CAR LIST",
+        "Start date" : "Start date",
+        "Finish date" : "Finish date",
+        "Brand" : "Brand",
+        "Action" : "Action",
+        "Shop" : "Shop"
+    }
+}

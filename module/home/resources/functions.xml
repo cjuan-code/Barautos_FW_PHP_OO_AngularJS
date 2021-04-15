@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functions>
+    <function>
+        <name>list</name>
+        <uri>list</uri>
+    </function>
+    <function>
+        <name>load_cats</name>
+        <uri>load_cats</uri>
+    </function>
+    <function>
+        <name>load_carousel</name>
+        <uri>load_carousel</uri>
+    </function>
+</functions>

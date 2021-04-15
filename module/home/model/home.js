@@ -3,7 +3,7 @@ function load_carousel() {
     $.ajax ({
         type: 'GET',
         dataType: 'JSON',
-        url: 'module/home/controller/controller_home.php.?op=load_carousel',
+        url: 'index.php?page=home&op=load_carousel',
     
         success:function(data_carousel) {
             cont = 0;
@@ -43,7 +43,7 @@ function load_cats(offset, append) {
     $.ajax({
         type: 'GET',
         dataType: 'JSON',
-        url: 'module/home/controller/controller_home.php.?op=load_cats&con='+consulta,
+        url: 'index.php?page=home&op=load_cats&con='+consulta,
 
         success:function(data_cats) {
             cont = 0;
