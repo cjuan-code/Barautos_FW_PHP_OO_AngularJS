@@ -1,6 +1,8 @@
 CREATE DATABASE crud_cars;
 USE crud_cars;
 
+-- CREATE TABLES
+
 CREATE TABLE IF NOT EXISTS `car` (
     `matricula` VARCHAR(7) COLLATE utf8_spanish_ci NOT NULL,
     `f_ini` VARCHAR(10) COLLATE utf8_spanish_ci NOT NULL,
@@ -66,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `linea_factura` (
   `id_factura` INT NOT NULL,
   PRIMARY KEY (`id_linea`, `id_factura`));
 
-  CREATE TABLE IF NOT EXISTS `factura` (
+CREATE TABLE IF NOT EXISTS `factura` (
   `id_factura` INT NOT NULL AUTO_INCREMENT,
   `user` VARCHAR(30) NULL,
   `fecha` DATE NULL,
@@ -76,8 +78,11 @@ CREATE TABLE IF NOT EXISTS `linea_factura` (
 CREATE TABLE IF NOT EXISTS `cart_user` (
   `user` VARCHAR(30),
   `item` VARCHAR(600));
+);
 
-INSERT INTO stock SELECT matricula, 100 FROM vehicles
+-- INSERT INTO TABLES SAMPLES
+
+INSERT INTO stock SELECT matricula, 100 FROM vehicles;
 
 
 INSERT INTO categories VALUES ('0', 'Nuevos', 'view/images/nuevo.jpg'),
@@ -162,3 +167,14 @@ INSERT INTO img VALUES ('1234ASD', 'view/images/cars/NISSAN_JUKE/1.jpg'),
 
 ('2222DDD', 'view/images/cars/ALFA_ROMEO_STELVIO/1.jpg'),
 ('2222DDD', 'view/images/cars/ALFA_ROMEO_STELVIO/2.jpg')
+
+-- TRIGGERS
+
+DELIMITER //
+CREATE TRIGGER update_qty_BI
+BEFORE INSERT ON linea_factura
+FOR EACH ROW
+BEGIN
+	UPDATE stock SET stock=stock-NEW.qty WHERE matricula=NEW.item;
+END;
+//
