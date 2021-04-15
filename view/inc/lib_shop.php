@@ -31,7 +31,7 @@
   <script src="view/js/owl.carousel.min.js"></script>
   <script src="view/js/jquery.isotope.min.js"></script>
   <script src="view/js/main.js"></script>
-  <script src="view/inc/translate.js"></script>
+  <script src="view/js/translate.js"></script>
   <script src="view/js/utils.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
