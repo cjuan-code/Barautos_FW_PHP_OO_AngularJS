@@ -6,7 +6,7 @@ class controller_home {
     }
 
     function load_cats() {
-        $con = $_GET['con'];
+        $con = $_POST['con'];
         $json = common::loadModel(MODEL_PATH_HOME, "home_model", "load_cats", $con);
         echo json_encode($json);
     }

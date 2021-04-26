@@ -4,7 +4,7 @@ function changeLang(lang) {
     var elmnts = document.querySelectorAll('[data-tr]');
 
     $.ajax({
-        url: 'view/lang/' + lang + '.json',
+        url: 'http://localhost/view/lang/' + lang + '.json',
             type: 'POST',
             dataType: 'JSON',
             success: function (data) {

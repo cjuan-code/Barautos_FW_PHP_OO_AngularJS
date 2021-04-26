@@ -1,36 +1,38 @@
 function load_carousel() {
 
-    $.ajax ({
-        type: 'GET',
-        dataType: 'JSON',
-        url: 'index.php?page=home&op=load_carousel',
-    
-        success:function(data_carousel) {
-            cont = 0;
-            for (row in data_carousel) {
-                if (cont == 0) {
-                    $('<div></div>').attr('class', 'item active main-item').attr('style', 'background-image: url('+ data_carousel[row].img +')').appendTo('.car-container');
-                    $('<div></div>').attr('class', 'container act-cont').appendTo('.main-item');
-                    $('<div></div>').attr('class', 'row act-row').appendTo('.act-cont');
-                    $('<div></div>').attr('class', 'col-md-7 act-col').appendTo('.act-row');
-                    $('<div></div>').attr('class', 'carousel-content act-content').appendTo('.act-col');
-                    $('<h1 style="color: orange;">'+ data_carousel[row].categoria +'</h1>').appendTo('.act-content');
-                    $('<a>Ver</a>').attr('class', 'btn-slide animation animated-item-3 redir_shop').attr('href', '#').attr('id', ''+ data_carousel[row].categoria +'').appendTo('.act-content');
-                } else {
-                    $('<div></div>').attr('class', 'item sec-item').attr('style', 'background-image: url('+ data_carousel[row].img +')').appendTo('.car-container');
-                    $('<div></div>').attr('class', 'container sec-cont').appendTo('.sec-item');
-                    $('<div></div>').attr('class', 'row sec-row').appendTo('.sec-cont');
-                    $('<div></div>').attr('class', 'col-md-7 sec-col').appendTo('.sec-row');
-                    $('<div></div>').attr('class', 'carousel-content sec-content').appendTo('.sec-col');
-                    $('<h1 style="color: orange;">'+ data_carousel[row].categoria +'</h1>').appendTo('.sec-content');
-                    $('<a>Ver</a>').attr('class', 'btn-slide animation animated-item-3 redir_shop').attr('href', '#').attr('id', ''+ data_carousel[row].categoria +'').appendTo('.sec-content');
+    friendlyURL('?page=home&op=load_carousel').then(function(data) { 
+        $.ajax ({
+            type: 'GET',
+            dataType: 'JSON',
+            url: data,
+        
+            success:function(data_carousel) {
+                cont = 0;
+                for (row in data_carousel) {
+                    if (cont == 0) {
+                        $('<div></div>').attr('class', 'item active main-item').attr('style', 'background-image: url(' + 'http://localhost/' + data_carousel[row].img +')').appendTo('.car-container');
+                        $('<div></div>').attr('class', 'container act-cont').appendTo('.main-item');
+                        $('<div></div>').attr('class', 'row act-row').appendTo('.act-cont');
+                        $('<div></div>').attr('class', 'col-md-7 act-col').appendTo('.act-row');
+                        $('<div></div>').attr('class', 'carousel-content act-content').appendTo('.act-col');
+                        $('<h1 style="color: orange;">'+ data_carousel[row].categoria +'</h1>').appendTo('.act-content');
+                        $('<a>Ver</a>').attr('class', 'btn-slide animation animated-item-3 redir_shop').attr('href', '#').attr('id', ''+ data_carousel[row].categoria +'').appendTo('.act-content');
+                    } else {
+                        $('<div></div>').attr('class', 'item sec-item').attr('style', 'background-image: url(' + 'http://localhost/' + data_carousel[row].img +')').appendTo('.car-container');
+                        $('<div></div>').attr('class', 'container sec-cont').appendTo('.sec-item');
+                        $('<div></div>').attr('class', 'row sec-row').appendTo('.sec-cont');
+                        $('<div></div>').attr('class', 'col-md-7 sec-col').appendTo('.sec-row');
+                        $('<div></div>').attr('class', 'carousel-content sec-content').appendTo('.sec-col');
+                        $('<h1 style="color: orange;">'+ data_carousel[row].categoria +'</h1>').appendTo('.sec-content');
+                        $('<a>Ver</a>').attr('class', 'btn-slide animation animated-item-3 redir_shop').attr('href', '#').attr('id', ''+ data_carousel[row].categoria +'').appendTo('.sec-content');
+                    }
+                    cont++;
                 }
-                cont++;
             }
-        }
-    
-    
-    })
+        
+        
+        })
+    });
     
     
 
@@ -39,33 +41,36 @@ function load_carousel() {
 function load_cats(offset, append) {
 
     var consulta = 'SELECT/*/FROM/categories/LIMIT/'+offset+',3';
-
-    $.ajax({
-        type: 'GET',
-        dataType: 'JSON',
-        url: 'index.php?page=home&op=load_cats&con='+consulta,
-
-        success:function(data_cats) {
-            cont = 0;
-        
-            for (row in data_cats) {
-            $('<div></div>').attr('class', 'col-xs-12 col-sm-6 col-md-4 single-work row_'+append+cont).appendTo("."+append);
-            $('<p>'+ data_cats[row].categoria +'</p>').appendTo('.row_'+append+cont);
-            $('<div></div>').attr('class', 'recent-work-wrap ww_'+append+cont).appendTo('.row_'+append+cont);
-            $('<img></img>').attr('class', 'img-responsive').attr('src', ''+ data_cats[row].img +'').appendTo('.ww_'+append+cont);
-            $('<div></div>').attr('class', 'overlay o_'+append+cont).appendTo('.ww_'+append+cont);
-            $('<div></div>').attr('class', 'recent-work-inner a_'+append+cont).appendTo('.o_'+append+cont);
-            $('<a><i class="fa fa-plus"></i></a>').attr('class', 'redir_shop').attr('href', '#').attr('id', ''+ data_cats[row].categoria +'').appendTo('.a_'+append+cont);
-            cont++;
-        }
-        },
-
-        error:function() {
-            console.log("error print");
-        }
-
-    })
-
+    friendlyURL('?page=home&op=load_cats').then(function(data) {
+        $.ajax({
+            type: 'POST',
+            dataType: 'JSON',
+            url: data,
+            data: {'con' : consulta},
+    
+            success:function(data_cats) {
+                cont = 0;
+            
+                for (row in data_cats) {
+                $('<div></div>').attr('class', 'col-xs-12 col-sm-6 col-md-4 single-work row_'+append+cont).appendTo("."+append);
+                $('<p>'+ data_cats[row].categoria +'</p>').appendTo('.row_'+append+cont);
+                $('<div></div>').attr('class', 'recent-work-wrap ww_'+append+cont).appendTo('.row_'+append+cont);
+                $('<img></img>').attr('class', 'img-responsive').attr('src', ''+'http://localhost/'+ data_cats[row].img +'').appendTo('.ww_'+append+cont);
+                $('<div></div>').attr('class', 'overlay o_'+append+cont).appendTo('.ww_'+append+cont);
+                $('<div></div>').attr('class', 'recent-work-inner a_'+append+cont).appendTo('.o_'+append+cont);
+                $('<a><i class="fa fa-plus"></i></a>').attr('class', 'redir_shop').attr('href', '#').attr('id', ''+ data_cats[row].categoria +'').appendTo('.a_'+append+cont);
+                cont++;
+            }
+            },
+    
+            error:function() {
+                console.log("error print");
+            }
+    
+        })
+    
+    });
+    
 }
 
 function load_divs() {
@@ -95,7 +100,7 @@ function redirect_shop() {
     $('body').on('click', '.redir_shop', function() {
         $categoria = this.getAttribute('id');
         localStorage.setItem('categoria', $categoria);
-        window.location.href="index.php?page=controller_shop&op=list";
+        window.location.href="/shop/";
     });
 }
 
@@ -115,7 +120,7 @@ function load_more() {
 
 $(document).ready(function() {
     localStorage.setItem('offset_cats', 0);
-    localStorage.setItem('location', 'index.php?page=controller_home');
+    localStorage.setItem('location', '/home/');
 
     load_divs();
     redirect_shop();

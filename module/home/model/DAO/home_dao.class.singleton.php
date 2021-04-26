@@ -1,7 +1,5 @@
 <?php 
 
-include (MODEL_PATH . 'connect.php');
-
 class home_dao {
     static $_instance;
 

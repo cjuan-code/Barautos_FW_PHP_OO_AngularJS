@@ -2,17 +2,55 @@
 
 class mail {
 
-    function send_mailgun($email){
+	public static function buildEmail($type) {
+
+		$content = "";
+
+		switch($type['type']) {
+			case 'toClient':
+
+				$type['toEmail'] = $type['email'];
+				$type['replyTo'] = 'soporteautobar@gmail.com';
+				$type['subject'] = 'Email received';
+
+				$content .= '<h4>Thanks ' . $type['username'] . ' for sending us an email</h4><br>';
+                $content .= '<p>You will recive an email soon answering your request.</p><br>';
+
+                break;
+			case 'toSupport':
+
+				$type['toEmail'] = 'soporteautobar@gmail.com';
+				$type['replyTo'] = 'soporteautobar@gmail.com';
+				$type['subject'] = 'Support petition';
+
+				$content .= '<p><strong>Username: ' . $type['username'] .'</strong></p><br>';
+				$content .= '<p><strong>Email: ' . $type['email'] .'</strong></p><br>';
+				$content .= '<p><strong>Content: ' . $type['content'] .'</strong></p><br>';
+
+				
+				
+				break;
+		}
+
+		$type['body'] = $content;
+		
+		return self::sendMailGun($type);
+
+	}
+
+    public static function sendMailGun($data) {
+
+		$ini_file = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/model/apis/apis.ini');
     	$config = array();
-    	$config['api_key'] = "e8a753a9704308aac3555ee3380a66ee-a09d6718-b7a6ea37"; //API Key
-    	$config['api_url'] = "https://api.mailgun.net/v2/sandbox6030d27bfb324cd99d0baae796cda512.mailgun.org/messages"; //API Base URL
+    	$config['api_key'] = $ini_file['mailGunKey']; //API Key
+    	$config['api_url'] = $ini_file['mailGunURL']; //API Base URL
 
     	$message = array();
-    	$message['from'] = "cjuaniestacio@gmail.com";
-    	$message['to'] = $email;
-    	$message['h:Reply-To'] = "cjuaniestacio@gmail.com";
-    	$message['subject'] = "Hello, this is a test";
-    	$message['html'] = 'Hello ' . $email . ',</br></br> This is a test';
+    	$message['from'] = "soporteautobar@gmail.com";
+    	$message['to'] = $data['toEmail'];
+    	$message['h:Reply-To'] = $data['replyTo'];
+    	$message['subject'] = $data['subject'];
+    	$message['html'] = $data['body'];
      
     	$ch = curl_init();
     	curl_setopt($ch, CURLOPT_URL, $config['api_url']);

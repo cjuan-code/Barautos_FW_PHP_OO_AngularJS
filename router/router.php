@@ -1,6 +1,7 @@
 <?php 
 
-include(UTILS_PATH . 'common.inc.php');
+require ('autoload.php');
+// include(UTILS_PATH . 'common.inc.php');
 
 class router {
     private $uriModule;
@@ -24,11 +25,17 @@ class router {
         }
 
         if(isset($_GET['op'])) {
-            $this -> uriFunction = ($_GET['op']);
+            if($_GET['op']===''){
+                $this -> uriFunction = 'list';
+            } else {
+                $this -> uriFunction = ($_GET['op']);
+            }
         } else {
             $this -> uriFunction = 'list';
         }
 
+        // $this -> uriModule = ($_GET['page']) ? $_GET['page'] : 'home';
+        // $this -> uriFunction = ($_GET['op']) ? $_GET['op'] : 'list';
     }// end_construct
 
     function routingStart() {
@@ -36,7 +43,6 @@ class router {
             call_user_func(array($this -> loadModule(), $this -> loadFunction()));
         }catch(Exception $e) {
             common::loadError();
-            // include('error404.html');
         }// end_catch
     }// end_routingStart
     

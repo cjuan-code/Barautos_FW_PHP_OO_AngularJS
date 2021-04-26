@@ -6,38 +6,38 @@
   <title>Autocares baratos</title>
 
   <!-- core CSS -->
-  <link href="view/css/bootstrap.min.css" rel="stylesheet">
-  <link href="view/css/font-awesome.min.css" rel="stylesheet">
-  <link href="view/css/animate.min.css" rel="stylesheet">
-  <link href="view/css/prettyPhoto.css" rel="stylesheet">
-  <link href="view/css/owl.carousel.min.css" rel="stylesheet">
-  <link href="view/css/icomoon.css" rel="stylesheet">
-  <link href="view/css/main.css" rel="stylesheet">
-  <link href="view/css/responsive.css" rel="stylesheet">
+  <link href="<?php echo SITE_PATH ?>view/css/bootstrap.min.css" rel="stylesheet">
+  <link href="<?php echo SITE_PATH ?>view/css/font-awesome.min.css" rel="stylesheet">
+  <link href="<?php echo SITE_PATH ?>view/css/animate.min.css" rel="stylesheet">
+  <link href="<?php echo SITE_PATH ?>view/css/prettyPhoto.css" rel="stylesheet">
+  <link href="<?php echo SITE_PATH ?>view/css/owl.carousel.min.css" rel="stylesheet">
+  <link href="<?php echo SITE_PATH ?>view/css/icomoon.css" rel="stylesheet">
+  <link href="<?php echo SITE_PATH ?>view/css/main.css" rel="stylesheet">
+  <link href="<?php echo SITE_PATH ?>view/css/responsive.css" rel="stylesheet">
   <!--[if lt IE 9]>
   <script src="js/html5shiv.js"></script>
   <script src="js/respond.min.js"></script>
   <![endif]-->
-  <link rel="shortcut icon" href="view/images/ico/favicon.ico">
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="view/images/ico/apple-touch-icon-144-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="view/images/ico/apple-touch-icon-114-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="view/images/ico/apple-touch-icon-72-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" href="view/images/ico/apple-touch-icon-57-precomposed.png">
+  <link rel="shortcut icon" href="<?php echo SITE_PATH ?>view/images/ico/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo SITE_PATH ?>view/images/ico/apple-touch-icon-144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo SITE_PATH ?>view/images/ico/apple-touch-icon-114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo SITE_PATH ?>view/images/ico/apple-touch-icon-72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="<?php echo SITE_PATH ?>view/images/ico/apple-touch-icon-57-precomposed.png">
   
 
-  <script src="view/js/jquery.js"></script>
-  <script src="view/js/bootstrap.min.js"></script>
-  <script src="view/js/jquery.prettyPhoto.js"></script>
-  <script src="view/js/owl.carousel.min.js"></script>
-  <script src="view/js/jquery.isotope.min.js"></script>
-  <script src="view/js/main.js"></script>
-  <script src="view/js/translate.js"></script>
-  <script src="view/js/utils.js"></script>
+  <script src="<?php echo SITE_PATH ?>view/js/jquery.js"></script>
+  <script src="<?php echo SITE_PATH ?>view/js/bootstrap.min.js"></script>
+  <script src="<?php echo SITE_PATH ?>view/js/jquery.prettyPhoto.js"></script>
+  <script src="<?php echo SITE_PATH ?>view/js/owl.carousel.min.js"></script>
+  <script src="<?php echo SITE_PATH ?>view/js/jquery.isotope.min.js"></script>
+  <script src="<?php echo SITE_PATH ?>view/js/main.js"></script>
+  <script src="<?php echo SITE_PATH ?>view/js/translate.js"></script>
+  <script src="<?php echo SITE_PATH ?>view/js/utils.inc.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  <script src="module/cart/model/cart.js"></script>
-  <script src="view/js/search.js"></script>
-  <script src="view/js/menu.js"></script>
+  <script src="<?php echo SITE_PATH ?>module/cart/model/cart.js"></script>
+  <script src="<?php echo SITE_PATH ?>vview/js/search.js"></script>
+  <script src="<?php echo SITE_PATH ?>view/js/menu.js"></script>
 
   </head>
