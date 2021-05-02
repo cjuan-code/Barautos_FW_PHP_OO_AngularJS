@@ -6,6 +6,6 @@ function search(e) {
         var consulta = 'SELECT/v.*,/i.img/FROM/vehicles/v/INNER/JOIN/img/i/ON/v.matricula=i.matricula/WHERE/i.img/LIKE/("%1.jpg")/AND/v.marca/LIKE/("'+upper+'%")';
         localStorage.setItem("consulta", consulta);
         localStorage.setItem("categoria", "search");
-        window.location.href = "index.php?page=controller_shop&op=list";
+        window.location.href = "/shop/";
     }
 };
