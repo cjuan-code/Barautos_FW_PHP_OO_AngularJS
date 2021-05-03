@@ -9,10 +9,10 @@ function check_if_login() {
     if (token) {
 
         friendlyURL('?page=login&op=menu').then(function(data) {
-            ajaxPromise("module/login/controller/controller_login.php.?op=menu&tk="+token)
+            ajaxPromise(data, 'POST', 'JSON', {tk : token})
 
             .then(function(data_token) {
-                data_token = JSON.parse(data_token);
+                // data_token = JSON.parse(data_token);
 
                 localStorage.setItem('user', data_token.username);
 
@@ -38,7 +38,7 @@ function check_if_login() {
         
                         localStorage.setItem('cart', JSON.stringify(array_cart));
                     }
-                    ajaxPromise("module/cart/controller/controller_cart.php.?op=delete_cart&user="+data_token.user)
+                    // ajaxPromise("module/cart/controller/controller_cart.php.?op=delete_cart&user="+data_token.user)
                 }
 
             })
@@ -61,16 +61,18 @@ function check_time() {
 
     var tk = localStorage.getItem('token');
 
-    ajaxPromise("module/login/controller/controller_login.php.?op=time&tk="+tk)
+    friendlyURL('?page=login&op=time').then(function(data) {
+        ajaxPromise(data, 'POST', 'JSON', {tk : tk})
 
-    .then(function(data_time) {
-        data_time = JSON.parse(data_time);
+        .then(function(data_time) {
+            // data_time = JSON.parse(data_time);
 
-        if (Math.floor(Date.now() / 1000) > data_time['exp']) {
-            logout();
-        }
-        
-    })
+            if (Math.floor(Date.now() / 1000) > data_time['exp']) {
+                logout();
+            }
+            
+        })
+    });
 
 }
 
@@ -87,8 +89,10 @@ function logout() {
                 cart_mats += '/'+ cart[i] +'';
             }
         }
-    
-        ajaxPromise("module/cart/controller/controller_cart.php.?op=add_cart&mats="+cart_mats+'&user='+user)
+        
+        friendlyURL('?page=cart&op=update_cart').then(function(data) {
+            ajaxPromise(data, 'POST', 'JSON', {mats : cart_mats, user : user})
+        });
     }
 
     localStorage.removeItem('token');

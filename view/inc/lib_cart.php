@@ -37,7 +37,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="<?php echo SITE_PATH ?>module/cart/model/cart.js"></script>
-  <script src="<?php echo SITE_PATH ?>vview/js/search.js"></script>
+  <script src="<?php echo SITE_PATH ?>view/js/search.js"></script>
   <script src="<?php echo SITE_PATH ?>view/js/menu.js"></script>
 
+
+  <link href="<?php echo SITE_PATH ?>view/css/toastr.css" rel="stylesheet">
+  <script src="<?php echo SITE_PATH ?>view/js/toastr.js"></script>
+  
   </head>

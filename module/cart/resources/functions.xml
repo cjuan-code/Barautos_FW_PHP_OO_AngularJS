@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functions>
+    <function>
+        <name>list</name>
+        <uri>list</uri>
+    </function>
+    <function>
+        <name>cars</name>
+        <uri>cars</uri>
+    </function>
+    <function>
+        <name>factura</name>
+        <uri>factura</uri>
+    </function>
+    <function>
+        <name>line</name>
+        <uri>line</uri>
+    </function>
+    <function>
+        <name>update_cart</name>
+        <uri>update_cart</uri>
+    </function>
+</functions>
