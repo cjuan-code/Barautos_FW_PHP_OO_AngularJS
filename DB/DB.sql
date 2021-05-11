@@ -45,12 +45,15 @@ CREATE TABLE IF NOT EXISTS `img` (
   `url` VARCHAR(150) NOT NULL,
   PRIMARY KEY (`car`, `url`));
 
-CREATE TABLE IF NOT EXISTS `user` (
+CREATE TABLE IF NOT EXISTS `users` (
+  `id_user` VARCHAR(100) NOT NULL,
   `username` VARCHAR(30) NOT NULL,
-  `email` VARCHAR(100) NULL,
-  `pass` VARCHAR(100) NULL,
-  `avatar` VARCHAR(150) NULL,
-  PRIMARY KEY (`username`));
+  `email` VARCHAR(100) NOT NULL,
+  `pass` VARCHAR(100) NOT NULL,
+  `avatar` VARCHAR(150) NOT NULL,
+  `activate` INT(1) NOT NULL,
+  `token_mail` VARCHAR(500) NOT NULL,
+  PRIMARY KEY (`id_user`));
 
 CREATE TABLE IF NOT EXISTS `favs` (
   `matricula` VARCHAR(7) NOT NULL,

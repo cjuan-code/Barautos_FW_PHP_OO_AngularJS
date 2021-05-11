@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functions>
+    <function>
+        <name>list</name>
+        <uri>list</uri>
+    </function>
+    <function>
+        <name>register</name>
+        <uri>register</uri>
+    </function>
+    <function>
+        <name>login</name>
+        <uri>login</uri>
+    </function>
+    <function>
+        <name>menu</name>
+        <uri>menu</uri>
+    </function>
+    <function>
+        <name>time</name>
+        <uri>time</uri>
+    </function>
+    <function>
+        <name>activate</name>
+        <uri>activate</uri>
+    </function>
+    <function>
+        <name>recover</name>
+        <uri>recover</uri>
+    </function>
+    <function>
+        <name>recover_password</name>
+        <uri>recover_password</uri>
+    </function>
+    <function>
+        <name>send_mail_recover</name>
+        <uri>send_mail_recover</uri>
+    </function>
+    <function>
+        <name>social_login</name>
+        <uri>social_login</uri>
+    </function>
+</functions>

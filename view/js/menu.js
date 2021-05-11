@@ -38,7 +38,6 @@ function check_if_login() {
         
                         localStorage.setItem('cart', JSON.stringify(array_cart));
                     }
-                    // ajaxPromise("module/cart/controller/controller_cart.php.?op=delete_cart&user="+data_token.user)
                 }
 
             })
@@ -98,7 +97,7 @@ function logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('cart');
     localStorage.removeItem('user');
-    window.location.reload();
+    window.location.reload(); 
 }
 
 

@@ -1,0 +1,150 @@
+<div class="container_login">
+	<div class="d-flex justify-content-center h-100">
+		<div class="card">
+			<div class="card-header">
+				<h3 id="titulo">Login</h3>
+			</div>
+			<div class="card-body">
+
+			<div id="login_complete">
+				<div class="d-flex justify-content-end social_icon">
+					<span id="gh_sl"><i class="fab fa-github"></i></span>
+					<span id="g_sl"><i class="fab fa-google"></i></span>
+				</div>
+				<form id="login_form" name="login_form">
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+						<input type="text" class="form-control" placeholder="Username" id="username_login" name="username_login">
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+						<input type="password" class="form-control" placeholder="Password" id="pass_login" name="pass_login">
+					</div>
+					<!-- <div class="row align-items-center remember">
+						<input type="checkbox">Remember Me
+					</div> -->
+					<div class="form-group">
+						<!-- <input type="submit" value="Login" class="btn float-right login_btn"> -->
+						<button type="button" class="btn float-right login_btn" id="login_button" onclick="login_user()">Login</button>
+					</div>
+					<div class="div_class_pass">
+						<span id="span_pass_log" class="span_pass_log"></span>
+					</div>
+				</form>
+
+				<div class="card-footer">
+					<div class="d-flex justify-content-center links">
+						¿No tienes cuenta?<a id="login_link">Registrate ya.</a>
+					</div>
+					<div class="d-flex justify-content-center">
+						<a id="recover">¿Has olvidado tu contraseña?</a>
+					</div>
+				</div>
+			</div>
+			
+			<div id="register_complete" style="display: none;">
+				<form id="register_form" name="register_form">
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+						<input type="text" class="form-control" placeholder="Username" id="username_reg" name="username_reg">
+					</div>
+					
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-envelope"></i></span>
+					
+						</div>
+						<input type="email" class="form-control" placeholder="Correo Electronico" id="email" name="email">
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+						<input type="password" class="form-control" placeholder="Password" id="pass" name="pass">
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+						<input type="password" class="form-control" placeholder="Confirm password" id="cpass" name="cpass">
+					</div>
+					<div class="form-group">
+						<!-- <input type="button" value="Register" class="btn float-right login_btn" id="register_button"> -->
+						<button type="button" class="btn float-right login_btn" id="register_button" onclick="register_user()">Register</button>
+					</div>
+					<div class="div_class_pass">
+						<span id="span_pass" class="span_pass"></span>
+					</div>
+				</form>
+
+				<div class="card-footer">
+					<div class="d-flex justify-content-center links">
+						¿Ya tienes una cuenta?<a id="register_link">Entra ya.</a>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div id="recover_div" style="display: none;">
+				<form id="recover_form" name="recover_form">
+					
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-envelope"></i></span>
+					
+						</div>
+						<input type="email" class="form-control" placeholder="Correo Electronico" id="recover_email" name="recover_email">
+					</div>
+
+					<div class="form-group">
+						<!-- <input type="button" value="Register" class="btn float-right login_btn" id="register_button"> -->
+						<button type="button" class="btn float-right login_btn" id="recover_button" onclick="recover_password_email()">Recover</button>
+					</div>
+					<div class="div_class_pass">
+						<span id="span_pass_email" class="span_pass_email"></span>
+					</div>
+					<div class="card-footer">
+						<div class="d-flex justify-content-center links">
+							¿Ya tienes una cuenta?<a id="register_link">Entra ya.</a>
+						</div>
+					</div>
+				</form>
+
+			</div>
+
+
+
+			<div id="recover_password" style="display: none;">
+
+				<form id="recover_password_form" name="recover_password_form">
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+						<input type="password" class="form-control" placeholder="Password" id="pass_recover" name="pass_recover">
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+						<input type="password" class="form-control" placeholder="Confirm password" id="cpass_recover" name="cpass_recover">
+					</div>
+					<div class="form-group">
+						<button type="button" class="btn float-right login_btn" id="recover_password_button" onclick="recover_password()">Change</button>
+					</div>
+					<div class="div_class_pass">
+						<span id="span_pass_recover" class="span_pass_recover"></span>
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+</div>

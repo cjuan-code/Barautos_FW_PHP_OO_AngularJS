@@ -34,6 +34,7 @@
     <script src="<?php echo SITE_PATH ?>view/js/main.js"></script>
     <script src="<?php echo SITE_PATH ?>view/js/translate.js"></script>
     <script src="<?php echo SITE_PATH ?>view/js/utils.inc.js"></script>
+    <script src="<?php echo SITE_PATH ?>model/apis/apis.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -50,4 +51,11 @@
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 
-</head
+    <link href="<?php echo SITE_PATH ?>view/css/toastr.css" rel="stylesheet">
+    <script src="<?php echo SITE_PATH ?>view/js/toastr.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
+
+</head>

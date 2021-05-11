@@ -17,6 +17,12 @@ define ('VIEW_PATH_HOME', SITE_ROOT . 'module/home/view/');
 define ('MODEL_PATH_SHOP', SITE_ROOT . 'module/shop/model/model/');
 define ('VIEW_PATH_SHOP', SITE_ROOT . 'module/shop/view/');
 
+define ('MODEL_PATH_LOGIN', SITE_ROOT . 'module/login/model/model/');
+define ('VIEW_PATH_LOGIN', SITE_ROOT . 'module/login/view/');
+
+define ('MODEL_PATH_CART', SITE_ROOT . 'module/cart/model/model/');
+define ('VIEW_PATH_CART', SITE_ROOT . 'module/cart/view/');
+
 
 define('URL_FRIENDLY', TRUE);
 

@@ -26,9 +26,33 @@ class mail {
 				$content .= '<p><strong>Username: ' . $type['username'] .'</strong></p><br>';
 				$content .= '<p><strong>Email: ' . $type['email'] .'</strong></p><br>';
 				$content .= '<p><strong>Content: ' . $type['content'] .'</strong></p><br>';
+				
+				break;
+			case 'activate':
 
-				
-				
+				$username = $type['username'];
+
+				$type['toEmail'] = $type['email'];
+				$type['replyTo'] = 'soporteautobar@gmail.com';
+				$type['subject'] = 'Activate user';
+
+				$token = $type['tk'];
+
+				$url = 'http://localhost/login/activate/'.$token;
+
+				$content .= '<p>Hello, ' . $username . ', to activate your account. Press the next link : ' . '<a href="'.$url.'">'.$url.'</a></p>';
+				break;
+
+			case 'recover':
+
+				$type['toEmail'] = $type['email'];
+				$type['replyTo'] = 'soporteautobar@gmail.com';
+				$type['subject'] = 'Recover your password';
+
+				$url = 'http://localhost/login/recover/'.$type['token'];
+
+				$content .= '<p>Hello, to recover your password. Press the next link: <a href="'.$url.'">'.$url.'</a></p>';
+
 				break;
 		}
 
