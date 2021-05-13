@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="barautos">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Autocares baratos</title>
+
+        <!-- core CSS -->
+        <link href="frontend/view/css/bootstrap.min.css" rel="stylesheet">
+        <link href="frontend/view/css/font-awesome.min.css" rel="stylesheet">
+        <link href="frontend/view/css/animate.min.css" rel="stylesheet">
+        <link href="frontend/view/css/prettyPhoto.css" rel="stylesheet">
+        <link href="frontend/view/css/owl.carousel.min.css" rel="stylesheet">
+        <link href="frontend/view/css/icomoon.css" rel="stylesheet">
+        <link href="frontend/view/css/main.css" rel="stylesheet">
+        <link href="frontend/view/css/responsive.css" rel="stylesheet">
+
+        <link rel="shortcut icon" href="frontend/view/images/ico/favicon.ico">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="frontend/view/images/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="frontend/view/images/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="frontend/view/images/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="frontend/view/images/ico/apple-touch-icon-57-precomposed.png">
+        <!-- <link href="https://npmcdn.com/angular-toastr/dist/angular-toastr.css" rel="stylesheet"> -->
+
+        <script src="frontend/view/js/jquery.js"></script>
+        <script src="frontend/view/js/bootstrap.min.js"></script>
+        <script src="frontend/view/js/jquery.prettyPhoto.js"></script>
+        <script src="frontend/view/js/owl.carousel.min.js"></script>
+        <script src="frontend/view/js/jquery.isotope.min.js"></script>
+        <script src="frontend/view/js/main.js"></script>
+        <script src="frontend/view/js/translate.js"></script>
+        <script src="frontend/view/js/utils.inc.js"></script>
+
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.js"></script>
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-route.js"></script>
+        <!-- <script src = "https://npmcdn.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
+        <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script> -->
+        <script src = "frontend/router.js"></script>
+        <script src = "frontend/apiconnector.js"></script>
+
+        <script src="frontend/view/js/bootstrap.min.js"></script>
+        <script src="frontend/view/js/owl.carousel.min.js"></script>
+        <script src="frontend/view/js/main.js"></script>
+        <script src="frontend/view/js/utils.inc.js"></script>
+
+        <script src="frontend/module/home/controller/controller_home.js"></script>
+        <script src="frontend/view/js/search.js"></script>
+        <script src="frontend/view/js/menu.js"></script>
+
+
+
+    </head>
+    <body>
+        <div ng-include='"frontend/view/inc/menu.html"'></div>
+        <div ng-view></div>
+        <div ng-include='"frontend/view/inc/footer.html"'></div>
+    </body>
+</html>

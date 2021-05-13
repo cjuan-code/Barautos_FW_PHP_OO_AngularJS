@@ -1,0 +1,66 @@
+<div id="main-slider" class="no-margin">
+
+    <div class="carousel slide">
+        <ol class="carousel-indicators">
+            <li data-target="#main-slider" data-slide-to="0" class="active"></li>
+            <li data-target="#main-slider" data-slide-to="1"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="item active" ng-repeat="data in slides" ng-if="$index==0" style="background-image: url(http://localhost/frontend/{{data.img}})">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="carousel-content">
+                                <h1 style="color: orange;">{{data.categoria}}</h1>
+                                <a class="btn-slide animation animated-item-3" ng-click="redir_shop(data.categoria)">Ver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="item" ng-repeat="data in slides" ng-if="$index==1" style="background-image: url(http://localhost/frontend/{{data.img}})">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="carousel-content">
+                                <h1 style="color: orange;">{{data.categoria}}</h1>
+                                <a class="btn-slide animation animated-item-3" ng-click="redir_shop(data.categoria)">Ver</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+        <a class="prev hidden-xs hidden-sm" href="#main-slider" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
+        <a class="next hidden-xs hidden-sm" href="#main-slider" data-slide="next"><i class="fa fa-chevron-right"></i></a>
+    </div>
+
+</div>
+
+<div id="categories" class="center">
+
+
+    <div class="container">
+        <div class="center fadeInDown">
+            <h2>Categorias</h2>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4 single-work" ng-repeat="data in cats">
+                <p>{{data.categoria}}</p>
+                <div class="recent-work-wrap">
+                    <img class="img-responsive" src="frontend/{{data.img}}"></img>
+                    <div class="overlay">
+                        <div class="recent-work-inner">
+                            <a id="{{data.categoria}}"><i class="fa fa-plus"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <button class="btn-primary" id="show_more" ng-click="showMore()">Cargar mas</button>
+
+</div>
