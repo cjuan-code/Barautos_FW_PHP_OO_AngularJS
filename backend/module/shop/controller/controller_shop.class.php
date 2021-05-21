@@ -1,13 +1,10 @@
 <?php 
 
 class controller_shop {
-    function list() {
-        common::loadView('lib_shop.php', VIEW_PATH_SHOP . 'shop.html');
-    }
 
-    function print_cars() {
+    function select_con() {
         $con = $_POST['con'];
-        $json = common::loadModel(MODEL_PATH_SHOP, "shop_model", "print_cars", $con);
+        $json = common::loadModel(MODEL_PATH_SHOP, "shop_model", "select_con", $con);
         echo json_encode($json);
     }
 

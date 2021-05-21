@@ -17,7 +17,7 @@ class shop_bll {
         return self::$_instance;
     }
 
-    public function print_cars_BLL($con) {
+    public function select_con_BLL($con) {
         return $this->dao->select_consulta($con);
     }
 

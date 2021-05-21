@@ -15,8 +15,8 @@ class shop_model {
         return self::$_instance;
     }
 
-    public function print_cars($con) {
-        return $this->bll->print_cars_BLL($con);
+    public function select_con($con) {
+        return $this->bll->select_con_BLL($con);
     }
 
     public function details_car($matricula) {

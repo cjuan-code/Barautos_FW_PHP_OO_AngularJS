@@ -1,3 +1,157 @@
 <div id="list_items">
-    <h2>ieee</h2>
+    <div class="center fadeInDown" ng-show="list">
+        <h2>Coches</h2>
+    </div>
+    <div class="main_filters" ng-show="list">
+        <div class="cont_filters">
+            <form name="form_filters" id="form-filters">
+                <div class="fs_filters">
+                    <select ng-model="cats_val">
+                        <option selected value="">-- Seleccione una categoria --</option>
+                        <option ng-repeat="data in categorias" value="{{data.cod}}">{{data.categoria}}</option>           
+                    </select>
+                    <select ng-model="marca_val">
+                        <option selected value="">-- Seleccione una marca --</option>
+                        <option ng-repeat="data in marcas" value="{{data.marca}}">{{data.marca}}</option>
+                    </select>
+                    <select ng-model="color_val">
+                        <option selected value="">-- Seleccione un color --</option>
+                        <option ng-repeat="data in color" value="{{data.color}}">{{data.color}}</option>
+                    </select>
+                    <select ng-model="func_val">
+                        <option selected value="">-- Seleccione el funcionamiento --</option>
+                        <option ng-repeat="data in funcionamiento" value="{{data.funcionamiento}}">{{data.funcionamiento}}</option>
+                    </select>
+                    <select ng-model="manejo_val">
+                        <option selected value="">-- Seleccione el manejo --</option>
+                        <option ng-repeat="data in manejo" value="{{data.manejo}}">{{data.manejo}}</option>
+                    </select>
+                    <select ng-model="gps_val">
+                        <option selected value="">-- Seleccione si tiene GPS --</option>
+                        <option ng-repeat="data in gps" value="{{data.gps}}">{{data.gps}}</option>
+                    </select>
+                    <select ng-model="wifi_val">
+                        <option selected value="">-- Seleccione si tiene WIFI --</option>
+                        <option ng-repeat="data in wifi" value="{{data.wifi}}">{{data.wifi}}</option>
+                    </select>
+                    <select ng-model="asientos_val">
+                        <option selected value="">-- Seleccione el numero de asientos --</option>
+                        <option ng-repeat="data in asientos" value="{{data.n_asientos}}">{{data.n_asientos}}</option>
+                    </select>
+                    <select ng-model="puertas_val">
+                        <option selected value="">-- Seleccione el numero de puertas --</option>
+                        <option ng-repeat="data in puertas" value="{{data.n_puertas}}">{{data.n_puertas}}</option>
+                    </select>
+                </div>
+                <button type="button" ng-click="filter_itms()" class="btn btn-success filter_button">Filtrar</button>
+                <button type="button" ng-click="reset_filters()" class="btn btn-danger reset_filters">Borrar filtros</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="center" id="pagination" ng-show="list">
+
+    </div>
+
+
+    <!-- <input type="text" id="search-bar" ng-model="searchBox"> -->
+
+    <div class="row" ng-show="list">
+        <div class="col-xs-12 col-sm-6 col-md-4 single-work" ng-repeat="data in items | filter:searchBox">
+            <p>{{data.marca}} {{data.modelo}} <span>{{data.precio}} €</span></p>
+            <div class="recent-work-wrap">
+                <img class="img-responsive" src="http://localhost/frontend/{{data.img}}"></img>
+                <div class="overlay">
+                    <div class="recent-work-inner">
+                        <a ng-click="redi_details(data.matricula)"><i class="fa fa-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        
+
+
+        
+    <div ng-show="list_details" ng-init="marcaRLT = details.marca">
+        <h1>{{details.marca}} {{details.modelo}}</h1>
+        <div style="align-content: left; width: 65%;">
+            <div id="main-slider" class="no-margin">
+                <ol class="carousel-indicators">
+                    <li ng-repeat="img in details_img"  ng-if="$index==0" data-target="#main-slider" data-slide-to="{{$index}}" class="active"></li>
+                    <li ng-repeat="img in details_img"  ng-if="$index!=0" data-target="#main-slider" data-slide-to="{{$index}}"></li>
+                </ol>
+                <div class="carousel slide">
+                    <div class="carousel-inner">
+                        <div ng-repeat="img in details_img" ng-if="$index==0" class="item active main-item" style="background-image: url(http://localhost/frontend/{{img.img}})"></div>
+                        <div ng-repeat="img in details_img" ng-if="$index!=0" class="item" style="background-image: url(http://localhost/frontend/{{img.img}});"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide_info_info" style="position: absolute; top: 135px; left: 900px;">
+                <h1>Breve descripcion</h1>
+                <hr/>
+                <p><strong><span style="text-align: left;">Color</span> <span style="float: right;">{{details.color}}</span></strong></p>
+                <p><strong><span style="text-align: left;">Funcionamiento</span><span style="float: right;">{{details.funcionamiento}}</span></strong></p>
+                <p><strong><span style="text-align: left;">Manejo</span><span style="float: right;">{{details.manejo}}</span></strong></p>
+                <a href="#desc"><p>Mas informacion</p></a>
+                <h2>{{details.precio}} €</h2>
+                <hr/>
+                <p id="buttons" style="float: right;"></p>
+            </div>
+        </div>
+        
+        <h1>Descripcion</h1>
+        <hr/>
+        <h3><strong>Marca: </strong>{{details.marca}}</h3>
+        <h3><strong>Modelo: </strong>{{details.modelo}}</h3>
+        <h3><strong>Color: </strong>{{details.color}}</h3>
+        <h3><strong>Capacidad del maletero: </strong>{{details.cap_maletero}} L</h3>
+        <h3><strong>Funcionamiento: </strong>{{details.funcionamiento}}</h3>
+        <h3><strong>Manejo: </strong>{{details.manejo}}</h3>
+        <h3><strong>GPS: </strong>{{details.gps}}</h3>
+        <h3><strong>WIFI: </strong>{{details.wifi}}</h3>
+        <h3><strong>KM: </strong>{{details.km}}</h3>
+        <h3><strong>Numero de asientos: </strong>{{details.n_asientos}}</h3>
+        <h3><strong>Numero de puertas: </strong>{{details.n_puertas}}</h3>
+        <br/>
+        <h1>Libros relacionados</h1>
+        <hr/>
+        <div>
+            <div class="col-xs-12 col-sm-6 col-md-4 single-work" ng-if="$index<3" ng-repeat="data in related">
+                <p>{{data.volumeInfo.title}}</p>
+                <div class="recent-work-wrap">
+                    <img class="img-responsive" style="width: 30%; height: 30%;" src="{{data.volumeInfo.imageLinks.thumbnail}}"></img>
+                    <button class="btn-primary" ng-click="redir_related(data.saleInfo.buyLink)">Comprar</button>
+                </div>
+            </div>
+        </div>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+        <!-- // API GOOGLE BOOKS
+            $('<br/>').appendTo('#list_items');
+            $('<h1>Libros relacionados</h1>').appendTo('#list_items');
+            $('<hr/>').appendTo('#list_items');
+            $('<div></div>').attr('class', 'container_api').appendTo('#list_items');
+
+            ajaxPromise("https://www.googleapis.com/books/v1/volumes?q="+data_details.marca, 'GET', 'JSON')
+
+            .then(function(data_api) {
+            
+                cont = 0;
+
+                for (i = 0; i < 3; i++) {
+
+                    $('<div></div>').attr('class', 'col-xs-12 col-sm-6 col-md-4 single-work row_'+cont).appendTo(".container_api");
+                    $('<p>'+ data_api.items[i].volumeInfo.title+'</p>').appendTo('.row_'+cont);
+                    $('<div></div>').attr('class', 'recent-work-wrap div_img ww_'+cont).appendTo('.row_'+cont);
+                    $('<img></img>').attr('class', 'img-responsive').attr('style', 'width: 30%; height: 30%;').attr('src', data_api.items[i].volumeInfo.imageLinks.thumbnail).appendTo('.ww_'+cont);
+                    $('<button>Comprar</button>').attr('class', 'btn-primary redir_details').attr('onclick','window.location.href="'+data_api.items[i].saleInfo.buyLink+'";').appendTo('.ww_'+cont);
+
+                    cont++;
+                }
+                $('<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>').appendTo('#list_items');
+            }) -->
+    </div>
 </div>
