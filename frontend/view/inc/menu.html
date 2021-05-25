@@ -28,6 +28,26 @@
                     <li>
                         <label><input type="text" id="search-bar" ng-model="searchBox"><span class="search-icon"></span></label>
                     </li>
+                    <li class="dropdown white-text" ng-show="profile">
+                        <a>
+                            <i class="fa fa-user"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>   
+                                <a>
+                                    <span>
+                                        <img class="img-responsive dropdown-toggle" data-toggle="dropdown" src="{{profileData.avatar}}">{{profileData.username}}</img>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a ng-click="logOut()">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-show="login_red">
+                        <a href="#/login">Login</a>
+                    </li>
                 </ul>
             </div>
         </div>

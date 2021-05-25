@@ -1,4 +1,4 @@
-var barautos = angular.module('barautos', ['ngRoute']);
+var barautos = angular.module('barautos', ['ngRoute', 'toastr']);
 
 barautos.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 
@@ -43,10 +43,13 @@ barautos.config(['$routeProvider', '$locationProvider', function($routeProvider,
                         return services.get('shop', 'puertas');
                     }
                 }
+            }).when("/login", {
+                templateUrl: "frontend/module/login/view/view_login.html",
+                controller: "controller_login",
             });
 }]);
 
-barautos.run(function($rootScope, $location, services) {
+barautos.run(function($rootScope, $location, services, logInServices, localStorageServices) {
 
     $rootScope.redir_shop_all = function() {
         localStorage.setItem('categoria', 'all_items');
@@ -67,6 +70,12 @@ barautos.run(function($rootScope, $location, services) {
         });
 
     }
+
+    logInServices.loadMenu();
+
+    $rootScope.logOut = function() {
+        localStorageServices.closeSession();
+    };
 
 
 });

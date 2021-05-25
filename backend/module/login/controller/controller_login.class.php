@@ -126,7 +126,8 @@
                 $activated = $resultado['activate'];
 
                 if ($activated==='0') {
-                    echo json_encode("user not activated");
+                    // echo ("user not activated");
+                    echo 0;
                 } else {
                     $pass_db = $resultado['pass'];
                 
@@ -134,13 +135,15 @@
     
                     if ($verify_pass) {
                         $token = jwt_func::encode_token($username);
-                        echo json_encode($token);
+                        echo $token;
                     } else {
-                        echo json_encode("pass dont match");
+                        // echo ("pass dont match");
+                        echo 1;
                     }
                 }
             } else {
-                echo json_encode("user not exists");
+                // echo ("user not exists");
+                echo 2;
             }
 
         }
@@ -153,7 +156,6 @@
             $username = substr($token, 86, -12);
             
             $res = common::loadModel(MODEL_PATH_LOGIN, "login_model", "search_user_cart", $username);
-            // $daologin = new DAOlogin();
 
             echo json_encode($res);
         }

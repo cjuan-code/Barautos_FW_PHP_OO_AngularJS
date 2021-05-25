@@ -1,5 +1,7 @@
-barautos.controller('controller_shop', function($scope, $http, services, categorias, marcas, color, funcionamiento, manejo, gps, wifi, asientos, puertas) {
+barautos.controller('controller_shop', function($scope, $http, services, localStorageServices, categorias, marcas, color, funcionamiento, manejo, gps, wifi, asientos, puertas) {
     
+    localStorageServices.setPage('#/shop');
+
     $scope.list = true;
     $scope.list_details = false;
     var categoria = localStorage.getItem('categoria');
@@ -169,7 +171,7 @@ barautos.controller('controller_shop', function($scope, $http, services, categor
     };
 
     $scope.redir_related = function(url) {
-        console.log(url);
+        window.location.href(url);
     }
 
 });

@@ -1,4 +1,6 @@
-barautos.controller('controller_home', function($scope, categories) {
+barautos.controller('controller_home', function($scope, $location, categories, localStorageServices) {
+
+    localStorageServices.setPage('/home');
 
     cont=3;
 
@@ -17,7 +19,7 @@ barautos.controller('controller_home', function($scope, categories) {
 
     $scope.redir_shop = function(categ) {
         localStorage.setItem('categoria', categ);
-        window.location.href="#/shop";
+        $location.path('/shop');
     };
 
 });

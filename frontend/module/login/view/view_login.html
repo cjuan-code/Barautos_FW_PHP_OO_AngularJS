@@ -2,11 +2,11 @@
 	<div class="d-flex justify-content-center h-100">
 		<div class="card">
 			<div class="card-header">
-				<h3 id="titulo">Login</h3>
+				<h3 id="titulo">{{titulo}}</h3>
 			</div>
 			<div class="card-body">
 
-			<div id="login_complete">
+			<div id="login_complete" ng-show="loginForm">
 				<div class="d-flex justify-content-end social_icon">
 					<span id="gh_sl"><i class="fab fa-github"></i></span>
 					<span id="g_sl"><i class="fab fa-google"></i></span>
@@ -16,20 +16,20 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="Username" id="username_login" name="username_login">
+						<input type="text" class="form-control" placeholder="Username" ng-model="username_login" id="username_login" name="username_login">
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" class="form-control" placeholder="Password" id="pass_login" name="pass_login">
+						<input type="password" class="form-control" placeholder="Password" ng-model="pass_login" id="pass_login" name="pass_login">
 					</div>
 					<!-- <div class="row align-items-center remember">
 						<input type="checkbox">Remember Me
 					</div> -->
 					<div class="form-group">
 						<!-- <input type="submit" value="Login" class="btn float-right login_btn"> -->
-						<button type="button" class="btn float-right login_btn" id="login_button" onclick="login_user()">Login</button>
+						<button type="button" class="btn float-right login_btn" id="login_button" ng-click="Login()">Login</button>
 					</div>
 					<div class="div_class_pass">
 						<span id="span_pass_log" class="span_pass_log"></span>
@@ -38,21 +38,21 @@
 
 				<div class="card-footer">
 					<div class="d-flex justify-content-center links">
-						¿No tienes cuenta?<a id="login_link">Registrate ya.</a>
+						¿No tienes cuenta?<a id="login_link" ng-click="changeRegister()">Registrate ya.</a>
 					</div>
 					<div class="d-flex justify-content-center">
-						<a id="recover">¿Has olvidado tu contraseña?</a>
+						<a ng-click="changeRecoverMail()" id="recover">¿Has olvidado tu contraseña?</a>
 					</div>
 				</div>
 			</div>
 			
-			<div id="register_complete" style="display: none;">
+			<div id="register_complete" ng-show="registerForm">
 				<form id="register_form" name="register_form">
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="Username" id="username_reg" name="username_reg">
+						<input type="text" class="form-control" placeholder="Username" ng-keyup="val_user()" ng-model="username_reg" id="username_reg" name="username_reg">
 					</div>
 					
 					<div class="input-group form-group">
@@ -60,23 +60,23 @@
 							<span class="input-group-text"><i class="fas fa-envelope"></i></span>
 					
 						</div>
-						<input type="email" class="form-control" placeholder="Correo Electronico" id="email" name="email">
+						<input type="email" class="form-control" placeholder="Correo Electronico" ng-keyup="val_mail()" ng-model="email" ng-pattern="/\S+@\S+\.\S+/" id="email" name="email">
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" class="form-control" placeholder="Password" id="pass" name="pass">
+						<input type="password" class="form-control" placeholder="Password" ng-keyup="val_pass()" ng-model="pass" ng-pattern="/^([a-zA-Z0-9_-]){6}$/" id="pass" name="pass">
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" class="form-control" placeholder="Confirm password" id="cpass" name="cpass">
+						<input type="password" class="form-control" placeholder="Confirm password" ng-keyup="val_pass()" ng-model="cpass" ng-pattern="/^([a-zA-Z0-9_-]){6}$/" id="cpass" name="cpass">
 					</div>
 					<div class="form-group">
 						<!-- <input type="button" value="Register" class="btn float-right login_btn" id="register_button"> -->
-						<button type="button" class="btn float-right login_btn" id="register_button" onclick="register_user()">Register</button>
+						<button type="button" class="btn float-right login_btn" id="register_button" ng-disabled="regButton" ng-click="Register()">Register</button>
 					</div>
 					<div class="div_class_pass">
 						<span id="span_pass" class="span_pass"></span>
@@ -85,14 +85,14 @@
 
 				<div class="card-footer">
 					<div class="d-flex justify-content-center links">
-						¿Ya tienes una cuenta?<a id="register_link">Entra ya.</a>
+						¿Ya tienes una cuenta?<a ng-click="changeLogin()" id="register_link">Entra ya.</a>
 					</div>
 				</div>
 			</div>
 
 
 
-			<div id="recover_div" style="display: none;">
+			<div id="recover_div" ng-show="recoverMailForm">
 				<form id="recover_form" name="recover_form">
 					
 					<div class="input-group form-group">
@@ -105,14 +105,14 @@
 
 					<div class="form-group">
 						<!-- <input type="button" value="Register" class="btn float-right login_btn" id="register_button"> -->
-						<button type="button" class="btn float-right login_btn" id="recover_button" onclick="recover_password_email()">Recover</button>
+						<button type="button" class="btn float-right login_btn" id="recover_button" ng-disabled="recButton" onclick="recover_password_email()">Recover</button>
 					</div>
 					<div class="div_class_pass">
 						<span id="span_pass_email" class="span_pass_email"></span>
 					</div>
 					<div class="card-footer">
 						<div class="d-flex justify-content-center links">
-							¿Ya tienes una cuenta?<a id="register_link">Entra ya.</a>
+							¿Ya tienes una cuenta?<a ng-click="changeLogin()" id="register_link">Entra ya.</a>
 						</div>
 					</div>
 				</form>
@@ -121,7 +121,7 @@
 
 
 
-			<div id="recover_password" style="display: none;">
+			<div id="recover_password" ng-show="recoverPasswdForm">
 
 				<form id="recover_password_form" name="recover_password_form">
 					<div class="input-group form-group">
@@ -137,7 +137,7 @@
 						<input type="password" class="form-control" placeholder="Confirm password" id="cpass_recover" name="cpass_recover">
 					</div>
 					<div class="form-group">
-						<button type="button" class="btn float-right login_btn" id="recover_password_button" onclick="recover_password()">Change</button>
+						<button type="button" class="btn float-right login_btn" id="recover_password_button" ng-disabled="recPassButton" onclick="recover_password()">Change</button>
 					</div>
 					<div class="div_class_pass">
 						<span id="span_pass_recover" class="span_pass_recover"></span>
@@ -148,3 +148,4 @@
 		</div>
 	</div>
 </div>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>

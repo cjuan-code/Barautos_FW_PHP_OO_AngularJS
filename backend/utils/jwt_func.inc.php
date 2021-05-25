@@ -27,12 +27,18 @@ class jwt_func {
     }
 
     public static function decode_token($token) {
+
+        // return $token;
         $secret = 'maytheforcebewithyou';
+
+        // return $secret;
     
         $JWT = new JWT;
         $json = $JWT->decode($token, $secret);
 
         return $json;
+
+        // return $json;
     }
 }
 
