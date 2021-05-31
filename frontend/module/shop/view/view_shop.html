@@ -58,7 +58,7 @@
 
     <div class="row" ng-show="list">
         <div class="col-xs-12 col-sm-6 col-md-4 single-work" ng-repeat="data in items | filter:searchBox">
-            <p>{{data.marca}} {{data.modelo}} <span>{{data.precio}} €</span></p>
+            <p>{{data.marca}} {{data.modelo}} <span>{{data.precio}} €</span> <span class="heart"><i id="{{data.matricula}}" ng-click="clk_like()" ng-class="{'fa-heart': ((likes.indexOf(data.matricula))>-1), 'fa-heart-o': ((likes.indexOf(data.matricula))==-1)}" class="fa" aria-hidden="true" ></i></span><span class="cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span></p>
             <div class="recent-work-wrap">
                 <img class="img-responsive" src="http://localhost/frontend/{{data.img}}"></img>
                 <div class="overlay">
@@ -128,30 +128,5 @@
             </div>
         </div>
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-
-        <!-- // API GOOGLE BOOKS
-            $('<br/>').appendTo('#list_items');
-            $('<h1>Libros relacionados</h1>').appendTo('#list_items');
-            $('<hr/>').appendTo('#list_items');
-            $('<div></div>').attr('class', 'container_api').appendTo('#list_items');
-
-            ajaxPromise("https://www.googleapis.com/books/v1/volumes?q="+data_details.marca, 'GET', 'JSON')
-
-            .then(function(data_api) {
-            
-                cont = 0;
-
-                for (i = 0; i < 3; i++) {
-
-                    $('<div></div>').attr('class', 'col-xs-12 col-sm-6 col-md-4 single-work row_'+cont).appendTo(".container_api");
-                    $('<p>'+ data_api.items[i].volumeInfo.title+'</p>').appendTo('.row_'+cont);
-                    $('<div></div>').attr('class', 'recent-work-wrap div_img ww_'+cont).appendTo('.row_'+cont);
-                    $('<img></img>').attr('class', 'img-responsive').attr('style', 'width: 30%; height: 30%;').attr('src', data_api.items[i].volumeInfo.imageLinks.thumbnail).appendTo('.ww_'+cont);
-                    $('<button>Comprar</button>').attr('class', 'btn-primary redir_details').attr('onclick','window.location.href="'+data_api.items[i].saleInfo.buyLink+'";').appendTo('.ww_'+cont);
-
-                    cont++;
-                }
-                $('<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>').appendTo('#list_items');
-            }) -->
     </div>
 </div>

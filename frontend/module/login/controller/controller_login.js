@@ -1,4 +1,4 @@
-barautos.controller('controller_login', function($scope, $rootScope, toastr, services, localStorageServices) {
+barautos.controller('controller_login', function($scope, $location, $rootScope, toastr, services, localStorageServices) {
 
     $scope.loginForm = true;
     $scope.registerForm = false;
@@ -135,7 +135,7 @@ barautos.controller('controller_login', function($scope, $rootScope, toastr, ser
                 $rootScope.login_red = false;
                 $rootScope.profile = true;
 
-                window.location.href = last_page;
+                $location.path(last_page);
             }
         });
     };

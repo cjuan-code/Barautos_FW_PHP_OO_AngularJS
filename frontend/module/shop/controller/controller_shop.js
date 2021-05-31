@@ -1,6 +1,6 @@
 barautos.controller('controller_shop', function($scope, $http, services, localStorageServices, categorias, marcas, color, funcionamiento, manejo, gps, wifi, asientos, puertas) {
     
-    localStorageServices.setPage('#/shop');
+    localStorageServices.setPage('/shop');
 
     $scope.list = true;
     $scope.list_details = false;
@@ -38,8 +38,6 @@ barautos.controller('controller_shop', function($scope, $http, services, localSt
             $scope.items = response;
         });
     }
-
-    // console.log($scope.items);
 
     $scope.categorias = categorias;
     $scope.marcas = marcas;
@@ -173,5 +171,45 @@ barautos.controller('controller_shop', function($scope, $http, services, localSt
     $scope.redir_related = function(url) {
         window.location.href(url);
     }
+
+    var user = localStorage.getItem('user');
+
+    if (user) {
+        services.post('shop', 'liked', {user: user})
+        .then(function(response) {
+            
+            var array_liked = [];
+                        
+            for (row in response) {
+                array_liked.push(response[row].matricula);
+            }
+
+            $scope.likes = array_liked;
+        });
+    } else {
+        $scope.likes = [];
+    }
+
+    $scope.clk_like = function() {
+        
+        // var elem = angular.element('#'+this.data.matricula);
+
+        var user = localStorage.getItem('user');
+
+        if (((this.$parent.likes.indexOf(this.data.matricula))>-1)) {
+
+            var index = this.$parent.likes.indexOf(this.data.matricula);
+            this.$parent.likes.splice(index, 1);
+            services.post('shop', 'favs', {mat : this.data.matricula, user: user, oper: 'unlike'});
+
+        } else {
+
+            this.$parent.likes.push(this.data.matricula);
+            services.post('shop', 'favs', {mat : this.data.matricula, user: user, oper: 'like'});
+            
+        }
+
+
+    };
 
 });
