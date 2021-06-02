@@ -163,7 +163,7 @@
         function time() {
             $tk = $_POST['tk'];
             $token = jwt_func::decode_token($tk);
-            echo json_encode($token);
+            echo $token;
         }
 
         function activate() {
