@@ -98,7 +98,9 @@
                 <a href="#desc"><p>Mas informacion</p></a>
                 <h2>{{details.precio}} €</h2>
                 <hr/>
-                <p id="buttons" style="float: right;"></p>
+                <p id="buttons" style="float: right;">
+                    <span class="heart"><i id="{{details.matricula}}" ng-click="clk_like()" ng-class="{'fa-heart': ((likes.indexOf(details.matricula))>-1), 'fa-heart-o': ((likes.indexOf(details.matricula))==-1)}" class="fa" aria-hidden="true" ></i></span><span class="cart"><i ng-click="clk_cart()" class="fa fa-shopping-cart" aria-hidden="true"></i></span>
+                </p>
             </div>
         </div>
         
