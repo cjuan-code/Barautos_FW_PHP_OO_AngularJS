@@ -12,7 +12,7 @@ barautos.controller('controller_home', function($scope, $location, categories, l
         $scope.cats = categories.slice(0, cont);
 
         if (cont>$scope.cats.length) {
-            document.querySelector('#show_more').remove();
+            angular.element('#show_more').remove();
         }
 
     };

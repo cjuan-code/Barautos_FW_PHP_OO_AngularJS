@@ -45,7 +45,10 @@ barautos.config(['$routeProvider', '$locationProvider', function($routeProvider,
                 }
             }).when("/login", {
                 templateUrl: "frontend/module/login/view/view_login.html",
-                controller: "controller_login",
+                controller: "controller_login"
+            }).when("/cart", {
+                templateUrl: "frontend/module/cart/view/view_cart.html",
+                controller: "controller_cart"
             });
 }]);
 
@@ -74,6 +77,25 @@ barautos.run(function($rootScope, $location, services, logInServices, localStora
     logInServices.loadMenu();
 
     $rootScope.logOut = function() {
+        var cart = JSON.parse(localStorage.getItem('cart'));
+        var user = localStorage.getItem('user');
+
+        if (cart) {
+            for (i=0; i <= ((cart.length)-1); i++) {
+                if (i==0) {
+                    var cart_mats = ''+ cart[i] +'';
+                } else {
+                    cart_mats += '/'+ cart[i] +'';
+                }
+            }
+
+            services.post('cart', 'update_cart', {mats: cart_mats, user: user});
+
+        } else {
+            cart_mats = null;
+            services.post('cart', 'update_cart', {mats: cart_mats, user: user});
+        }
+
         localStorageServices.closeSession();
     };
 

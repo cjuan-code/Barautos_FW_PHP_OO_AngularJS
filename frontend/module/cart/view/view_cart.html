@@ -1,0 +1,49 @@
+<div id="main">
+    <h1>Shopping Cart</h1>
+    <br/><br/>
+    <div class="shopping-cart">
+        <div class="column-labels">
+            <label class="product-image">Image</label>
+            <label class="product-details">Product</label>
+            <label class="product-price">Price</label>
+            <label class="product-quantity">Quantity</label>
+            <label class="product-removal">Remove</label>
+            <label class="product-line-price">Total</label>
+        </div>
+
+        <div class="product" ng-repeat="data in cart">
+            <div id="{{data.matricula}}">
+                <div class="product-image">
+                    <img src="http://localhost/frontend/{{data.img}}"></img>
+                </div>
+                <div class="product-details">
+                    <div class="product-title">
+                        {{data.marca}} {{data.modelo}}
+                    </div>
+                </div>
+                <div class="product-price">
+                    {{data.precio | number:2}}
+                </div>
+                <div class="product-quantity">
+                    <input ng-model="qty" ng-init="qty=1" ng-change="upd_qty()" type="number" min="1" max="{{data.stock}}" class="inp_qty"></input>
+                </div>
+                <div class="product-removal">
+                    <button class="remove-product" ng-click="remove_item()">Remove</button>
+                </div>
+                <div class="product-line-price">
+                    {{data.precio_row | number:2}}
+                </div>
+            </div>
+        </div>
+
+        <div class="totals">
+            <div class="totals-item">
+                <label>Total</label>
+                <div class="totals-value" id="cart-subtotal">
+                    {{total_price | number:2}}
+                </div>
+            </div>
+        </div>
+        <button class="checkout" ng-click="checkout()">Checkout</button>
+    </div>
+</div>

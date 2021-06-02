@@ -58,7 +58,7 @@
 
     <div class="row" ng-show="list">
         <div class="col-xs-12 col-sm-6 col-md-4 single-work" ng-repeat="data in items | filter:searchBox">
-            <p>{{data.marca}} {{data.modelo}} <span>{{data.precio}} €</span> <span class="heart"><i id="{{data.matricula}}" ng-click="clk_like()" ng-class="{'fa-heart': ((likes.indexOf(data.matricula))>-1), 'fa-heart-o': ((likes.indexOf(data.matricula))==-1)}" class="fa" aria-hidden="true" ></i></span><span class="cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span></p>
+            <p>{{data.marca}} {{data.modelo}} <span>{{data.precio}} €</span> <span class="heart"><i id="{{data.matricula}}" ng-click="clk_like()" ng-class="{'fa-heart': ((likes.indexOf(data.matricula))>-1), 'fa-heart-o': ((likes.indexOf(data.matricula))==-1)}" class="fa" aria-hidden="true" ></i></span><span class="cart"><i ng-click="clk_cart()" class="fa fa-shopping-cart" aria-hidden="true"></i></span></p>
             <div class="recent-work-wrap">
                 <img class="img-responsive" src="http://localhost/frontend/{{data.img}}"></img>
                 <div class="overlay">

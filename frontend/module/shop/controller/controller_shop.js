@@ -1,4 +1,4 @@
-barautos.controller('controller_shop', function($scope, $http, services, localStorageServices, categorias, marcas, color, funcionamiento, manejo, gps, wifi, asientos, puertas) {
+barautos.controller('controller_shop', function($scope, $rootScope, $location, $http, services, localStorageServices, categorias, marcas, color, funcionamiento, manejo, gps, wifi, asientos, puertas) {
     
     localStorageServices.setPage('/shop');
 
@@ -194,22 +194,63 @@ barautos.controller('controller_shop', function($scope, $http, services, localSt
         
         // var elem = angular.element('#'+this.data.matricula);
 
-        var user = localStorage.getItem('user');
+        var tk = localStorage.getItem('token');
 
-        if (((this.$parent.likes.indexOf(this.data.matricula))>-1)) {
+        if (tk) {
 
-            var index = this.$parent.likes.indexOf(this.data.matricula);
-            this.$parent.likes.splice(index, 1);
-            services.post('shop', 'favs', {mat : this.data.matricula, user: user, oper: 'unlike'});
+            var user = localStorage.getItem('user');
+
+            if (((this.$parent.likes.indexOf(this.data.matricula))>-1)) {
+
+                var index = this.$parent.likes.indexOf(this.data.matricula);
+                this.$parent.likes.splice(index, 1);
+                services.post('shop', 'favs', {mat : this.data.matricula, user: user, oper: 'unlike'});
+
+            } else {
+
+                this.$parent.likes.push(this.data.matricula);
+                services.post('shop', 'favs', {mat : this.data.matricula, user: user, oper: 'like'});
+                
+            }
 
         } else {
-
-            this.$parent.likes.push(this.data.matricula);
-            services.post('shop', 'favs', {mat : this.data.matricula, user: user, oper: 'like'});
-            
+            $location.path('/login');
         }
 
-
     };
+
+    $scope.clk_cart = function() {
+        var newMat = this.data.matricula;
+
+        // $rootScope.cart_mats = newMat;
+        var cart = localStorage.getItem('cart');
+
+        if (cart) {
+
+            var parsed = JSON.parse(cart);
+            var array = [];
+
+            if ((Object.keys(parsed).length)==7) {
+                array.push(parsed);
+                array.push(newMat);
+            } else {
+                for (row in parsed) {
+                    if (parsed[row]!=newMat) {
+                        array.push(parsed[row]);
+                    }
+                }
+                array.push(newMat);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(array));
+        } else {
+
+            var array = [newMat];
+            localStorage.setItem('cart', JSON.stringify(array));
+        }
+        // $scope.cart = newMat;
+
+        // console.log(this.$parent.$parent);
+    }
 
 });
