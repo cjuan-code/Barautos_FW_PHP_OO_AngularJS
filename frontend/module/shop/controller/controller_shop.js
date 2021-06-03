@@ -194,55 +194,34 @@ barautos.controller('controller_shop', function($scope, $rootScope, $location, $
 
         // var elem = angular.element('#'+this.data.matricula);
         var tk = localStorage.getItem('token');
+        var user = localStorage.getItem('user');
 
         if (this.$$ChildScope) {
-
             var data = this.$$ChildScope.prototype.details;
-
-            if (tk) {
-
-                var user = localStorage.getItem('user');
-
-                if (((this.likes.indexOf(data.matricula))>-1)) {
-
-                    var index = this.likes.indexOf(data.matricula);
-                    this.likes.splice(index, 1);
-                    services.post('shop', 'favs', {mat : data.matricula, user: user, oper: 'unlike'});
-
-                } else {
-
-                    this.likes.push(data.matricula);
-                    services.post('shop', 'favs', {mat : data.matricula, user: user, oper: 'like'});
-                    
-                }
-
-            } else {
-                $location.path('/login');
-            }
+            var lk = this.likes;
         } else {
-
-            if (tk) {
-
-                var user = localStorage.getItem('user');
-
-                if (((this.$parent.likes.indexOf(this.data.matricula))>-1)) {
-
-                    var index = this.$parent.likes.indexOf(this.data.matricula);
-                    this.$parent.likes.splice(index, 1);
-                    services.post('shop', 'favs', {mat : this.data.matricula, user: user, oper: 'unlike'});
-
-                } else {
-
-                    this.$parent.likes.push(this.data.matricula);
-                    services.post('shop', 'favs', {mat : this.data.matricula, user: user, oper: 'like'});
-                    
-                }
-
-            } else {
-                $location.path('/login');
-            }
+            var data = this.data
+            var lk = this.$parent.likes;
         }
         
+        if (tk) {
+
+            if (((lk.indexOf(data.matricula))>-1)) {
+
+                var index = lk.indexOf(data.matricula);
+                this.likes.splice(index, 1);
+                services.post('shop', 'favs', {mat : data.matricula, user: user, oper: 'unlike'});
+
+            } else {
+
+                this.likes.push(data.matricula);
+                services.post('shop', 'favs', {mat : data.matricula, user: user, oper: 'like'});
+                
+            }
+
+        } else {
+            $location.path('/login');
+        }
 
     };
 
@@ -251,61 +230,34 @@ barautos.controller('controller_shop', function($scope, $rootScope, $location, $
         var cart = localStorage.getItem('cart');
 
         if (this.$$ChildScope) {
-
-            var data = this.$$ChildScope.prototype.details;
-            var newMat = data.matricula;
-
-            if (cart) {
-
-                var parsed = JSON.parse(cart);
-                var array = [];
-
-                if ((Object.keys(parsed).length)==7) {
-                    array.push(parsed);
-                    array.push(newMat);
-                } else {
-                    for (row in parsed) {
-                        if (parsed[row]!=newMat) {
-                            array.push(parsed[row]);
-                        }
-                    }
-                    array.push(newMat);
-                }
-
-                localStorage.setItem('cart', JSON.stringify(array));
-            } else {
-
-                var array = [newMat];
-                localStorage.setItem('cart', JSON.stringify(array));
-            }
-
+            var newMat = this.$$ChildScope.prototype.details.matricula;
         } else {
             var newMat = this.data.matricula;
-
-            if (cart) {
-
-                var parsed = JSON.parse(cart);
-                var array = [];
-
-                if ((Object.keys(parsed).length)==7) {
-                    array.push(parsed);
-                    array.push(newMat);
-                } else {
-                    for (row in parsed) {
-                        if (parsed[row]!=newMat) {
-                            array.push(parsed[row]);
-                        }
-                    }
-                    array.push(newMat);
-                }
-
-                localStorage.setItem('cart', JSON.stringify(array));
-            } else {
-
-                var array = [newMat];
-                localStorage.setItem('cart', JSON.stringify(array));
-            }
         }
+
+        if (cart) {
+
+            var parsed = JSON.parse(cart);
+            var array = [];
+
+            if ((Object.keys(parsed).length)==7) {
+                array.push(parsed);
+                array.push(newMat);
+            } else {
+                for (row in parsed) {
+                    if (parsed[row]!=newMat) {
+                        array.push(parsed[row]);
+                    }
+                }
+                array.push(newMat);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(array));
+        } else {
+            var array = [newMat];
+            localStorage.setItem('cart', JSON.stringify(array));
+        }
+
     }
 
 });
