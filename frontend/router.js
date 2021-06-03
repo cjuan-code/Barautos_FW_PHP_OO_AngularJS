@@ -46,6 +46,25 @@ barautos.config(['$routeProvider', '$locationProvider', function($routeProvider,
             }).when("/login", {
                 templateUrl: "frontend/module/login/view/view_login.html",
                 controller: "controller_login"
+            }).when('/login/activate/:tk', {
+                resolve: {
+                    activateUser: function($route, $location, services, toastr) {
+
+                        services.post('login', 'activate', {tk: $route.current.params.tk})
+                        .then(function(response) {
+
+                            if (response==1) {
+                                toastr.success('Your user has been activated');
+                                $location.path('/login');
+                            } else {
+                                toastr.error('User not activated');
+                            }
+                        })
+                    }
+                }
+            }).when('/login/recover/:tk', {
+                templateUrl: "frontend/module/login/view/view_login.html",
+                controller: "controller_login"
             }).when("/cart", {
                 templateUrl: "frontend/module/cart/view/view_cart.html",
                 controller: "controller_cart"

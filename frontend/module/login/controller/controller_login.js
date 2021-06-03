@@ -1,15 +1,32 @@
-barautos.controller('controller_login', function($scope, $location, $rootScope, toastr, services, logInServices, localStorageServices) {
+barautos.controller('controller_login', function($scope, $route, $location, $rootScope, toastr, services, logInServices, localStorageServices) {
 
-    $scope.loginForm = true;
-    $scope.registerForm = false;
-    $scope.recoverMailForm = false;
-    $scope.recoverPasswdForm = false;
-    $scope.titulo = "Login";
+    // console.log($location.path());
+
+    var opt = $location.path().split('/');
+
+    // console.log(opt[2]);
+
+    if (opt[2]=='recover') {
+        $scope.titulo = "Recover password";
+        $scope.card_style = {height: 230};
+        $scope.cont_pass = 1;
+        $scope.loginForm = false;
+        $scope.registerForm = false;
+        $scope.recoverMailForm = false;
+        $scope.recoverPasswdForm = true;
+    } else {
+        $scope.titulo = "Login";
+        $scope.cont_mail = 1;
+        $scope.cont_pass = 1;
+        $scope.loginForm = true;
+        $scope.registerForm = false;
+        $scope.recoverMailForm = false;
+        $scope.recoverPasswdForm = false;
+    }
+
     $scope.regButton = true;
     $scope.recButton = true;
     $scope.recPassButton = true;
-    $scope.cont_mail = 1;
-    $scope.cont_pass = 1;
 
     $scope.changeRegister = function() {
         $scope.loginForm = false;
@@ -17,7 +34,7 @@ barautos.controller('controller_login', function($scope, $location, $rootScope, 
         $scope.recoverMailForm = false;
         $scope.recoverPasswdForm = false;
         $scope.titulo = "Register";
-    };
+    }
 
     $scope.changeLogin = function() {
         $scope.loginForm = true;
@@ -25,7 +42,7 @@ barautos.controller('controller_login', function($scope, $location, $rootScope, 
         $scope.recoverMailForm = false;
         $scope.recoverPasswdForm = false;
         $scope.titulo = "Login";
-    };
+    }
 
     $scope.changeRecoverMail = function() {
         $scope.loginForm = false;
@@ -33,7 +50,7 @@ barautos.controller('controller_login', function($scope, $location, $rootScope, 
         $scope.recoverMailForm = true;
         $scope.recoverPasswdForm = false;
         $scope.titulo = "Recover password";
-    };
+    }
 
 
     $scope.val_user = function() {
@@ -49,13 +66,13 @@ barautos.controller('controller_login', function($scope, $location, $rootScope, 
         } else {
             $scope.regButton = true;
         }
-    };
+    }
 
     $scope.val_mail = function() {
 
         if (!$scope.email) {
 
-            if (($scope.cont_mail%3)==0) {
+            if (($scope.cont_mail%6)==0) {
                 toastr.error("Estructura email: example@example.example");
             }
 
@@ -70,7 +87,7 @@ barautos.controller('controller_login', function($scope, $location, $rootScope, 
         } else {
             $scope.regButton = true;
         }
-    };
+    }
 
     $scope.val_pass = function() {
         if ($scope.pass) {
@@ -100,20 +117,62 @@ barautos.controller('controller_login', function($scope, $location, $rootScope, 
             $scope.regButton = true;
         }
 
-    };
+    }
+
+    $scope.val_mail_rec = function() {
+
+        if (!$scope.recover_mail) {
+            if (($scope.cont_mail%6)==0) {
+                toastr.error("Estructura email: example@example.example");
+            }
+
+            $scope.cont_mail++;
+            $scope.recButton = true;
+        } else {
+            $scope.recButton = false;
+        }
+    }
+
+    $scope.val_pass_rec = function() {
+
+        if ($scope.pass_recover) {
+            if (!($scope.pass_recover==$scope.cpass_recover)) {
+                
+                if (($scope.cont_pass%3)==0) {
+                    toastr.error("La password no coincide");
+                }
+
+                $scope.cont_pass++;
+                $scope.pass_valid = false;
+            } else {
+                $scope.pass_valid = true;
+            }
+        } else {
+            if (($scope.cont_pass%3)==0) {
+                toastr.error("La password tiene que ser de 6 caracteres");
+            }
+
+            $scope.cont_pass++;
+            $scope.pass_valid = false;
+        }
+
+        if ($scope.pass_valid) {
+            $scope.recPassButton = false;
+        } else {
+            $scope.recPassButton = true;
+        }
+    }
 
     $scope.Register = function() {
         var usr = $scope.username_reg;
         var email = $scope.email;
         var pass = $scope.pass;
 
-        console.log(usr + " " + email + " " + pass);
-
-        // services.post('login', 'register', {name: usr, mail: email, password: pass})
-        // .then(function(response) {
-        //     console.log(response);
-        // });
-    };
+        services.post('login', 'register', {name: usr, mail: email, password: pass})
+        .then(function(response) {
+            console.log(response);
+        });
+    }
 
     $scope.Login = function() {
         var usr = $scope.username_login;
@@ -140,6 +199,37 @@ barautos.controller('controller_login', function($scope, $location, $rootScope, 
                 $location.path(last_page);
             }
         });
-    };
+    }
+
+    $scope.recover_password_email = function() {
+        var email = $scope.recover_mail;
+
+        services.post('login', 'send_mail_recover', {email: email})
+        .then(function(response) {
+            if (response==1) {
+                toastr.success('Revisa tu correo, para recuperar tu contraseña');
+            } else {
+                toastr.error('Algo ha fallado');
+            }
+        });
+    }
+
+    $scope.recover_password = function() {
+        var pass = $scope.pass_recover;
+        var token = opt[3];
+        // console.log(opt);
+
+        services.post('login', 'recover_password', {password : pass, tk : token})
+        .then(function(response) {
+            if (response==1) {
+                toastr.success('La contraseña se ha cambiado');
+                $location.path('/login');
+            } else {
+                toastr.error('Algo ha fallado');
+            }
+        });
+
+    }
+    
 
 });

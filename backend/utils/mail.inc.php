@@ -38,7 +38,7 @@ class mail {
 
 				$token = $type['tk'];
 
-				$url = 'http://localhost/login/activate/'.$token;
+				$url = 'http://localhost/#/login/activate/'.$token;
 
 				$content .= '<p>Hello, ' . $username . ', to activate your account. Press the next link : ' . '<a href="'.$url.'">'.$url.'</a></p>';
 				break;
@@ -49,7 +49,7 @@ class mail {
 				$type['replyTo'] = 'soporteautobar@gmail.com';
 				$type['subject'] = 'Recover your password';
 
-				$url = 'http://localhost/login/recover/'.$type['token'];
+				$url = 'http://localhost/#/login/recover/'.$type['token'];
 
 				$content .= '<p>Hello, to recover your password. Press the next link: <a href="'.$url.'">'.$url.'</a></p>';
 
@@ -64,7 +64,7 @@ class mail {
 
     public static function sendMailGun($data) {
 
-		$ini_file = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/model/apis/apis.ini');
+		$ini_file = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/backend/model/apis/apis.ini');
     	$config = array();
     	$config['api_key'] = $ini_file['mailGunKey']; //API Key
     	$config['api_url'] = $ini_file['mailGunURL']; //API Base URL

@@ -168,13 +168,15 @@
 
         function activate() {
 
-            $tk = $_GET['tk'];
+            $tk = $_POST['tk'];
             $res = common::loadModel(MODEL_PATH_LOGIN, "login_model", "activate", $tk);
-            header('Location: '.SITE_PATH . 'login/');
-        }
 
-        function recover() {
-            common::loadView('lib_login.php', VIEW_PATH_LOGIN . 'login-register.html');
+            if ($res) {
+                echo 1;
+            } else {
+                echo 0;
+            }
+            // header('Location: '.SITE_PATH . '#/login');
         }
 
         function recover_password() {
@@ -191,9 +193,9 @@
             $res = common::loadModel(MODEL_PATH_LOGIN, "login_model", "recover_password", $values);
 
             if ($res) {
-                echo json_encode('password changed');
+                echo 1;
             } else {
-                echo json_encode('password not changed');
+                echo 2;
             }
 
         }
@@ -221,9 +223,9 @@
             $response_client = json_decode(mail::buildEmail($recover_info), true);
 
             if (!empty($response_client['id'])) {
-                echo json_encode('Done!');
+                echo 1;
             } else {
-                echo json_encode('not done');
+                echo 0;
             }
         }
 

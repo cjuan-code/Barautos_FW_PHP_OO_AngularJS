@@ -1,6 +1,6 @@
 <div class="container_login">
 	<div class="d-flex justify-content-center h-100">
-		<div class="card">
+		<div class="card" ng-style="card_style">
 			<div class="card-header">
 				<h3 id="titulo">{{titulo}}</h3>
 			</div>
@@ -8,8 +8,8 @@
 
 			<div id="login_complete" ng-show="loginForm">
 				<div class="d-flex justify-content-end social_icon">
-					<span id="gh_sl"><i class="fab fa-github"></i></span>
-					<span id="g_sl"><i class="fab fa-google"></i></span>
+					<span id="gh_sl"><i ng-click="login_GitHub" class="fab fa-github"></i></span>
+					<span id="g_sl"><i ng-click="login_Google" class="fab fa-google"></i></span>
 				</div>
 				<form id="login_form" name="login_form">
 					<div class="input-group form-group">
@@ -36,12 +36,12 @@
 					</div>
 				</form>
 
-				<div class="card-footer">
+				<div class="card-footer" ng-style="card_footer_style">
 					<div class="d-flex justify-content-center links">
-						¿No tienes cuenta?<a id="login_link" ng-click="changeRegister()">Registrate ya.</a>
+						¿No tienes cuenta?<a id="login_link" ng-click="changeRegister(); card_style={height: 360}; card_footer_style={'padding-top': '23px'}">Registrate ya.</a>
 					</div>
 					<div class="d-flex justify-content-center">
-						<a ng-click="changeRecoverMail()" id="recover">¿Has olvidado tu contraseña?</a>
+						<a ng-click="changeRecoverMail(); card_style={height: 200}" id="recover">¿Has olvidado tu contraseña?</a>
 					</div>
 				</div>
 			</div>
@@ -83,9 +83,9 @@
 					</div>
 				</form>
 
-				<div class="card-footer">
+				<div class="card-footer" ng-style="card_footer_style">
 					<div class="d-flex justify-content-center links">
-						¿Ya tienes una cuenta?<a ng-click="changeLogin()" id="register_link">Entra ya.</a>
+						¿Ya tienes una cuenta?<a ng-click="changeLogin(); card_style={height: 290}; card_footer_style={'padding-top': '27px'}" id="register_link">Entra ya.</a>
 					</div>
 				</div>
 			</div>
@@ -100,19 +100,19 @@
 							<span class="input-group-text"><i class="fas fa-envelope"></i></span>
 					
 						</div>
-						<input type="email" class="form-control" placeholder="Correo Electronico" id="recover_email" name="recover_email">
+						<input type="email" class="form-control" placeholder="Correo Electronico" id="recover_email" name="recover_email" ng-model="recover_mail" ng-keyup="val_mail_rec()" ng-pattern="/\S+@\S+\.\S+/">
 					</div>
 
 					<div class="form-group">
 						<!-- <input type="button" value="Register" class="btn float-right login_btn" id="register_button"> -->
-						<button type="button" class="btn float-right login_btn" id="recover_button" ng-disabled="recButton" onclick="recover_password_email()">Recover</button>
+						<button type="button" class="btn float-right login_btn" id="recover_button" ng-disabled="recButton" ng-click="recover_password_email()">Recover</button>
 					</div>
 					<div class="div_class_pass">
 						<span id="span_pass_email" class="span_pass_email"></span>
 					</div>
-					<div class="card-footer">
+					<div class="card-footer" ng-style="card_footer_style">
 						<div class="d-flex justify-content-center links">
-							¿Ya tienes una cuenta?<a ng-click="changeLogin()" id="register_link">Entra ya.</a>
+							¿Ya tienes una cuenta?<a ng-click="changeLogin(); card_style={height: 290}; card_footer_style={'padding-top': '23px'}" id="register_link">Entra ya.</a>
 						</div>
 					</div>
 				</form>
@@ -128,16 +128,16 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" class="form-control" placeholder="Password" id="pass_recover" name="pass_recover">
+						<input type="password" class="form-control" placeholder="Password" id="pass_recover" name="pass_recover" ng-model="pass_recover" ng-keyup="val_pass_rec()">
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" class="form-control" placeholder="Confirm password" id="cpass_recover" name="cpass_recover">
+						<input type="password" class="form-control" placeholder="Confirm password" id="cpass_recover" name="cpass_recover" ng-model="cpass_recover" ng-keyup="val_pass_rec()">
 					</div>
 					<div class="form-group">
-						<button type="button" class="btn float-right login_btn" id="recover_password_button" ng-disabled="recPassButton" onclick="recover_password()">Change</button>
+						<button type="button" class="btn float-right login_btn" id="recover_password_button" ng-disabled="recPassButton" ng-click="recover_password()">Change</button>
 					</div>
 					<div class="div_class_pass">
 						<span id="span_pass_recover" class="span_pass_recover"></span>
