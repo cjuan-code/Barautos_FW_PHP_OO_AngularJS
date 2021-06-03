@@ -37,16 +37,22 @@ barautos.controller('controller_shop', function($scope, $rootScope, $location, $
         services.post('shop', 'select_con', {con: consulta_count})
         .then(function(response_count) {
 
-            console.log(response_count[0].total/3);
+            var total_pages = response_count[0].total/3;
             var pages = [];
 
-            for (i = 1; i <= response_count[0].total/3; i++) {
+            if (Number.isInteger(total_pages)) {
+                var total_pages = total_pages;
+            } else {
+                var total_pages = Math.ceil(total_pages);
+            }
+
+            for (i = 1; i <= total_pages; i++) {
                 pages.push(i);
             }
 
             $scope.pager.pages = pages;
             $scope.pager.currentPage = 1;
-            $scope.pager.totalPages = response_count[0].total/3;
+            $scope.pager.totalPages = total_pages;
             $scope.pagingSize = 3;
             $scope.itemPerPage = 3;
             $scope.items = response.slice(0,3);

@@ -1337,8 +1337,10 @@ shortcodes page css
 
 .filter_button, .reset_filters {
     float: right;
+    margin-top: 10px;
     margin-left: 3px;
-    margin-right: 3px;
+    margin-right: 5px;
+    margin-bottom: 5px;
 }
 
 .center_pag {
