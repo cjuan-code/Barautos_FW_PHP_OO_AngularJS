@@ -50,9 +50,24 @@
     </div>
 
     <div class="center" id="pagination" ng-show="list">
-
+        <ul class="pager">
+            <li ng-class="{disabled:pager.currentPage === 1}">
+                <a ng-click="setPage(1)">First</a>
+            </li>
+            <li ng-class="{disabled:pager.currentPage === 1}">
+                <a ng-click="setPage(pager.currentPage - 1)">Previous</a>
+            </li>
+            <li ng-repeat="page in pager.pages" ng-class="{active:pager.currentPage === page}">
+                <a ng-click="setPage(page)">{{page}}</a>
+            </li>                
+            <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+                <a ng-click="setPage(pager.currentPage + 1)">Next</a>
+            </li>
+            <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+                <a ng-click="setPage(pager.totalPages)">Last</a>
+            </li>
+        </ul>
     </div>
-
 
     <!-- <input type="text" id="search-bar" ng-model="searchBox"> -->
 
@@ -69,10 +84,6 @@
             </div>
         </div>
     </div>
-
-        
-
-
         
     <div ng-show="list_details" ng-init="marcaRLT = details.marca">
         <h1>{{details.marca}} {{details.modelo}}</h1>
@@ -89,7 +100,7 @@
                     </div>
                 </div>
             </div>
-            <div class="slide_info_info" style="position: absolute; top: 135px; left: 900px;">
+            <div class="slide_info_info" style="position: absolute; top: 22%; left: 70%;">
                 <h1>Breve descripcion</h1>
                 <hr/>
                 <p><strong><span style="text-align: left;">Color</span> <span style="float: right;">{{details.color}}</span></strong></p>

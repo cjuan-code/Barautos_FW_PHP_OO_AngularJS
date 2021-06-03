@@ -1316,6 +1316,9 @@ shortcodes page css
 }
 
 .cont_filters {
+    display: inline-block;
+    width: auto;
+    height: auto;
     border: solid 2px darkviolet;
     background-color: darkgrey;
     text-align: center;
@@ -1324,9 +1327,12 @@ shortcodes page css
 }
 
 .main_filters {
-    margin-left: 300px;
-    margin-right: 300px;
-    margin-bottom: 20px;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 2%;
+    /* margin-left: 300px; */
+    /* margin-right: 300px; */
+    /* margin-bottom: 20px; */
 }
 
 .filter_button, .reset_filters {
@@ -1498,11 +1504,11 @@ shortcodes page css
     width: 100px;
 }
 .product .product-details .product-title {
-    margin-right: 20px;
+    margin-right: 3%;
     font-family: 'HelveticaNeue-Medium', 'Helvetica Neue Medium';
 }
 .product .product-details .product-description {
-    margin: 5px 20px 5px 0;
+    margin: 3% 10% 3% 0%;
     line-height: 1.4em;
 }
 .product .product-quantity input {
@@ -1671,3 +1677,42 @@ shortcodes page css
     line-height: 29px;
     line-height: 2rem;
 }
+
+.pager {
+    display: inline-block;
+    padding-left: 0;
+    margin: 20px 0;
+    border-radius: 4px;
+  }
+  .pager>li {
+    display: inline;
+  }
+  .pager>li>a {
+      position: relative;
+      float: left;
+      padding: 6px 12px;
+      margin-left: 1px;
+      margin-right: 1px;
+      line-height: 1.42857143;
+      color: #fff;
+      text-decoration: none;
+      background-color: #969596;
+      border: 1px solid #000;
+  }
+  .pager>li>a {
+    cursor: pointer;
+  }
+  .pager>.active>a {
+      z-index: 2;
+      color: #fff;
+      cursor: default;
+      background-color: #bb0731;
+      border-color: #bb0731;
+  }
+  .disabled {
+    background-color: #B7B7B7 !important;
+  }
+  .disabled>a {
+    cursor: default !important;
+    color: #B7B7B7 !important;
+  }

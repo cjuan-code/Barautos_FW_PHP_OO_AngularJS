@@ -2,42 +2,58 @@ barautos.controller('controller_shop', function($scope, $rootScope, $location, $
     
     localStorageServices.setPage('/shop');
 
+    $scope.pager = {};
+
     $scope.list = true;
     $scope.list_details = false;
     var categoria = localStorage.getItem('categoria');
     var consulta = localStorage.getItem('consulta');
 
     if (categoria=='all_items') {
-        services.post('shop', 'select_con', {con: "SELECT/v.*,/i.img/FROM/vehicles/v/INNER/JOIN/img/i/ON/v.matricula=i.matricula/WHERE/i.img/LIKE/('%1.jpg')/ORDER/BY/visitas/DESC"})
-        .then(function(response) {
-            $scope.items = response;
-        });
+        var consulta_count = "SELECT/COUNT(*)/AS/total/FROM/vehicles";
+        consulta = "SELECT/v.*,/i.img/FROM/vehicles/v/INNER/JOIN/img/i/ON/v.matricula=i.matricula/WHERE/i.img/LIKE/('%1.jpg')/ORDER/BY/visitas/DESC";
     } else if (categoria=='Nuevos') {
-        services.post('shop', 'select_con', {con: "SELECT/v.*,/i.img/FROM/vehicles/v/INNER/JOIN/img/i/ON/v.matricula=i.matricula/WHERE/i.img/LIKE/('%1.jpg')/AND/v.categoria/=/(SELECT/cod/FROM/categories/WHERE/categoria/=/'Nuevos')/ORDER/BY/visitas/DESC"})
-        .then(function(response) {
-            $scope.items = response;
-        });
+        var consulta_count = "SELECT/COUNT(*)/AS/total/FROM/vehicles/WHERE/categoria/=/(SELECT/cod/FROM/categories/WHERE/categoria/=/'Nuevos')";
+        consulta = "SELECT/v.*,/i.img/FROM/vehicles/v/INNER/JOIN/img/i/ON/v.matricula=i.matricula/WHERE/i.img/LIKE/('%1.jpg')/AND/v.categoria/=/(SELECT/cod/FROM/categories/WHERE/categoria/=/'Nuevos')/ORDER/BY/visitas/DESC";
     } else if (categoria=='KM0') {
-        services.post('shop', 'select_con', {con: "SELECT/v.*,/i.img/FROM/vehicles/v/INNER/JOIN/img/i/ON/v.matricula=i.matricula/WHERE/i.img/LIKE/('%1.jpg')/AND/v.categoria/=/(SELECT/cod/FROM/categories/WHERE/categoria/=/'KM0')/ORDER/BY/visitas/DESC"})
-        .then(function(response) {
-            $scope.items = response;
-        });
+        var consulta_count = "SELECT/COUNT(*)/AS/total/FROM/vehicles/WHERE/categoria/=/(SELECT/cod/FROM/categories/WHERE/categoria/=/'KM0')";
+        consulta = "SELECT/v.*,/i.img/FROM/vehicles/v/INNER/JOIN/img/i/ON/v.matricula=i.matricula/WHERE/i.img/LIKE/('%1.jpg')/AND/v.categoria/=/(SELECT/cod/FROM/categories/WHERE/categoria/=/'KM0')/ORDER/BY/visitas/DESC";
     } else if (categoria=='Segunda Mano') {
-        services.post('shop', 'select_con', {con: "SELECT/v.*,/i.img/FROM/vehicles/v/INNER/JOIN/img/i/ON/v.matricula=i.matricula/WHERE/i.img/LIKE/('%1.jpg')/AND/v.categoria/=/(SELECT/cod/FROM/categories/WHERE/categoria/=/'Segunda Mano')/ORDER/BY/visitas/DESC"})
-        .then(function(response) {
-            $scope.items = response;
-        });
+        var consulta_count = "SELECT/COUNT(*)/AS/total/FROM/vehicles/WHERE/categoria/=/(SELECT/cod/FROM/categories/WHERE/categoria/=/'Segunda Mano')";
+        consulta = "SELECT/v.*,/i.img/FROM/vehicles/v/INNER/JOIN/img/i/ON/v.matricula=i.matricula/WHERE/i.img/LIKE/('%1.jpg')/AND/v.categoria/=/(SELECT/cod/FROM/categories/WHERE/categoria/=/'Segunda Mano')/ORDER/BY/visitas/DESC";
     } else if (categoria=='search') {
-        services.post('shop', 'select_con', {con: consulta})
-        .then(function(response) {
-            $scope.items = response;
-        });
+        var consulta_count = consulta.slice(0,6)+"/COUNT(*)/AS/total/"+consulta.slice(18,consulta.length);
     } else if (categoria=='filters') {
-        services.post('shop', 'select_con', {con: consulta})
-        .then(function(response) {
-            $scope.items = response;
-        });
+        var consulta_count = consulta.slice(0,6)+"/COUNT(*)/AS/total/"+consulta.slice(18,consulta.length);
     }
+
+    
+
+    services.post('shop', 'select_con', {con: consulta})
+    .then(function(response) {
+        
+        $scope.totalItems = response;
+
+        services.post('shop', 'select_con', {con: consulta_count})
+        .then(function(response_count) {
+
+            console.log(response_count[0].total/3);
+            var pages = [];
+
+            for (i = 1; i <= response_count[0].total/3; i++) {
+                pages.push(i);
+            }
+
+            $scope.pager.pages = pages;
+            $scope.pager.currentPage = 1;
+            $scope.pager.totalPages = response_count[0].total/3;
+            $scope.pagingSize = 3;
+            $scope.itemPerPage = 3;
+            $scope.items = response.slice(0,3);
+        });
+
+        
+    });
 
     $scope.categorias = categorias;
     $scope.marcas = marcas;
@@ -258,6 +274,18 @@ barautos.controller('controller_shop', function($scope, $rootScope, $location, $
             localStorage.setItem('cart', JSON.stringify(array));
         }
 
+    }
+
+    $scope.setPage = function(currentPage) {
+
+        if ((currentPage > 1 || currentPage == 1) && (currentPage < $scope.pager.totalPages || currentPage == $scope.pager.totalPages)) {
+            var startIndex = (currentPage - 1) * 3;
+            var endIndex = startIndex + 3;
+
+            $scope.pager.currentPage = currentPage;
+            $scope.items = $scope.totalItems.slice(startIndex, endIndex);
+        }
+        
     }
 
 });
