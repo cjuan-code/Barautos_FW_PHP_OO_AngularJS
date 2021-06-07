@@ -71,7 +71,10 @@ barautos.config(['$routeProvider', '$locationProvider', function($routeProvider,
             });
 }]);
 
-barautos.run(function($rootScope, $location, services, logInServices, localStorageServices) {
+barautos.run(function($rootScope, $location, services, SocialSignIn, logInServices, localStorageServices) {
+    
+    logInServices.loadMenu();
+    SocialSignIn.ini_fb();
 
     $rootScope.redir_shop_all = function() {
         localStorage.setItem('categoria', 'all_items');
@@ -92,8 +95,6 @@ barautos.run(function($rootScope, $location, services, logInServices, localStora
         });
 
     }
-
-    logInServices.loadMenu();
 
     $rootScope.logOut = function() {
         var cart = JSON.parse(localStorage.getItem('cart'));

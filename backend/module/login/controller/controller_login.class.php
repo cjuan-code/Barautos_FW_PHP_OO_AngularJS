@@ -25,7 +25,8 @@
             $resultado = $res->fetch_assoc();
 
             if ($resultado) {
-                echo json_encode("user_exists");
+                echo 3;
+                // echo json_encode("user_exists");
             } else {
 
                 // email validation 
@@ -54,7 +55,8 @@
                         $exists = in_array(true, $array_verify);
 
                         if ($exists) {
-                            echo json_encode("email used");
+                            echo 2;
+                            // echo json_encode("email used");
                             exit();
                         } else {
 
@@ -74,10 +76,12 @@
 
                                 $response_client = json_decode(mail::buildEmail($activate_info), true);
 
-                                echo json_encode("user registered");
+                                echo 1;
+                                // echo json_encode("user registered");
                                 exit();
                             } else {
-                                echo json_encode("user not registered");
+                                echo 0;
+                                // echo json_encode("user not registered");
                                 exit();
                             } // end else insert
                         } // end else verify email
@@ -101,10 +105,12 @@
 
                         $response_client = json_decode(mail::buildEmail($activate_info), true);
 
-                        echo json_encode("user registered");
+                        echo 1;
+                        // echo json_encode("user registered");
                         exit();
-                    } else { 
-                        echo json_encode("user not registered");
+                    } else {
+                        echo 0;
+                        // echo json_encode("user not registered");
                         exit();
                     }
                 }// end else if res email

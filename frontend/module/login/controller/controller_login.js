@@ -1,10 +1,6 @@
-barautos.controller('controller_login', function($scope, $route, $location, $rootScope, toastr, services, logInServices, localStorageServices) {
-
-    // console.log($location.path());
+barautos.controller('controller_login', function($scope, $window, $location, $rootScope, toastr, services, SocialSignIn, logInServices, localStorageServices) {
 
     var opt = $location.path().split('/');
-
-    // console.log(opt[2]);
 
     if (opt[2]=='recover') {
         $scope.titulo = "Recover password";
@@ -72,7 +68,7 @@ barautos.controller('controller_login', function($scope, $route, $location, $roo
 
         if (!$scope.email) {
 
-            if (($scope.cont_mail%6)==0) {
+            if (($scope.cont_mail%8)==0) {
                 toastr.error("Estructura email: example@example.example");
             }
 
@@ -93,7 +89,7 @@ barautos.controller('controller_login', function($scope, $route, $location, $roo
         if ($scope.pass) {
             if (!($scope.pass==$scope.cpass)) {
                 
-                if (($scope.cont_pass%3)==0) {
+                if (($scope.cont_pass%5)==0) {
                     toastr.error("La password no coincide");
                 }
 
@@ -103,7 +99,7 @@ barautos.controller('controller_login', function($scope, $route, $location, $roo
                 $scope.pass_valid = true;
             }
         } else {
-            if (($scope.cont_pass%3)==0) {
+            if (($scope.cont_pass%5)==0) {
                 toastr.error("La password tiene que ser de 6 caracteres");
             }
 
@@ -122,7 +118,7 @@ barautos.controller('controller_login', function($scope, $route, $location, $roo
     $scope.val_mail_rec = function() {
 
         if (!$scope.recover_mail) {
-            if (($scope.cont_mail%6)==0) {
+            if (($scope.cont_mail%8)==0) {
                 toastr.error("Estructura email: example@example.example");
             }
 
@@ -138,7 +134,7 @@ barautos.controller('controller_login', function($scope, $route, $location, $roo
         if ($scope.pass_recover) {
             if (!($scope.pass_recover==$scope.cpass_recover)) {
                 
-                if (($scope.cont_pass%3)==0) {
+                if (($scope.cont_pass%5)==0) {
                     toastr.error("La password no coincide");
                 }
 
@@ -148,7 +144,7 @@ barautos.controller('controller_login', function($scope, $route, $location, $roo
                 $scope.pass_valid = true;
             }
         } else {
-            if (($scope.cont_pass%3)==0) {
+            if (($scope.cont_pass%5)==0) {
                 toastr.error("La password tiene que ser de 6 caracteres");
             }
 
@@ -170,7 +166,17 @@ barautos.controller('controller_login', function($scope, $route, $location, $roo
 
         services.post('login', 'register', {name: usr, mail: email, password: pass})
         .then(function(response) {
-            console.log(response);
+
+            if (response==0) {
+                toastr.error('User not registered');
+            } else if (response==1) {
+                toastr.success('User registered');
+                $window.location.reload();
+            } else if (response==2) {
+                toastr.error('The email is already used');
+            } else if (response==3) {
+                toastr.error('The user is already used');
+            }
         });
     }
 
@@ -217,7 +223,6 @@ barautos.controller('controller_login', function($scope, $route, $location, $roo
     $scope.recover_password = function() {
         var pass = $scope.pass_recover;
         var token = opt[3];
-        // console.log(opt);
 
         services.post('login', 'recover_password', {password : pass, tk : token})
         .then(function(response) {
@@ -229,6 +234,14 @@ barautos.controller('controller_login', function($scope, $route, $location, $roo
             }
         });
 
+    }
+
+    $scope.login_GitHub = function() {
+        SocialSignIn.GitHub();
+    }
+
+    $scope.login_Gmail = function() {
+        SocialSignIn.Gmail();
     }
     
 
