@@ -31,33 +31,41 @@ barautos.controller('controller_shop', function($scope, $rootScope, $location, $
 
     services.post('shop', 'select_con', {con: consulta})
     .then(function(response) {
-        
-        $scope.totalItems = response;
 
-        services.post('shop', 'select_con', {con: consulta_count})
-        .then(function(response_count) {
+        if (response!='null ') {
+            $scope.totalItems = response;
 
-            var total_pages = response_count[0].total/3;
-            var pages = [];
+            services.post('shop', 'select_con', {con: consulta_count})
+            .then(function(response_count) {
 
-            if (Number.isInteger(total_pages)) {
-                var total_pages = total_pages;
-            } else {
-                var total_pages = Math.ceil(total_pages);
-            }
+                var total_pages = response_count[0].total/3;
+                var pages = [];
 
-            for (i = 1; i <= total_pages; i++) {
-                pages.push(i);
-            }
+                if (Number.isInteger(total_pages)) {
+                    var total_pages = total_pages;
+                } else {
+                    var total_pages = Math.ceil(total_pages);
+                }
 
-            $scope.pager.pages = pages;
-            $scope.pager.currentPage = 1;
-            $scope.pager.totalPages = total_pages;
-            $scope.pagingSize = 3;
-            $scope.itemPerPage = 3;
-            $scope.items = response.slice(0,3);
-        });
+                for (i = 1; i <= total_pages; i++) {
+                    pages.push(i);
+                }
 
+                $scope.pager.pages = pages;
+                $scope.pager.currentPage = 1;
+                $scope.pager.totalPages = total_pages;
+                $scope.pagingSize = 3;
+                $scope.itemPerPage = 3;
+                $scope.items = response.slice(0,3);
+            });
+            $scope.list_pag = true;
+            $scope.list_cars = true;
+            $scope.list_cars_empty = false;
+        } else {
+            $scope.list_cars = false;
+            $scope.list_pag = false;
+            $scope.list_cars_empty = true;
+        }
         
     });
 
@@ -191,7 +199,7 @@ barautos.controller('controller_shop', function($scope, $rootScope, $location, $
     };
 
     $scope.redir_related = function(url) {
-        window.location.href(url);
+        window.location.href = url;
     }
 
     var user = localStorage.getItem('user');
