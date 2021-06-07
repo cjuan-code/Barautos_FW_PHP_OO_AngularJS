@@ -74,7 +74,7 @@ barautos.config(['$routeProvider', '$locationProvider', function($routeProvider,
             });
 }]);
 
-barautos.run(function($rootScope, $location, services, SocialSignIn, logInServices, localStorageServices) {
+barautos.run(function($rootScope, $location, $route, services, SocialSignIn, logInServices, localStorageServices) {
     
     logInServices.loadMenu();
     SocialSignIn.ini_fb();
@@ -120,7 +120,24 @@ barautos.run(function($rootScope, $location, services, SocialSignIn, logInServic
         }
 
         localStorageServices.closeSession();
-    };
+    }
 
+    $rootScope.search = function(event) {
+
+        if (event.key == "Enter") {
+            var upper = angular.uppercase(this.searchBox);
+            var consulta = 'SELECT/v.*,/i.img/FROM/vehicles/v/INNER/JOIN/img/i/ON/v.matricula=i.matricula/WHERE/i.img/LIKE/("%1.jpg")/AND/(v.marca/LIKE/("'+upper+'%")/OR/v.modelo/LIKE/("'+upper+'%"))';
+            localStorage.setItem("consulta", consulta);
+            localStorage.setItem("categoria", "search");
+
+            var page = localStorage.getItem('location');
+
+            if (page=="/shop") {
+                $route.reload();
+            } else {
+                $location.path('/shop');
+            }
+        }
+    }
 
 });

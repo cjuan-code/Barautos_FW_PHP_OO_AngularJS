@@ -1,4 +1,6 @@
-barautos.controller('controller_contact', function($scope, services, toastr) {
+barautos.controller('controller_contact', function($scope, services, toastr, localStorageServices) {
+
+    localStorageServices.setPage('/contact');
 
     $scope.sendButton = true;
     $scope.sendButtonS = 'grey';
