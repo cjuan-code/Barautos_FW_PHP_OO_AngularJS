@@ -46,7 +46,7 @@ barautos.config(['$routeProvider', '$locationProvider', function($routeProvider,
             }).when("/login", {
                 templateUrl: "frontend/module/login/view/view_login.html",
                 controller: "controller_login"
-            }).when('/login/activate/:tk', {
+            }).when("/login/activate/:tk", {
                 resolve: {
                     activateUser: function($route, $location, services, toastr) {
 
@@ -62,12 +62,15 @@ barautos.config(['$routeProvider', '$locationProvider', function($routeProvider,
                         })
                     }
                 }
-            }).when('/login/recover/:tk', {
+            }).when("/login/recover/:tk", {
                 templateUrl: "frontend/module/login/view/view_login.html",
                 controller: "controller_login"
             }).when("/cart", {
                 templateUrl: "frontend/module/cart/view/view_cart.html",
                 controller: "controller_cart"
+            }).when("/contact", {
+                templateUrl: "frontend/module/contact/view/view_contact.html",
+                controller: "controller_contact"
             });
 }]);
 

@@ -3,9 +3,6 @@
 // include(UTILS_PATH . 'common.inc.php');
 
 class controller_contact {
-    function list() {
-        common::loadView('lib_contact.php', VIEW_PATH_CONTACT . 'contact.html');
-    }
 
     function sendEmail() {
         $name = $_POST['name'];
@@ -21,17 +18,12 @@ class controller_contact {
 
             $response_client = json_decode(mail::buildEmail($info_client), true);
             if (!empty($response_client['id'])) {
-                echo json_encode('Done!');
+                echo 1;
+            } else {
+                echo 0;
             }
         }
       
-            
-
-        
-
-        
-
-        // echo json_encode('ieeeeee');
     }
 }
 

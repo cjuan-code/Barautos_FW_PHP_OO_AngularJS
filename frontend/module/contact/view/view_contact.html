@@ -3,21 +3,21 @@
         <ul>
             <li>
                 <label for="name"><span>Name <span class="required-star">*</span></span></label>
-                <input type="text" id="name" name="user_name">
+                <input type="text" id="name" name="user_name" ng-model="user_name" ng-keyup="val()">
                 <label for="name"><span id="e_name"></span></label>
             </li>
             <li>
                 <label for="mail"><span>Email <span class="required-star">*</span></span></label>
-                <input type="email" id="mail" name="user_email">
+                <input type="email" id="mail" name="user_email" ng-model="user_email" ng-pattern="/\S+@\S+\.\S+/" ng-keyup="val()">
                 <label for="email"><span id="e_email"></span></label>
             </li>
             <li>
                 <label for="msg"><span>Message</span></label>
-                <textarea id='content' rows="4" cols="50"></textarea>
+                <textarea id='content' rows="4" cols="50" ng-model="text_pet" ng-keyup="val()"></textarea>
                 <label for="content"><span id="e_content"></span></label>
             </li>
             <li>
-                <button type="button" class="send_email">Enviar</button>
+                <button type="button" class="send_email" ng-style="{'background': sendButtonS}" ng-disabled="sendButton" ng-click="send()">Enviar</button>
             </li>
         </ul>
     </form>
