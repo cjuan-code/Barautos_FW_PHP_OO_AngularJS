@@ -170,6 +170,8 @@ barautos.controller('controller_shop', function($scope, $rootScope, $location, $
     $scope.redi_details = function(mat) {
 
         $scope.list = false;
+        $scope.list_pag = false;
+        $scope.list_cars = false;
         $scope.list_details = true;
         
         services.post('shop', 'details_car', {id: mat})
