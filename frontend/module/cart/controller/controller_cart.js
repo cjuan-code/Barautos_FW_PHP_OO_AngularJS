@@ -21,7 +21,6 @@ barautos.controller('controller_cart', function($scope, $rootScope, $location, s
 
             for (row in response) {
                 total += (response[row].precio)/1000;
-                // console.log((response[row].precio/1000).toFixed(2));
                 response[row].precio_row = response[row].precio/1000;
                 response[row].precio = response[row].precio/1000;
                 response[row].qty = 1;
@@ -37,8 +36,6 @@ barautos.controller('controller_cart', function($scope, $rootScope, $location, s
     $scope.upd_qty = function() {
         this.data.qty = this.qty;
         var price = this.data.precio*this.qty;
-        // price = price.toFixed(2);
-        // console.log(price.toFixed(2));
         this.data.precio_row = price;
         cartServices.recalculateCart($rootScope.cart);
     }

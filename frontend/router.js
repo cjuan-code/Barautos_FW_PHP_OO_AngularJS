@@ -59,7 +59,7 @@ barautos.config(['$routeProvider', '$locationProvider', function($routeProvider,
                             } else {
                                 toastr.error('User not activated');
                             }
-                        })
+                        });
                     }
                 }
             }).when("/login/recover/:tk", {

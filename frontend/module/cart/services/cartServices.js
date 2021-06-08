@@ -25,15 +25,15 @@ barautos.factory('cartServices', ['$rootScope', 'services', function($rootScope,
         /* Update totals display */
         $('.totals-value').fadeOut(fadeTime, function() {
             
-            $('#cart-subtotal').html(subtotal);
+            angular.element('#cart-subtotal').html(subtotal);
     
             if (subtotal == 0) {
-                $('.checkout').fadeOut(fadeTime);
+                angular.element('.checkout').fadeOut(fadeTime);
             } else {
-                $('.checkout').fadeIn(fadeTime);
+                angular.element('.checkout').fadeIn(fadeTime);
             }
     
-            $('.totals-value').fadeIn(fadeTime);
+            angular.element('.totals-value').fadeIn(fadeTime);
         });
     }
 
