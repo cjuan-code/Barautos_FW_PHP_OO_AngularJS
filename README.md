@@ -13,7 +13,7 @@ The next images are a sample of how the application looks like.
 ![Preview shop logged](https://user-images.githubusercontent.com/79716922/121276174-749a0080-c8ce-11eb-81cd-5e395b713574.png)
 
 ### Item details
-![Preview details](https://user-images.githubusercontent.com/79716922121274314-8aa5c200-c8ca-11eb-883f-243af2404c53.png)
+![Preview details](https://user-images.githubusercontent.com/79716922/121278341-ae6d0600-c8d2-11eb-983a-e53edce50e5c.png)
 
 ### Login
 ![Preview Login](https://user-images.githubusercontent.com/79716922/121274400-b3c65280-c8ca-11eb-9382-4f34b59e1464.png)
@@ -39,7 +39,7 @@ To run this code you would need to install the XAMPP stack and import a database
     * [WINDOWS](https://www.ionos.com/digitalguide/server/tools/xampp-tutorial-create-your-own-local-test-server)
     * [UBUNTU](https://vitux.com/how-to-install-xampp-on-your-ubuntu-18-04-lts-system/)
     * [MAC](https://www.webucator.com/how-to/how-install-start-test-xampp-on-mac-osx.cfm)
-* If you want to try this web application you can use my [database]().
+* If you want to try this web application you can use my [database](https://github.com/cjuan-code/Barautos_FW_PHP_OO_AngularJS/blob/master/DB/DB.sql).
 
 ## Features
 This application have the following modules.
