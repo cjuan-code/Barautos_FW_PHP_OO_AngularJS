@@ -2,10 +2,6 @@
 
     class controller_cart {
 
-        function list() {
-            common::loadView('lib_cart.php', VIEW_PATH_CART . 'cart.html');
-        }
-
         function cars() {
             $con = $_POST['con'];
             $json = common::loadModel(MODEL_PATH_CART, "cart_model", "cars", $con);        

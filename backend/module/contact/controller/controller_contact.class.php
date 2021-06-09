@@ -1,7 +1,5 @@
 <?php
 
-// include(UTILS_PATH . 'common.inc.php');
-
 class controller_contact {
 
     function sendEmail() {

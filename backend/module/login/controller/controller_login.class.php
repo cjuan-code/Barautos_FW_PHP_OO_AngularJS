@@ -2,10 +2,6 @@
 
     class controller_login {
 
-        function list() {
-            common::loadView('lib_login.php', VIEW_PATH_LOGIN . 'login-register.html');
-        }
-
         function register() {
 
             $username = $_POST['name'];
@@ -26,7 +22,6 @@
 
             if ($resultado) {
                 echo 3;
-                // echo json_encode("user_exists");
             } else {
 
                 // email validation 
@@ -56,7 +51,6 @@
 
                         if ($exists) {
                             echo 2;
-                            // echo json_encode("email used");
                             exit();
                         } else {
 
@@ -77,11 +71,9 @@
                                 $response_client = json_decode(mail::buildEmail($activate_info), true);
 
                                 echo 1;
-                                // echo json_encode("user registered");
                                 exit();
                             } else {
                                 echo 0;
-                                // echo json_encode("user not registered");
                                 exit();
                             } // end else insert
                         } // end else verify email
@@ -106,11 +98,9 @@
                         $response_client = json_decode(mail::buildEmail($activate_info), true);
 
                         echo 1;
-                        // echo json_encode("user registered");
                         exit();
                     } else {
                         echo 0;
-                        // echo json_encode("user not registered");
                         exit();
                     }
                 }// end else if res email
@@ -132,7 +122,6 @@
                 $activated = $resultado['activate'];
 
                 if ($activated==='0') {
-                    // echo ("user not activated");
                     echo 0;
                 } else {
                     $pass_db = $resultado['pass'];
@@ -143,12 +132,10 @@
                         $token = jwt_func::encode_token($username);
                         echo $token;
                     } else {
-                        // echo ("pass dont match");
                         echo 1;
                     }
                 }
             } else {
-                // echo ("user not exists");
                 echo 2;
             }
 
@@ -182,7 +169,6 @@
             } else {
                 echo 0;
             }
-            // header('Location: '.SITE_PATH . '#/login');
         }
 
         function recover_password() {
