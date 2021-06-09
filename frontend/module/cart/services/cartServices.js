@@ -1,4 +1,4 @@
-barautos.factory('cartServices', ['$rootScope', 'services', function($rootScope, services) {
+barautos.factory('cartServices', ['$rootScope', 'services', '$location', 'toastr', function($rootScope, services, $location, toastr) {
     var service = {recalculateCart: recalculateCart, removeItem: removeItem, checkout: checkout};
     return service;
 
@@ -78,6 +78,8 @@ barautos.factory('cartServices', ['$rootScope', 'services', function($rootScope,
 
         var cart = $rootScope.cart;
 
+        toastr.success('Your purchase has been completed!');
+
         services.post('cart', 'factura', {user: user, total: total});
 
         for (row in cart) {
@@ -88,6 +90,10 @@ barautos.factory('cartServices', ['$rootScope', 'services', function($rootScope,
 
             services.post('cart', 'line', {prod: product, qty: qty, price: linePrice});
         }
+
+        localStorage.removeItem('cart');
+        $rootScope.cart = {};
+        $location.path('/home');
     }
 
 }]);

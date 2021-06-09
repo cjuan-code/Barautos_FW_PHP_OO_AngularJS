@@ -1,6 +1,6 @@
 barautos.controller('controller_cart', function($scope, $rootScope, $location, services, cartServices, localStorageServices) {
 
-    localStorageServices.setPage('#/cart');
+    localStorageServices.setPage('/cart');
 
     var cars_mat = JSON.parse(localStorage.getItem('cart'));
 
