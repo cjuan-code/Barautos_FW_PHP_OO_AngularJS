@@ -71,6 +71,8 @@ barautos.config(['$routeProvider', '$locationProvider', function($routeProvider,
             }).when("/contact", {
                 templateUrl: "frontend/module/contact/view/view_contact.html",
                 controller: "controller_contact"
+            }).otherwise({
+                templateUrl:"frontend/view/inc/error404.html"
             });
 }]);
 
